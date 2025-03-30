@@ -44,6 +44,7 @@
   }
 
   .cool-user-input {
+    color: black;
     width: 30%;
     padding: auto;
     border: 2px solid #ccc;
