@@ -147,7 +147,7 @@ const WorkHoursTracker = () => {
   const daysOfWeek = getDatesOfCurrentWeek();
   var c= 1
   const [workHours, setWorkHours] = useState(
-    daysOfWeek.map(() => ({ start: "7:00 AM", end: "3:00 PM", job: "Lake Mariner" }))
+    daysOfWeek.map(() => ({ start: "7:00 AM", end: "3:00 PM", job: "Lake Mariner Data" }))
   );
 
   const handleChange = (index, type, value) => {
@@ -184,7 +184,7 @@ const WorkHoursTracker = () => {
 
 
 
-  const optionsArray = ["Lake Mariner", "17 E Home Rd", "Lind Niag Falls", "Option 4"];
+  const optionsArray = ["Lake Mariner Data", "17 E Home Rd", "Lind Niag Falls", "Option 4"];
 
   
 
