@@ -9,8 +9,7 @@ export default function App(){
 
   return(
 <div>
-<UpdateInput />
-    <SupaBrad />
+
     <WorkHoursTracker />
  
 
