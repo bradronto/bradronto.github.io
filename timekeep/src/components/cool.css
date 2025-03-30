@@ -1,9 +1,9 @@
 /* Input Container */
 .input-container {
     position: relative;
-    width: 300px;
-    margin: 20px auto;
-    background-color: lightslategray
+    width: 320px;
+    margin: 10px auto;
+    background-color: white;
     ;
   }
   
@@ -14,7 +14,7 @@
 
   .blue{
 
-    background-color: rgb(187, 219, 223);
+    background-color: white;
   }
 
   .cool-header {
@@ -33,7 +33,7 @@
   
 
   .cool-input {
-    color: black;
+    font-style: ;
     width: 100%;
     padding: auto;
     border: 2px solid #ccc;
@@ -54,6 +54,7 @@
   }
 
   .cool-time-select {
+    color: black;
     margin-left: 0px;
     width: 50%;
     padding: auto;
@@ -66,6 +67,7 @@
   }
 
   .cool-am-select {
+    color: black;
     margin-left: 0px;
     width: 30%;
     padding: auto;
