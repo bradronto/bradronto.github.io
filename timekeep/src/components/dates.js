@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./cool.css"
 
 const generateTimeOptions = () => {
@@ -70,7 +70,7 @@ const getDatesOfCurrentWeek = () => {
 const WorkHoursTracker = () => {
   //const daysOfWeek = ["Mon 10", "Tue 11", "Wed 12", "Thu 13", "Fri 14", "Sat 14"];
   const daysOfWeek = getDatesOfCurrentWeek();
-  var c= 1
+  
   const [workHours, setWorkHours] = useState(
     daysOfWeek.map(() => ({ start: "7:00 AM", end: "3:00 PM", job: "Lake Mariner Data" }))
   );
@@ -178,7 +178,7 @@ const WorkHoursTracker = () => {
     <div className="blue">
 
 
-    Brad Ronto - {getMonth()} <br></br><br></br>
+    Brad Ronto --- {getMonth()} <br></br><br></br>
     {daysOfWeek.map((day, index) => (
     <div className="blue" key={index} >
          --- {daysOfWeek[index]} ---<br></br> {workHours[index].job} <br></br>
