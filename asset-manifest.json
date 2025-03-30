@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/bradronto/bradronto.github.io/static/css/main.607adcdb.css",
+    "main.js": "/bradronto/bradronto.github.io/static/js/main.77de4990.js",
+    "static/js/952.9864df87.chunk.js": "/bradronto/bradronto.github.io/static/js/952.9864df87.chunk.js",
+    "static/js/453.0de48788.chunk.js": "/bradronto/bradronto.github.io/static/js/453.0de48788.chunk.js",
+    "index.html": "/bradronto/bradronto.github.io/index.html",
+    "main.607adcdb.css.map": "/bradronto/bradronto.github.io/static/css/main.607adcdb.css.map",
+    "main.77de4990.js.map": "/bradronto/bradronto.github.io/static/js/main.77de4990.js.map",
+    "952.9864df87.chunk.js.map": "/bradronto/bradronto.github.io/static/js/952.9864df87.chunk.js.map",
+    "453.0de48788.chunk.js.map": "/bradronto/bradronto.github.io/static/js/453.0de48788.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.607adcdb.css",
+    "static/js/main.77de4990.js"
+  ]
+}
