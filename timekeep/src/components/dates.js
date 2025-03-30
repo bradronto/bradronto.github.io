@@ -244,7 +244,7 @@ function App() {
   return (
     <div className="App">
       <WorkHoursTracker />
-      <button onClick={ShareViaSMS}>share</button>
+     <ShareViaSMS />
     </div>
   );
 }
