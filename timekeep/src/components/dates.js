@@ -1,6 +1,23 @@
 import React, { useState } from "react";
 import "./cool.css"
 
+
+const ShareViaSMS = () => {
+  const message = "Hello, this is a message sent from my React app!";
+
+  return (
+    <div>
+      <h1>Share via SMS</h1>
+      <a href={`sms:?&body=${encodeURIComponent(message)}`}>
+        Send SMS
+      </a>
+    </div>
+  );
+};
+
+
+
+
 const generateTimeOptions = () => {
     
   const times = [];
@@ -223,6 +240,7 @@ function App() {
   return (
     <div className="App">
       <WorkHoursTracker />
+      <button onClick={ShareViaSMS}>share</button>
     </div>
   );
 }
