@@ -263,7 +263,7 @@ const WorkHoursTracker = () => {
     <div className="blue">
 
 
-    Brad Ronto{getMonth()} <br></br><br></br>
+    Brad Ronto {getMonth()} <br></br><br></br>
     {daysOfWeek.map((day, index) => (
     <div className="blue" key={index} >
          --- {daysOfWeek[index]} ---<br></br> {workHours[index].job} <br></br>
