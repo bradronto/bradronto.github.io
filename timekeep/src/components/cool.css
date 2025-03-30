@@ -3,7 +3,7 @@
     position: relative;
     width: 300px;
     margin: 20px auto;
-    background-color: lightblue
+    background-color: lightslategray
     ;
   }
   
@@ -14,7 +14,7 @@
 
   .blue{
 
-    background-color: rgb(140, 158, 173);
+    background-color: rgb(187, 219, 223);
   }
 
   .cool-header {

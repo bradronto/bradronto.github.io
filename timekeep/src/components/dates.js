@@ -260,14 +260,10 @@ const WorkHoursTracker = () => {
       ))}
       <br></br>
 
-     <span defaultValue={"brad"}>
-
-       &nbsp;
-     </span>
-     
+    <div className="blue">
 
 
-    {getMonth()} <br></br><br></br>
+    Brad Ronto{getMonth()} <br></br><br></br>
     {daysOfWeek.map((day, index) => (
     <div className="blue" key={index} >
          --- {daysOfWeek[index]} ---<br></br> {workHours[index].job} <br></br>
@@ -279,13 +275,13 @@ const WorkHoursTracker = () => {
         </div>
      ))}
      
-             <span> &nbsp; {totalWeeklyHours.toFixed(2)>40?40:totalWeeklyHours.toFixed(2)} Hrs &nbsp;&nbsp;&nbsp; {totalWeeklyHours.toFixed(2)>40?totalWeeklyHours.toFixed(2)-40:0} OT 
+             <span className="blue"> &nbsp; {totalWeeklyHours.toFixed(2)>40?40:totalWeeklyHours.toFixed(2)} Hrs &nbsp;&nbsp;&nbsp; {totalWeeklyHours.toFixed(2)>40?totalWeeklyHours.toFixed(2)-40:0} OT 
              
              </span>
             
 
    
-      </div>
+      </div></div>
   );
 };
 
