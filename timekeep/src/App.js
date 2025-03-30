@@ -1,8 +1,8 @@
 
 import React from "react"
 import WorkHoursTracker from "./components/dates"
-import SupaBrad from "./components/data"
-import UpdateInput from "./components/data1"
+//import SupaBrad from "./components/data"
+//import UpdateInput from "./components/data1"
 
 
 export default function App(){

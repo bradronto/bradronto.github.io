@@ -1,77 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./cool.css"
 
-import "./styles.css";
-
-const PopupInput = () => {
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-
-  const handleOpenPopup = () => {
-    setIsPopupVisible(true);
-  };
-
-  const handleClosePopup = () => {
-    setIsPopupVisible(false);
-  };
-
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  return (
-    <div>
-      <button onClick={handleOpenPopup}>Open Input Popup</button>
-      {isPopupVisible && (
-        <div className="popup">
-          <div className="popup-content">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={handleInputChange}
-              placeholder="Enter your text here"
-            />
-            <button onClick={handleClosePopup}>Close</button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-
-
-
-const PersistentData = () => {
-  const [data, setData] = useState("");
-
-  // Load data from localStorage on component mount
-  useEffect(() => {
-    const savedData = localStorage.getItem("data");
-    if (savedData) {
-      setData(savedData);
-    }
-  }, []);
-
-  // Save data to localStorage when it changes
-  useEffect(() => {
-    localStorage.setItem("data", data);
-  }, [data]);
-
-  return (
-    <div>
-      <input
-        type="text"
-        value={data}
-        onChange={(e) => setData(e.target.value)}
-        placeholder="Enter text"
-      />
-    </div>
-  );
-};
-
-
-
 const generateTimeOptions = () => {
     
   const times = [];
@@ -130,11 +59,7 @@ const getDatesOfCurrentWeek = () => {
       
       }))
 
-      
-    // weekDates.push(<NumberInBox day={day} />)
   }
-
-  
 
   return weekDates;
 };
@@ -164,10 +89,10 @@ const WorkHoursTracker = () => {
     const [start12, startPeriod] = start.split(" ");
     const[end12,endPeriod] = end.split(" ");
     const [startHour, startMinute] = start12.split(":").map(Number);
-    const start24 = startPeriod == "AM" ? startHour : (startHour>11?startHour:startHour + 12) ;
+    const start24 = startPeriod === "AM" ? startHour : (startHour>11?startHour:startHour + 12) ;
  
     const [endHour, endMinute] = end12.split(":").map(Number);
-    const end24 = endPeriod == "AM"?endHour:(endHour>11?endHour:endHour+12);
+    const end24 = endPeriod === "AM"?endHour:(endHour>11?endHour:endHour+12);
 
     return (end24 + endMinute / 60) - (start24 + startMinute / 60);
   };
@@ -180,17 +105,7 @@ const WorkHoursTracker = () => {
   const timeOptions = generateTimeOptions();
   //const jobName = ['Lake Mariner','Linde Niag Falls']
 
-
-
-
-
   const optionsArray = ["Lake Mariner Data", "17 E Home Rd", "Lind Niag Falls", "Option 4"];
-
-  
-
-
-
-
 
   return (
   

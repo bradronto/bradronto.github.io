@@ -7,10 +7,6 @@ import { useEffect, useState } from "react";
    
     const [workhours, setWorkHours] = useState([]);
 
-     const [jobName, setJobName] = useState("");
-      const [startTime, setStartTime] = useState("");
-      const [endTime, setEndTime] = useState("");
-    
 
    
 
