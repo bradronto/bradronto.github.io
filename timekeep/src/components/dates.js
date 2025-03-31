@@ -7,9 +7,9 @@ const ShareViaSMS = () => {
 
   return (
     <div>
-      <h1>Share via SMS</h1>
+      
       <a href={`sms:?&body=${encodeURIComponent(message)}`}>
-        Send SMS
+        share as text message
       </a>
     </div>
   );
@@ -194,10 +194,10 @@ const WorkHoursTracker = () => {
 
     <div className="blue">
 
-
+    <ShareViaSMS />
     Brad Ronto --- {getMonth()} 
     
-    <button onClick={ShareViaSMS}>share</button>
+   
     
     <br></br><br></br>
     {daysOfWeek.map((day, index) => (
@@ -244,7 +244,7 @@ function App() {
   return (
     <div className="App">
       <WorkHoursTracker />
-     <ShareViaSMS />
+     
     </div>
   );
 }

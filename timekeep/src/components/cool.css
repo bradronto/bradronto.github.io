@@ -4,7 +4,6 @@
     width: 340px;
     margin: 10px auto;
     background-color: white;
-    ;
   }
   
   .indent{
@@ -13,7 +12,6 @@
   }
 
   .blue{
-
     background-color: white;
   }
 
@@ -78,7 +76,6 @@
     font-size: 16px;
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
- 
   }
   
   /* Input Focus Effect */
