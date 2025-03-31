@@ -9,7 +9,7 @@ const ShareViaSMS = () => {
     <div>
       
       <a href={`sms:?&body=${encodeURIComponent(message)}`}>
-        share as text message
+        share
       </a>
     </div>
   );
