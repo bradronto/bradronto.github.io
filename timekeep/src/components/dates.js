@@ -48,8 +48,9 @@ const getMonth = () => {
 
   return(
 
-    today.toLocaleDateString("en-us",{month: "short" }  )+" "+
+    firstDayOfWeek.toLocaleDateString("en-us",{month: "short" }  )+" "+
     firstDayOfWeek.toLocaleDateString("en-us",{day: "numeric"})+"-"+
+    lastDayOfWeek.toLocaleDateString("en-us",{month: "short"})+" "+
     lastDayOfWeek.toLocaleDateString("en-us",{day: "numeric"})+" " 
      //+ lastDayOfWeek.toLocaleDateString("en-us",{year: "numeric"})
   );
@@ -60,7 +61,7 @@ const getMonth = () => {
 
 const getDatesOfCurrentWeek = () => {
   const today = new Date();
-  const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()-6));
+  const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()+1));
   //const lastDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()+6));
   //const lastDayOfWeek = new Date(today.setDate(firstDayOfWeek+6))
   const weekDates = [];
