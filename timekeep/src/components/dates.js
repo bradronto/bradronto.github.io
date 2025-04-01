@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./cool.css"
+import SelectWithNewItem from "./a";
 
 
 const ShareViaSMS = () => {
@@ -123,12 +124,15 @@ const WorkHoursTracker = () => {
   const timeOptions = generateTimeOptions();
   //const jobName = ['Lake Mariner','Linde Niag Falls']
 
-  const optionsArray = ["Lake Mariner Data", "17 E Home Rd", "Lind Niag Falls", "Option 4"];
+  const optionsArray = ["Lake Mariner Data", "Linde Niag Falls"];
 
   return (
   
   
   <div className="input-container" >
+
+
+    <SelectWithNewItem myArray={optionsArray} />
       <h3 className="cool-header"> {getMonth()} -- {totalWeeklyHours.toFixed(1)} hrs</h3>
 
       
@@ -196,23 +200,23 @@ const WorkHoursTracker = () => {
     <div className="blue">
 
     <ShareViaSMS />
-    Brad Ronto --- {getMonth()} 
+    Brad Ronto :<br /> {getMonth()} 
     
    
     
     <br></br><br></br>
     {daysOfWeek.map((day, index) => (
     <div className="blue" key={index} >
-         --- {daysOfWeek[index]} ---<br></br> {workHours[index].job} <br></br>
+         &nbsp; --- {daysOfWeek[index]} ---<br></br> {workHours[index].job} <br></br>
           <span  className="indent">
-          &nbsp; {workHours[index].start}-{workHours[index].end} <br></br>
-          &nbsp; {calculateTotalHours(workHours[index].start, workHours[index].end)>8?8:calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} Hrs
-          &nbsp; {calculateTotalHours(workHours[index].start, workHours[index].end)>8?calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)-8:0} OT
+           {workHours[index].start}-{workHours[index].end} <br></br>
+           &nbsp; &nbsp; {calculateTotalHours(workHours[index].start, workHours[index].end)>8?8:calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} Hrs
+          &nbsp; &nbsp; {calculateTotalHours(workHours[index].start, workHours[index].end)>8?calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)-8:0} O.T.
         </span><br></br><br></br>
         </div>
      ))}
      
-             <span className="blue"> &nbsp; {totalWeeklyHours.toFixed(2)>40?40:totalWeeklyHours.toFixed(2)} Hrs &nbsp;&nbsp;&nbsp; {totalWeeklyHours.toFixed(2)>40?totalWeeklyHours.toFixed(2)-40:0} OT 
+             <span className="blue"> &nbsp; {totalWeeklyHours.toFixed(2)>40?40:totalWeeklyHours.toFixed(2)} Hrs &nbsp;&nbsp;&nbsp; {totalWeeklyHours.toFixed(1)>40?totalWeeklyHours.toFixed(1)-40:0} OT 
              
              </span>
             
