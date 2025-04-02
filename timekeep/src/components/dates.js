@@ -10,7 +10,7 @@ const ShareViaSMS = () => {
     <div>
       
       <a href={`sms:?&body=${encodeURIComponent(message)}`}>
-        share
+        share SMS
       </a>
     </div>
   );
@@ -132,7 +132,7 @@ const WorkHoursTracker = () => {
   <div className="input-container" >
 
 
-    <SelectWithNewItem myArray={optionsArray} />
+    
       <h3 className="cool-header"> {getMonth()} -- {totalWeeklyHours.toFixed(1)} hrs</h3>
 
       
@@ -150,15 +150,10 @@ const WorkHoursTracker = () => {
             
           <table><tr><td>
 
-          <select className="cool-input" id="select">
-      {optionsArray.map((option, index) => (
-        <option key={index} value={option}    onChange={(e) => handleChange(index, "job", e.target.value)}
-        >
-          {option}
-        </option>
-      ))}
-    </select>
-    <br></br>
+            <SelectWithNewItem  myArray={optionsArray} />
+
+          
+   
 
           <select  className="cool-time-select"// style={{ marginRight: "0px" }} 
           defaultValue={timeOptions['14']}
@@ -199,7 +194,7 @@ const WorkHoursTracker = () => {
 
     <div className="blue">
 
-    <ShareViaSMS />
+    <ShareViaSMS /><br></br>
     Brad Ronto :<br /> {getMonth()} 
     
    
@@ -258,6 +253,15 @@ export default App;
 
 
 /*
+
+<select className="cool-input" id="select">
+      {optionsArray.map((option, index) => (
+        <option key={index} value={option}    onChange={(e) => handleChange(index, "job", e.target.value)}
+        >
+          {option}
+        </option>
+      ))}
+    </select>
 
  <select  className="cool-am-select"// style={{ marginRight: "0px" }} 
                   

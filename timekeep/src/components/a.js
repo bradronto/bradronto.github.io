@@ -29,39 +29,41 @@ const SelectWithNewItem = ({myArray}) => {
 
   return (
     <div>
-      <h1>Select Box with "New Item" Option</h1>
-      <select className="cool-time-select" value={selectedOption} onChange={handleSelectChange}>
-        <option value="" disabled>
-          Choose an option
-        </option>
+      <select className="cool-input" value={selectedOption} onChange={handleSelectChange}>
+       
         {options.map((option, index) => (
           <option key={index} value={option}>
             {option}
           </option>
         ))}
-        <option value="New Item">New Item</option>
+        <option value="New Item">New Job</option>
       </select>
 
       {/* Pop-up Input */}
       {showInputPopup && (
-        <div style={{ marginTop: "20px", padding: "10px", border: "1px solid #ccc" }}>
-          <input
+        <div  >
+          <input 
             type="text"
             value={newOption}
             onChange={(e) => setNewOption(e.target.value)}
-            placeholder="Enter new option"
+            placeholder="new job name"
           />
           <button onClick={handleAddOption}>Add</button>
           <button onClick={() => setShowInputPopup(false)}>Cancel</button>
         </div>
       )}
 
-      <div style={{ marginTop: "20px" }}>
-        <h2>Selected Option:</h2>
-        <p>{selectedOption || "None selected"}</p>
-      </div>
+     
     </div>
   );
 };
 
 export default SelectWithNewItem;
+
+
+/*
+ <div style={{ marginTop: "20px" }}>
+        <p>{selectedOption || "None selected"}</p>
+      </div>
+
+*/
