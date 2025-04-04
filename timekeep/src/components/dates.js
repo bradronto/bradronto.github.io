@@ -142,7 +142,28 @@ const WorkHoursTracker = () => {
   //const jobName = ['Lake Mariner','Linde Niag Falls']
 
   const optionsArray = ["Lake Mariner Data", "Linde Niag Falls"];
- const htmlRef =useRef();
+ //const htmlRef =useRef();
+
+   const textRef = useRef();
+   const [rawText, setRawText] = useState("wtf");
+   //const rawText = "sup";
+   
+   const setraw = () => {
+ //   setRawText(textRef.current.textContent);
+
+         // Get the HTML content
+    const rawHTML = textRef.current.innerHTML;
+
+    // Replace all <br> tags with \n
+
+    const convertedText = rawHTML
+    .replace(/<\/?(span|div)[^>]*>/gi, "") // Matches opening or closing <span> and <div> tags
+    .replace(/\.\s*\./g, "") // Remove consecutive dots if any
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/&nbsp;/g, "");
+    setRawText(convertedText);
+
+   }
  
   return (
   
@@ -209,12 +230,12 @@ const WorkHoursTracker = () => {
        
       ))}
       <br></br>
-
-    
-     <div className="blue" ref={htmlRef} >
-     <a href={`sms:?&body=${encodeURIComponent("whatever!")}`}>
+      <a  onClick={setraw}    href={`sms:?&body=${encodeURIComponent(rawText)}`}>
           share SMS
         </a>
+    
+     <div className="blue" ref={textRef} >
+     
         <br></br>
      
      
