@@ -1,20 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./cool.css"
 import SelectWithNewItem from "./a";
 
 
-const ShareViaSMS = () => {
-  const message = "Hello, this is a message sent from my React app!";
 
-  return (
-    <div>
-      
-      <a href={`sms:?&body=${encodeURIComponent(message)}`}>
-        share SMS
-      </a>
-    </div>
-  );
-};
+
 
 
 
@@ -87,6 +77,33 @@ const getDatesOfCurrentWeek = () => {
 
 
 const WorkHoursTracker = () => {
+
+/*
+  const ShareViaSMS = () => {
+   
+  
+   // const message = "Hello, this is a message sent from my React app!";
+  
+    const htmlElement = htmlRef.current;
+    const message = htmlElement.textContent; // Retrieves only the text part of the HTML
+     console.log(htmlElement); // Logs: "This is the text part"
+    
+   
+  
+  //return textContent;
+  
+    return (
+      <div>
+        
+        <a href={`sms:?&body=${encodeURIComponent(message)}`}>
+          share SMS
+        </a>
+      </div>
+    );
+  };
+ */ 
+
+
   //const daysOfWeek = ["Mon 10", "Tue 11", "Wed 12", "Thu 13", "Fri 14", "Sat 14"];
   const daysOfWeek = getDatesOfCurrentWeek();
   
@@ -125,7 +142,8 @@ const WorkHoursTracker = () => {
   //const jobName = ['Lake Mariner','Linde Niag Falls']
 
   const optionsArray = ["Lake Mariner Data", "Linde Niag Falls"];
-
+ const htmlRef =useRef();
+ 
   return (
   
   
@@ -133,7 +151,7 @@ const WorkHoursTracker = () => {
 
 
     
-      <h3 className="cool-header"> {getMonth()} -- {totalWeeklyHours.toFixed(1)} hrs</h3>
+      <span className="cool-header"> {getMonth()} -- {totalWeeklyHours.toFixed(1)} hrs</span>
 
       
       {daysOfWeek.map((day, index) => (
@@ -192,16 +210,22 @@ const WorkHoursTracker = () => {
       ))}
       <br></br>
 
-    <div className="blue">
-
-    <ShareViaSMS /><br></br>
+    
+     <div className="blue" ref={htmlRef} >
+     <a href={`sms:?&body=${encodeURIComponent(htmlRef.current.textContent)}`}>
+          share SMS
+        </a>
+        <br></br>
+     
+     
+  
     Brad Ronto :<br /> {getMonth()} 
     
    
     
     <br></br><br></br>
     {daysOfWeek.map((day, index) => (
-    <div className="blue" key={index} >
+    <div className="blue" key={index}  >
          &nbsp; --- {daysOfWeek[index]} ---<br></br> {workHours[index].job} <br></br>
           <span  className="indent">
            {workHours[index].start}-{workHours[index].end} <br></br>
@@ -241,8 +265,10 @@ const NumberInBox = props => {
 
 
 function App() {
+  const htmlRef = useRef();
   return (
-    <div className="App">
+    <div className="App" ref={htmlRef}>
+         
       <WorkHoursTracker />
      
     </div>
