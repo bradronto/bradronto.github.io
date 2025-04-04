@@ -212,7 +212,7 @@ const WorkHoursTracker = () => {
 
     
      <div className="blue" ref={htmlRef} >
-     <a href={`sms:?&body=${encodeURIComponent(htmlRef.current.textContent)}`}>
+     <a href={`sms:?&body=${encodeURIComponent("whatever!")}`}>
           share SMS
         </a>
         <br></br>
