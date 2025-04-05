@@ -129,8 +129,8 @@ const WorkHoursTracker = () => {
     <span className="cool-header"> {getMonth()} -- {totalWeeklyHours.toFixed(1)} hrs</span>
      {daysOfWeek.map((day, index) => (
        <table key={index} style={{ marginLeft: "10px" }}>
-         <tr><td>
-         <input
+         <tr><td style={{ verticalAlign: "top"}}>
+         <input style={{textAlign: "top"}}
           type="checkbox"
           checked={workHours[index].isChecked}
           onChange={(e) => handleChange(index, "isChecked", !workHours[index].isChecked)}       

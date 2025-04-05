@@ -1,7 +1,7 @@
 
 import React from "react"
 
-import WorkHoursTracker from "./components/dates"
+import WorkHoursTracker from "./components/work-hours"
 //import SupaBrad from "./components/data"
 //import UpdateInput from "./components/data1"
 
