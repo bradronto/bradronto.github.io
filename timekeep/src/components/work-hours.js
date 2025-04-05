@@ -40,7 +40,7 @@ const getMonth = () => {
   return(
 
     firstDayOfWeek.toLocaleDateString("en-us",{month: "short" }  )+" "+
-    firstDayOfWeek.toLocaleDateString("en-us",{day: "numeric"})+"-"+
+    firstDayOfWeek.toLocaleDateString("en-us",{day: "numeric"})+" - "+
     lastDayOfWeek.toLocaleDateString("en-us",{month: "short"})+" "+
     lastDayOfWeek.toLocaleDateString("en-us",{day: "numeric"})+" " 
      //+ lastDayOfWeek.toLocaleDateString("en-us",{year: "numeric"})
@@ -53,20 +53,30 @@ const getMonth = () => {
 const getDatesOfCurrentWeek = () => {
   const today = new Date();
   const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()+1));
-  //const lastDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()+6));
-  //const lastDayOfWeek = new Date(today.setDate(firstDayOfWeek+6))
   const weekDates = [];
 
   for (let i = 0; i < 6; i++) {
     const day = new Date(firstDayOfWeek);
     day.setDate(firstDayOfWeek.getDate() + i);
+
+   // ();
+  const day1 = day.toLocaleDateString("en-US", { weekday: "short" }); // e.g., "Monday"
+  const month = day.toLocaleDateString("en-US", { month: "short" }); // e.g., "April"
+  const date = day.getDate(); // e.g., 5
     //weekDates.push(day.toDateString()+" "); // Format the date as needed
+  //weekDates.push(`{day1} :{mo}`)
+  weekDates.push(`${day1} ${" "} ${date}`);
+
+  /*
     weekDates.push(day.toLocaleDateString("en-us",{
        weekday: "short",
+       month: "short",
        day: "numeric",
-       // month: "long",
+      
       
       }))
+
+      */
 
   }
 
@@ -126,7 +136,7 @@ const WorkHoursTracker = () => {
 
   return (
   <div className="input-container" >
-    <span className="cool-header"> {getMonth()} -- {totalWeeklyHours.toFixed(1)} hrs</span>
+    <h1 style={{  display:"flex", justifyContent:"center", alignItems: "center"}}className="cool-header"> {getMonth()} &nbsp; &nbsp;&nbsp;&nbsp; {totalWeeklyHours.toFixed(1)} hrs</h1>
      {daysOfWeek.map((day, index) => (
        <table key={index} style={{ marginLeft: "10px" }}>
          <tr><td style={{ verticalAlign: "top"}}>
@@ -137,7 +147,7 @@ const WorkHoursTracker = () => {
         />
          <NumberInBox day={day} color="grey" />
              <br></br>
-           <span style={{ marginLeft: "10px" }}>
+           <span style={{  display:"flex", justifyContent:"center", alignItems: "center" }}>
            {calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} 
           </span>
             </td>
@@ -209,20 +219,24 @@ const WorkHoursTracker = () => {
 };
 
 const NumberInBox = props => {
+  const [day,date] = props.day.split("   ")
   return (
     <div style={{
+      marginTop: "14px",
       display: "inline-block",
-      padding: "0px",
-      border: "2px solid black",
-      borderRadius: "15px",
+      padding: "2px",
+      border: "2px solid #000000",
+      //borderColor: "black",
+      //borderWidth: "4px",
+      borderRadius: "12px",
       textAlign: "center",
-      height: "50px",
-      width: "50px",
-      fontSize: "20px",
-      backgroundColor: props.color,
-      color: "white"
+      height: "40px",
+      width: "40px",
+      fontSize: "15px",
+      backgroundColor:"rgb(252, 247, 174)" ,
+      color: "black"
     }}>
-      {props.day}
+      {day} <br />{date}
     </div>
   );
 };

@@ -17,11 +17,12 @@
 
   .cool-header {
     margin-left: 0px;
+    background-color: rgb(255, 250, 186);
     width: 100%;
     padding: auto;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
+    border: 2px solid #487dd8;
+    border-radius: 4px;
+    font-size: 26px;
     outline: none;
     transition: border-color 0.3s ease, box-shadow 3.0s ease;
   }
