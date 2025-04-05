@@ -31,6 +31,7 @@
   
 
   .cool-input {
+    height: 40px;
     color: black;
     width: 100%;
     padding: auto;
@@ -53,6 +54,9 @@
   }
 
   .cool-time-select {
+    /*width: 300px;        Set the width */
+    height: 40px;       /* Set the height */
+
     color: black;
     margin-left: 0px;
     width: 50%;

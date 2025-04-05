@@ -77,36 +77,8 @@ const getDatesOfCurrentWeek = () => {
 
 
 const WorkHoursTracker = () => {
-
-/*
-  const ShareViaSMS = () => {
-   
-  
-   // const message = "Hello, this is a message sent from my React app!";
-  
-    const htmlElement = htmlRef.current;
-    const message = htmlElement.textContent; // Retrieves only the text part of the HTML
-     console.log(htmlElement); // Logs: "This is the text part"
-    
-   
-  
-  //return textContent;
-  
-    return (
-      <div>
-        
-        <a href={`sms:?&body=${encodeURIComponent(message)}`}>
-          share SMS
-        </a>
-      </div>
-    );
-  };
- */ 
-
-
-  //const daysOfWeek = ["Mon 10", "Tue 11", "Wed 12", "Thu 13", "Fri 14", "Sat 14"];
   const daysOfWeek = getDatesOfCurrentWeek();
-  
+
   const [workHours, setWorkHours] = useState(
     daysOfWeek.map(() => ({ start: "7:00 AM", end: "3:00 PM", job: "Lake Mariner Data", isChecked: true}))
   );
@@ -123,10 +95,8 @@ const WorkHoursTracker = () => {
     const[end12,endPeriod] = end.split(" ");
     const [startHour, startMinute] = start12.split(":").map(Number);
     const start24 = startPeriod === "AM" ? startHour : (startHour>11?startHour:startHour + 12) ;
- 
     const [endHour, endMinute] = end12.split(":").map(Number);
     const end24 = endPeriod === "AM"?endHour:(endHour>11?endHour:endHour+12);
-
     return (end24 + endMinute / 60) - (start24 + startMinute / 60);
   };
 
@@ -136,44 +106,25 @@ const WorkHoursTracker = () => {
   );
 
   const timeOptions = generateTimeOptions();
-  //const jobName = ['Lake Mariner','Linde Niag Falls']
 
   const optionsArray = ["Lake Mariner Data", "Linde Niag Falls"];
- //const htmlRef =useRef();
-
+ 
    const textRef = useRef();
    const [rawText, setRawText] = useState("wtf");
-   //const rawText = "sup";
    
    const setraw = () => {
- //   setRawText(textRef.current.textContent);
-
-         // Get the HTML content
     const rawHTML = textRef.current.innerHTML;
-
-    // Replace all <br> tags with \n
-
     const convertedText = rawHTML
     .replace(/<\/?(span|div)[^>]*>/gi, "") // Matches opening or closing <span> and <div> tags
     .replace(/\.\s*\./g, "") // Remove consecutive dots if any
     .replace(/<br\s*\/?>/gi, "\n")
     .replace(/&nbsp;/g, "");
     setRawText(convertedText);
-
    }
 
-   //const [isChecked, setIsChecked] = useState(false);
-
-   
- 
   return (
-  
-  
   <div className="input-container" >
-
-
-    
-      <span className="cool-header"> {getMonth()} -- {totalWeeklyHours.toFixed(1)} hrs</span>
+    <span className="cool-header"> {getMonth()} -- {totalWeeklyHours.toFixed(1)} hrs</span>
      {daysOfWeek.map((day, index) => (
        <table key={index} style={{ marginLeft: "10px" }}>
          <tr><td>
@@ -182,18 +133,13 @@ const WorkHoursTracker = () => {
           checked={workHours[index].isChecked}
           onChange={(e) => handleChange(index, "isChecked", !workHours[index].isChecked)}       
         />
-
-            <NumberInBox day={day} color="grey" />
+         <NumberInBox day={day} color="grey" />
              <br></br>
            <span style={{ marginLeft: "10px" }}>
            {calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} 
           </span>
-         
             </td>
-            <td>
-       
-         
-        
+            <td>   
          <div>
       {workHours[index].isChecked ? (
         <>
@@ -201,9 +147,7 @@ const WorkHoursTracker = () => {
           <SelectWithNewItem  myArray={optionsArray} />
        <select  className="cool-time-select"// style={{ marginRight: "0px" }} 
         defaultValue={timeOptions['14']}
-        //defaultValue={workHours[index].start}
         onChange={(e) => handleChange(index, "start", e.target.value)}
-                
         >
          {timeOptions.map((time, indx) => (
         <option  key={indx} value={time}>
@@ -231,22 +175,10 @@ const WorkHoursTracker = () => {
           <p>No work.</p>
         </>
       )}
-    </div>
-
-
-
-        
-      
-        
-        
-        
-
-         
+        </div>     
           </td> </tr> 
           </table>
-      
-
-      ))}
+       ))}
       <br></br>
       <a  onClick={setraw}    href={`sms:?&body=${encodeURIComponent(rawText)}`}>
           share SMS
@@ -269,13 +201,8 @@ const WorkHoursTracker = () => {
              <span className="blue"> &nbsp; {totalWeeklyHours.toFixed(2)>40?40:totalWeeklyHours.toFixed(2)} Hrs &nbsp;&nbsp;&nbsp; {totalWeeklyHours.toFixed(1)>40?totalWeeklyHours.toFixed(1)-40:0} OT 
              
              </span>
-            
-
-   
       </div>
   </div>
-  
-
 );
 };
 
