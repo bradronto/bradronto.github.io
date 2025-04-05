@@ -55,7 +55,7 @@ const getDatesOfCurrentWeek = () => {
   const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()+1));
   const weekDates = [];
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 7; i++) {
     const day = new Date(firstDayOfWeek);
     day.setDate(firstDayOfWeek.getDate() + i);
 
