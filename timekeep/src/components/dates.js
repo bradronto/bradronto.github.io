@@ -122,6 +122,8 @@ const WorkHoursTracker = () => {
     setRawText(convertedText);
    }
 
+
+
   return (
   <div className="input-container" >
     <span className="cool-header"> {getMonth()} -- {totalWeeklyHours.toFixed(1)} hrs</span>
@@ -214,8 +216,9 @@ const NumberInBox = props => {
       border: "2px solid black",
       borderRadius: "15px",
       textAlign: "center",
-      width: "35px",
-      fontSize: "15px",
+      height: "50px",
+      width: "50px",
+      fontSize: "20px",
       backgroundColor: props.color,
       color: "white"
     }}>
