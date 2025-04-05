@@ -164,6 +164,12 @@ const WorkHoursTracker = () => {
     setRawText(convertedText);
 
    }
+
+   const [isChecked, setIsChecked] = useState(false);
+
+   const handleCheckboxChange = () => {
+     setIsChecked(!isChecked);
+   };
  
   return (
   
@@ -178,6 +184,12 @@ const WorkHoursTracker = () => {
       {daysOfWeek.map((day, index) => (
         <table key={index} style={{ marginLeft: "10px" }}>
          <tr><td>
+         <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={handleCheckboxChange}
+        />
+
             <NumberInBox day={day} color="grey" />
              <br></br>
            <span style={{ marginLeft: "10px" }}>
@@ -190,11 +202,7 @@ const WorkHoursTracker = () => {
           <table><tr><td>
 
             <SelectWithNewItem  myArray={optionsArray} />
-
-          
-   
-
-          <select  className="cool-time-select"// style={{ marginRight: "0px" }} 
+         <select  className="cool-time-select"// style={{ marginRight: "0px" }} 
           defaultValue={timeOptions['14']}
           //defaultValue={workHours[index].start}
           onChange={(e) => handleChange(index, "start", e.target.value)}
@@ -205,10 +213,7 @@ const WorkHoursTracker = () => {
             {time}
           </option>
         ))}
-          </select> 
-
-         
-            
+          </select>         
             <select className="cool-time-select" //style={{ marginRight: "0px" }} 
           defaultValue={timeOptions['30']}
           //defaultValue={workHours[index].end}
@@ -225,25 +230,14 @@ const WorkHoursTracker = () => {
          
           </td> </tr> 
           </table>
-         
-         
-       
       ))}
       <br></br>
       <a  onClick={setraw}    href={`sms:?&body=${encodeURIComponent(rawText)}`}>
           share SMS
         </a>
-    
      <div className="blue" ref={textRef} >
-     
         <br></br>
-     
-     
-  
-    Brad Ronto :<br /> {getMonth()} 
-    
-   
-    
+     Brad Ronto :<br /> {getMonth()}  
     <br></br><br></br>
     {daysOfWeek.map((day, index) => (
     <div className="blue" key={index}  >
@@ -270,7 +264,7 @@ const NumberInBox = props => {
   return (
     <div style={{
       display: "inline-block",
-      padding: "5px",
+      padding: "0px",
       border: "2px solid black",
       borderRadius: "15px",
       textAlign: "center",
