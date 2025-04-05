@@ -164,12 +164,7 @@ const WorkHoursTracker = () => {
 
    //const [isChecked, setIsChecked] = useState(false);
 
-   const handleCheckboxChange = (index, type, value) => {
-    const updatedWorkHours = [...workHours];
-
-    updatedWorkHours[index][type] =  value;
-   // setWorkHours(updatedWorkHours);
-   };
+   
  
   return (
   
@@ -197,6 +192,11 @@ const WorkHoursTracker = () => {
             </td>
             <td>
        
+         
+        
+         <div>
+      {workHours[index].isChecked ? (
+        <>
           <table><tr><td>
           <SelectWithNewItem  myArray={optionsArray} />
        <select  className="cool-time-select"// style={{ marginRight: "0px" }} 
@@ -224,6 +224,15 @@ const WorkHoursTracker = () => {
       ))}
         </select> 
          </td></tr></table>
+        </>
+      ) : (
+        <>
+          
+          <p>No work.</p>
+        </>
+      )}
+    </div>
+
 
 
         
