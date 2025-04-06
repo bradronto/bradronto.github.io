@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
-import "./cool.css"
+import "./styles/cool.css"
 import SelectWithNewItem from "./a";
+import NumberInBox from "./number-in-box";
 
 
 
@@ -139,7 +140,11 @@ const WorkHoursTracker = () => {
     <h1 style={{  display:"flex", justifyContent:"center", alignItems: "center"}}className="cool-header"> {getMonth()} &nbsp; &nbsp;&nbsp;&nbsp; {totalWeeklyHours.toFixed(1)} hrs</h1>
      {daysOfWeek.map((day, index) => (
        <table key={index} style={{ marginLeft: "10px" }}>
-         <tr><td style={{ verticalAlign: "top", padding: "0px"}}>
+         <tr><td style={{
+        display: "flex", // Enables Flexbox
+        alignItems: "flex-start", // Aligns items to the top
+        gap: "5px", // Adds spacing between the checkbox and the box
+      }}>
          <input style={{textAlign: "top"}}
           type="checkbox"
           checked={workHours[index].isChecked}
@@ -221,6 +226,7 @@ const WorkHoursTracker = () => {
 );
 };
 
+/*
 const NumberInBox = props => {
   const [day,date] = props.day.split("   ")
   return (
@@ -243,7 +249,7 @@ const NumberInBox = props => {
     </div>
   );
 };
-
+*/
 
 function App() {
   const htmlRef = useRef();

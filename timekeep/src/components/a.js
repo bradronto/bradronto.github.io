@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./cool.css"
+import "./styles/cool.css"
 
 const SelectWithNewItem = ({myArray}) => {
   const myArray1 = ["Lake Mariner", "Option 2", "Option 3"];
