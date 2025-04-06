@@ -3,6 +3,7 @@ const NumberInBox = props => {
     return (
       <div style={{
         marginTop: "0px",
+        marginBottom: "17px",
         display: "inline-block",
         padding: "2px",
         border: "2px solid #000000",
