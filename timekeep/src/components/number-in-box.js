@@ -1,5 +1,5 @@
 const NumberInBox = props => {
-    const [day,date] = props.day.split("   ")
+    const [day,date] = props.day.split(" ")
     return (
       <div style={{
         marginTop: "0px",

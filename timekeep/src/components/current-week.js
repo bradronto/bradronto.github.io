@@ -1,6 +1,6 @@
 const getDatesOfCurrentWeek = () => {
   const today = new Date();
-  const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()+1));
+  const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()-6));
   const weekDates = [];
 
   for (let i = 0; i < 7; i++) {
@@ -11,7 +11,7 @@ const getDatesOfCurrentWeek = () => {
   const date = day.getDate(); // e.g., 5
     //weekDates.push(day.toDateString()+" "); // Format the date as needed
   //weekDates.push(`{day1} :{mo}`)
-  weekDates.push(`${day1} ${" "} ${date}`);
+  weekDates.push(`${day1} ${date}`);
 
   }
 

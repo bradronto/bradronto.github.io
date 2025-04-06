@@ -19,13 +19,14 @@
     width: 100%;
   }
   .cool-header {
-    margin-left: 0px;
+    height: 40px;
+    margin-left: 16px;
     background-color: rgb(255, 250, 186);
-    width: 100%;
+    width: 94%;
     padding: 0px;
     border: 2px solid #487dd8;
-    border-radius: 4px;
-    font-size: 26px;
+    border-radius: 8px;
+    font-size: 23px;
     outline: none;
     transition: border-color 0.3s ease, box-shadow 3.0s ease;
   }

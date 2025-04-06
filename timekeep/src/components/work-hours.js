@@ -10,12 +10,14 @@ const WorkHoursTracker = () => {
   const daysOfWeek = getDatesOfCurrentWeek();
 
   const [workHours, setWorkHours] = useState(
-    daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM" : "7:00 AM", job: "Lake Mariner Data", isChecked: index < 5 ?true:false }))
+    daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner Data", isChecked: index < 5 ?true:false }))
   );
 
   const handleChange = (index, type, value) => {
     const updatedWorkHours = [...workHours];
     updatedWorkHours[index][type] = value;
+   
+    type == "isChecked" ? updatedWorkHours[index]["isChecked"] == false? updatedWorkHours[index]["end"] = updatedWorkHours[index]["start"]:updatedWorkHours[index]["end"]="3:00 PM":console.log("not suposed to")
     setWorkHours(updatedWorkHours);
     console.log(workHours[index].isChecked)
   };
@@ -35,6 +37,24 @@ const WorkHoursTracker = () => {
     0
   );
 
+  const weekTotal = () => {
+    //const all = workHours.reduce((total, day) => total + 
+   // calculateTotalHours(day.start, day.end), 0);
+   //const reg = 31;
+   const reg = workHours.reduce(
+    (total, day) => total + (calculateTotalHours(day.start, day.end) <=8 ?calculateTotalHours(day.start, day.end):8),
+    0
+  );
+
+  const ot = workHours.reduce(
+    (total, day) => total + (calculateTotalHours(day.start, day.end)>8?calculateTotalHours(day.start, day.end)-8:0),
+    0
+  );
+      return[reg,ot]
+
+
+  }
+
   const timeOptions = generateTimeOptions();
 
   const optionsArray = ["Lake Mariner Data", "Linde Niag Falls"];
@@ -52,7 +72,7 @@ const WorkHoursTracker = () => {
    setRawText(convertedText);
   }
 
-
+const [reg,ot] = weekTotal();
 
   return (
   <div className="input-container" >
@@ -64,6 +84,7 @@ const WorkHoursTracker = () => {
         alignItems: "flex-start", // Aligns items to the top
         gap: "5px", // Adds spacing between the checkbox and the box
       }}>
+
          <input style={{textAlign: "top"}}
           type="checkbox"
           checked={workHours[index].isChecked}
@@ -93,8 +114,7 @@ const WorkHoursTracker = () => {
         defaultValue={timeOptions['30']}
         //defaultValue={workHours[index].end}
         onChange={(e) => handleChange(index, "end", e.target.value)}
-               
-        >
+          >
          {timeOptions.map((time, indx) => (
         <option  key={indx} value={time}>
           {time}
@@ -110,9 +130,19 @@ const WorkHoursTracker = () => {
         </>
       )}
         </div>     
-          </td> <td>
-          <span style={{  display:"flex", justifyContent:"center", alignItems: "center" }}>
-           {calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} <br />hrs
+          </td> <td style={{marginBottom: "0px", alignContent:"baselines"}}>
+          <span style={{  marginBottom: "0px", alignContent:"baselines" }}>
+          {
+           calculateTotalHours(workHours[index].start, workHours[index].end)>=8?(8).toFixed(1):
+           calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)
+           
+           }  <br /> 
+            {
+            calculateTotalHours(workHours[index].start, workHours[index].end)>8?
+            (calculateTotalHours(workHours[index].start, workHours[index].end) - 8).toFixed(1):
+            (0).toFixed(1)
+            
+            } 
           </span>
             
             </td></tr> 
@@ -144,7 +174,10 @@ const WorkHoursTracker = () => {
            {workHours[index].start}-{workHours[index].end} <br></br>
             {calculateTotalHours(workHours[index].start, workHours[index].end)>8?8:calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} Hrs
           &nbsp; &nbsp; {calculateTotalHours(workHours[index].start, workHours[index].end)>8?calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)-8:0} O.T.
-        </span><br></br><br></br>
+        </span>
+      
+        <br />
+        <br />
         </>
           
         ) : (
@@ -155,24 +188,14 @@ const WorkHoursTracker = () => {
 
         </div>
      ))}
-          <span className="blue">
-             &nbsp; {totalWeeklyHours.toFixed(2)>40?40:totalWeeklyHours.toFixed(2)} Hrs &nbsp;&nbsp;&nbsp; {totalWeeklyHours.toFixed(1)>40?totalWeeklyHours.toFixed(1)-40:0} OT 
-           </span>
+           
+           <span>{reg} hrs   &nbsp;{ot} OT</span>
+
+          
       </div>
   </div>
 );
 };
 
 
-function App() {
-  const htmlRef = useRef();
-  return (
-    <div className="App" ref={htmlRef}>
-         
-      <WorkHoursTracker />
-     
-    </div>
-  );
-}
-
-export default App;
+export default WorkHoursTracker;
