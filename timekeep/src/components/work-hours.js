@@ -133,24 +133,31 @@ const WorkHoursTracker = () => {
     {daysOfWeek.map((day, index) => (
     <div  className="blue" key={index}  >
 
+{workHours[index].isChecked ? (
+        <>
       <span style={{ marginLeft:"0px"}}>
       {daysOfWeek[index]}
       </span>
-      <br />
-       
-         
+      <br />      
          {workHours[index].job} <br></br>
           <span  className="indent">
            {workHours[index].start}-{workHours[index].end} <br></br>
             {calculateTotalHours(workHours[index].start, workHours[index].end)>8?8:calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} Hrs
           &nbsp; &nbsp; {calculateTotalHours(workHours[index].start, workHours[index].end)>8?calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)-8:0} O.T.
         </span><br></br><br></br>
+        </>
+          
+        ) : (
+          <>
+          
+          </>
+        )}
+
         </div>
      ))}
-     
-             <span className="blue"> &nbsp; {totalWeeklyHours.toFixed(2)>40?40:totalWeeklyHours.toFixed(2)} Hrs &nbsp;&nbsp;&nbsp; {totalWeeklyHours.toFixed(1)>40?totalWeeklyHours.toFixed(1)-40:0} OT 
-             
-             </span>
+          <span className="blue">
+             &nbsp; {totalWeeklyHours.toFixed(2)>40?40:totalWeeklyHours.toFixed(2)} Hrs &nbsp;&nbsp;&nbsp; {totalWeeklyHours.toFixed(1)>40?totalWeeklyHours.toFixed(1)-40:0} OT 
+           </span>
       </div>
   </div>
 );
