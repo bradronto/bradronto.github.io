@@ -2,90 +2,9 @@ import React, { useState, useRef } from "react";
 import "./styles/cool.css"
 import SelectWithNewItem from "./a";
 import NumberInBox from "./number-in-box";
-
-
-
-
-
-
-
-
-const generateTimeOptions = () => {
-    
-  const times = [];
-  const start = new Date();
-  start.setHours(0, 0, 0, 0); // Set to 12:00 AM
-  const end = new Date();
-  end.setHours(23, 30, 0, 0); // Set to 11:30 PM
-
-  while (start <= end) {
-    const hours = start.getHours();
-    const minutes = start.getMinutes();
-    const period = hours >= 12 ? "PM" : "AM";
-    const formattedHours = hours % 12 || 12; // Convert 24-hour time to 12-hour time
-    //const formattedHours = hours;
-    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-
-    times.push(`${formattedHours}:${formattedMinutes} ${period}`);
-    start.setMinutes(start.getMinutes() + 30); // Increment by 30 minutes
-  }
-
-  return times;
-};
-
-const getMonth = () => {
-  const today = new Date();
-  const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()+1));
-  const lastDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()+6));
-
-  return(
-
-    firstDayOfWeek.toLocaleDateString("en-us",{month: "short" }  )+" "+
-    firstDayOfWeek.toLocaleDateString("en-us",{day: "numeric"})+" - "+
-    lastDayOfWeek.toLocaleDateString("en-us",{month: "short"})+" "+
-    lastDayOfWeek.toLocaleDateString("en-us",{day: "numeric"})+" " 
-     //+ lastDayOfWeek.toLocaleDateString("en-us",{year: "numeric"})
-  );
- 
-}
-
-
-
-const getDatesOfCurrentWeek = () => {
-  const today = new Date();
-  const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()+1));
-  const weekDates = [];
-
-  for (let i = 0; i < 7; i++) {
-    const day = new Date(firstDayOfWeek);
-    day.setDate(firstDayOfWeek.getDate() + i);
-
-   // ();
-  const day1 = day.toLocaleDateString("en-US", { weekday: "short" }); // e.g., "Monday"
-  const month = day.toLocaleDateString("en-US", { month: "short" }); // e.g., "April"
-  const date = day.getDate(); // e.g., 5
-    //weekDates.push(day.toDateString()+" "); // Format the date as needed
-  //weekDates.push(`{day1} :{mo}`)
-  weekDates.push(`${day1} ${" "} ${date}`);
-
-  /*
-    weekDates.push(day.toLocaleDateString("en-us",{
-       weekday: "short",
-       month: "short",
-       day: "numeric",
-      
-      
-      }))
-
-      */
-
-  }
-
-  return weekDates;
-};
-
-
-
+import generateTimeOptions from "./time-select"
+import getMonth from "./date-header";
+import getDatesOfCurrentWeek from "./current-week";
 
 const WorkHoursTracker = () => {
   const daysOfWeek = getDatesOfCurrentWeek();
@@ -120,24 +39,24 @@ const WorkHoursTracker = () => {
 
   const optionsArray = ["Lake Mariner Data", "Linde Niag Falls"];
  
-   const textRef = useRef();
-   const [rawText, setRawText] = useState("wtf");
-   
-   const setraw = () => {
-    const rawHTML = textRef.current.innerHTML;
-    const convertedText = rawHTML
-    .replace(/<\/?(span|div)[^>]*>/gi, "") // Matches opening or closing <span> and <div> tags
-    .replace(/\.\s*\./g, "") // Remove consecutive dots if any
-    .replace(/<br\s*\/?>/gi, "\n")
-    .replace(/&nbsp;/g, "");
-    setRawText(convertedText);
-   }
+  const textRef = useRef();
+  const [rawText, setRawText] = useState("wtf");
+  
+  const setraw = () => {
+   const rawHTML = textRef.current.innerHTML;
+   const convertedText = rawHTML
+   .replace(/<\/?(span|div)[^>]*>/gi, "") // Matches opening or closing <span> and <div> tags
+   .replace(/\.\s*\./g, "") // Remove consecutive dots if any
+   .replace(/<br\s*\/?>/gi, "\n")
+   .replace(/&nbsp;/g, "");
+   setRawText(convertedText);
+  }
 
 
 
   return (
   <div className="input-container" >
-    <h1 style={{  display:"flex", justifyContent:"center", alignItems: "center"}}className="cool-header"> {getMonth()} &nbsp; &nbsp;&nbsp;&nbsp; {totalWeeklyHours.toFixed(1)} hrs</h1>
+    <h1 style={{  display:"flex", justifyContent:"center", alignItems: "center"}} className="cool-header"> {getMonth()} &nbsp; &nbsp;&nbsp;&nbsp; {totalWeeklyHours.toFixed(1)} hrs</h1>
      {daysOfWeek.map((day, index) => (
        <table key={index} style={{ marginLeft: "10px" }}>
          <tr><td style={{
@@ -200,22 +119,30 @@ const WorkHoursTracker = () => {
           </table>
        ))}
      
-     
-     
-     
-      <a  onClick={setraw}    href={`sms:?&body=${encodeURIComponent(rawText)}`}>
-          share SMS
+   
+   
+   
+     <br />
+      <a  style={{  display:"flex", justifyContent:"center", alignItems: "center"}} onClick={setraw}    href={`sms:?&body=${encodeURIComponent(rawText)}`}>
+          share timecard via text message
         </a>
-     <div className="blue" ref={textRef} >
-        <br></br>
-     Brad Ronto :<br /> {getMonth()}  
+     <div  className="blue" ref={textRef} >
+        
+    <br /> {getMonth()}  
     <br></br><br></br>
     {daysOfWeek.map((day, index) => (
-    <div className="blue" key={index}  >
-         &nbsp; --- {daysOfWeek[index]} ---<br></br> {workHours[index].job} <br></br>
+    <div  className="blue" key={index}  >
+
+      <span style={{ marginLeft:"0px"}}>
+      {daysOfWeek[index]}
+      </span>
+      <br />
+       
+         
+         {workHours[index].job} <br></br>
           <span  className="indent">
            {workHours[index].start}-{workHours[index].end} <br></br>
-           &nbsp; &nbsp; {calculateTotalHours(workHours[index].start, workHours[index].end)>8?8:calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} Hrs
+            {calculateTotalHours(workHours[index].start, workHours[index].end)>8?8:calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} Hrs
           &nbsp; &nbsp; {calculateTotalHours(workHours[index].start, workHours[index].end)>8?calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)-8:0} O.T.
         </span><br></br><br></br>
         </div>
@@ -229,30 +156,6 @@ const WorkHoursTracker = () => {
 );
 };
 
-/*
-const NumberInBox = props => {
-  const [day,date] = props.day.split("   ")
-  return (
-    <div style={{
-      marginTop: "0px",
-      display: "inline-block",
-      padding: "2px",
-      border: "2px solid #000000",
-      //borderColor: "black",
-      //borderWidth: "4px",
-      borderRadius: "8px",
-      textAlign: "center",
-      height: "45px",
-      width: "45px",
-      fontSize: "17px",
-      backgroundColor:"rgb(252, 247, 174)" ,
-      color: "black"
-    }}>
-      {day} <br />{date}
-    </div>
-  );
-};
-*/
 
 function App() {
   const htmlRef = useRef();
@@ -266,30 +169,3 @@ function App() {
 }
 
 export default App;
-
-
-/*
-
-<select className="cool-input" id="select">
-      {optionsArray.map((option, index) => (
-        <option key={index} value={option}    onChange={(e) => handleChange(index, "job", e.target.value)}
-        >
-          {option}
-        </option>
-      ))}
-    </select>
-
- <select  className="cool-am-select"// style={{ marginRight: "0px" }} 
-                  
-          >
-          
-          <option >
-            AM
-          </option> 
-          <option >
-            PM
-          </option>
-       
-          </select> 
-
-          */
