@@ -141,23 +141,23 @@ const [reg,ot] = weekTotal();
         </div>     
           </td> <td style={{marginBottom: "0px", alignContent:"baselines"}}>
           <span style={{  marginBottom: "0px", alignContent:"baselines" }}>
-           {index<5?(
+           {index<5?( // is it a weekday?
             <>
           {
-           calculateTotalHours(workHours[index].start, workHours[index].end)>=8?(8).toFixed(1):
+           calculateTotalHours(workHours[index].start, workHours[index].end)==false?(8).toFixed(1):
            calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)
            
            }  <br /> 
             {
-            calculateTotalHours(workHours[index].start, workHours[index].end)>8?
-            (calculateTotalHours(workHours[index].start, workHours[index].end) - 8).toFixed(1):
-            (0).toFixed(1)
+           // calculateTotalHours(workHours[index].start, workHours[index].end)>8?
+           // (calculateTotalHours(workHours[index].start, workHours[index].end) - 8).toFixed(1):
+           // (0).toFixed(1)
             
             } 
             </>
            ) : (
             <>
-            0.0 <br />
+            
             {calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)}
             
             
@@ -195,8 +195,23 @@ const [reg,ot] = weekTotal();
          {workHours[index].job} <br></br>
           <span  className="indent">
            {workHours[index].start}-{workHours[index].end} <br></br>
+
+           {index<5?(
+            <>
+
             {calculateTotalHours(workHours[index].start, workHours[index].end)>8?8:calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} Hrs
           &nbsp; &nbsp; {calculateTotalHours(workHours[index].start, workHours[index].end)>8?calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)-8:0} O.T.
+       
+          </>
+           ) : (
+            <>
+            0.0 Hrs  &nbsp; &nbsp;{calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} O.T.
+            
+            
+            </>)}
+       
+       
+       
         </span>
       
         <br />
