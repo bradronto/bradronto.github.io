@@ -229,7 +229,7 @@ const [reg,ot] = weekTotal();
            
            <span>{reg} hrs   &nbsp;{ot} OT</span>
 
-          
+           <br /><br /><br /><br /><br /><br /><br /><br /><br />
       </div>
   </div>
 );
