@@ -139,7 +139,7 @@ const WorkHoursTracker = () => {
     <h1 style={{  display:"flex", justifyContent:"center", alignItems: "center"}}className="cool-header"> {getMonth()} &nbsp; &nbsp;&nbsp;&nbsp; {totalWeeklyHours.toFixed(1)} hrs</h1>
      {daysOfWeek.map((day, index) => (
        <table key={index} style={{ marginLeft: "10px" }}>
-         <tr><td style={{ verticalAlign: "top"}}>
+         <tr><td style={{ verticalAlign: "top", padding: "0px"}}>
          <input style={{textAlign: "top"}}
           type="checkbox"
           checked={workHours[index].isChecked}
@@ -147,15 +147,13 @@ const WorkHoursTracker = () => {
         />
          <NumberInBox day={day} color="grey" />
              <br></br>
-           <span style={{  display:"flex", justifyContent:"center", alignItems: "center" }}>
-           {calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} 
-          </span>
+          
             </td>
             <td>   
          <div>
       {workHours[index].isChecked ? (
         <>
-          <table><tr><td>
+          
           <SelectWithNewItem  myArray={optionsArray} />
        <select  className="cool-time-select"// style={{ marginRight: "0px" }} 
         defaultValue={timeOptions['14']}
@@ -179,7 +177,7 @@ const WorkHoursTracker = () => {
         </option>
       ))}
         </select> 
-         </td></tr></table>
+        
         </>
       ) : (
         <>
@@ -188,7 +186,12 @@ const WorkHoursTracker = () => {
         </>
       )}
         </div>     
-          </td> </tr> 
+          </td> <td>
+          <span style={{  display:"flex", justifyContent:"center", alignItems: "center" }}>
+           {calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} <br />hrs
+          </span>
+            
+            </td></tr> 
           </table>
        ))}
       <br></br>
@@ -222,17 +225,17 @@ const NumberInBox = props => {
   const [day,date] = props.day.split("   ")
   return (
     <div style={{
-      marginTop: "14px",
+      marginTop: "0px",
       display: "inline-block",
       padding: "2px",
       border: "2px solid #000000",
       //borderColor: "black",
       //borderWidth: "4px",
-      borderRadius: "12px",
+      borderRadius: "8px",
       textAlign: "center",
-      height: "40px",
-      width: "40px",
-      fontSize: "15px",
+      height: "45px",
+      width: "45px",
+      fontSize: "17px",
       backgroundColor:"rgb(252, 247, 174)" ,
       color: "black"
     }}>
