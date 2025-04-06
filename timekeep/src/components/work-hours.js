@@ -91,7 +91,7 @@ const WorkHoursTracker = () => {
   const daysOfWeek = getDatesOfCurrentWeek();
 
   const [workHours, setWorkHours] = useState(
-    daysOfWeek.map(() => ({ start: "7:00 AM", end: "3:00 PM", job: "Lake Mariner Data", isChecked: true}))
+    daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM" : "7:00 AM", job: "Lake Mariner Data", isChecked: index < 5 ?true:false }))
   );
 
   const handleChange = (index, type, value) => {
@@ -187,7 +187,7 @@ const WorkHoursTracker = () => {
       ) : (
         <>
           
-          <p>No work.</p>
+          <p className="cool-span"></p>
         </>
       )}
         </div>     
@@ -199,7 +199,10 @@ const WorkHoursTracker = () => {
             </td></tr> 
           </table>
        ))}
-      <br></br>
+     
+     
+     
+     
       <a  onClick={setraw}    href={`sms:?&body=${encodeURIComponent(rawText)}`}>
           share SMS
         </a>
