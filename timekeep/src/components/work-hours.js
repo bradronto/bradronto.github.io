@@ -41,16 +41,25 @@ const WorkHoursTracker = () => {
     //const all = workHours.reduce((total, day) => total + 
    // calculateTotalHours(day.start, day.end), 0);
    //const reg = 31;
-   const reg = workHours.reduce(
+   const reg = workHours.slice(0,5).reduce(
     (total, day) => total + (calculateTotalHours(day.start, day.end) <=8 ?calculateTotalHours(day.start, day.end):8),
     0
   );
 
-  const ot = workHours.reduce(
+  const rot = workHours.slice(0,5).reduce(
     (total, day) => total + (calculateTotalHours(day.start, day.end)>8?calculateTotalHours(day.start, day.end)-8:0),
     0
   );
-      return[reg,ot]
+  
+  const wot = workHours.slice(5).reduce(
+    (total, day) => total + (calculateTotalHours(day.start, day.end)),
+    0
+  );
+     
+  const ot=rot+wot;
+  
+  
+  return[reg,ot]
 
 
   }
@@ -132,6 +141,8 @@ const [reg,ot] = weekTotal();
         </div>     
           </td> <td style={{marginBottom: "0px", alignContent:"baselines"}}>
           <span style={{  marginBottom: "0px", alignContent:"baselines" }}>
+           {index<5?(
+            <>
           {
            calculateTotalHours(workHours[index].start, workHours[index].end)>=8?(8).toFixed(1):
            calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)
@@ -143,6 +154,18 @@ const [reg,ot] = weekTotal();
             (0).toFixed(1)
             
             } 
+            </>
+           ) : (
+            <>
+            0.0 <br />
+            {calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)}
+            
+            
+            </>)}
+
+
+
+
           </span>
             
             </td></tr> 
