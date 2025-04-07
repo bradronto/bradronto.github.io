@@ -1,6 +1,6 @@
-const getDatesOfCurrentWeek = () => {
+const getDatesOfCurrentWeek = (whichWeek) => {
   const today = new Date();
-  const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()-6));
+  const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()+whichWeek));
   const weekDates = [];
 
   for (let i = 0; i < 7; i++) {

@@ -7,11 +7,16 @@ import getMonth from "./date-header";
 import getDatesOfCurrentWeek from "./current-week";
 
 const WorkHoursTracker = () => {
-  const daysOfWeek = getDatesOfCurrentWeek();
+
+  const [changeWeek, setChangeWeek] = useState(1);
+  const daysOfWeek = getDatesOfCurrentWeek(changeWeek);
 
   const [workHours, setWorkHours] = useState(
     daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner Data", isChecked: index < 5 ?true:false }))
   );
+
+
+ 
 
   const handleChange = (index, type, value) => {
     const updatedWorkHours = [...workHours];
@@ -66,7 +71,7 @@ const WorkHoursTracker = () => {
 
   const timeOptions = generateTimeOptions();
 
-  const optionsArray = ["Lake Mariner Data", "Linde Niag Falls"];
+  const [jobsArray,setJobsArray] = useState(["Lake Mariner Data", "Linde Niag Falls"]);
  
   const textRef = useRef();
   const [rawText, setRawText] = useState("wtf");
@@ -83,9 +88,38 @@ const WorkHoursTracker = () => {
 
 const [reg,ot] = weekTotal();
 
+const handleWeekChange = (chosenWeek) => {
+
+  chosenWeek==="last week" ? setChangeWeek(-6): setChangeWeek(1);
+  
+
+
+};
+
+
   return (
   <div className="input-container" >
-    <h1 style={{  display:"flex", justifyContent:"center", alignItems: "center"}} className="cool-header"> {getMonth()} &nbsp; &nbsp;&nbsp;&nbsp; {totalWeeklyHours.toFixed(1)} hrs</h1>
+    <h1 style={{  display:"flex", justifyContent:"center", alignItems: "center"}} className="cool-header"> 
+      
+      <select className="cool-header-select"
+              onChange={(e) => handleWeekChange(e.target.value)}
+ 
+      >
+        <option value="this week">
+        {getMonth(1)} 
+
+        </option>
+        <option value="last week">
+          {getMonth(-6)}
+        </option>
+
+      </select>
+      
+      
+      &nbsp; &nbsp;&nbsp;&nbsp; {totalWeeklyHours.toFixed(1)} hrs</h1>
+    
+    
+    
      {daysOfWeek.map((day, index) => (
        <table key={index} style={{ marginLeft: "10px" }}>
          <tr><td style={{
@@ -108,7 +142,7 @@ const [reg,ot] = weekTotal();
       {workHours[index].isChecked ? (
         <>
           
-          <SelectWithNewItem  myArray={optionsArray} />
+          <SelectWithNewItem  jobsArray={jobsArray} />
        <select  className="cool-time-select"// style={{ marginRight: "0px" }} 
         defaultValue={timeOptions['14']}
         onChange={(e) => handleChange(index, "start", e.target.value)}
@@ -123,7 +157,7 @@ const [reg,ot] = weekTotal();
         defaultValue={timeOptions['30']}
         //defaultValue={workHours[index].end}
         onChange={(e) => handleChange(index, "end", e.target.value)}
-          >
+          >  
          {timeOptions.map((time, indx) => (
         <option  key={indx} value={time}>
           {time}
@@ -181,7 +215,7 @@ const [reg,ot] = weekTotal();
         </a>
      <div  className="blue" ref={textRef} >
         
-    <br /> {getMonth()}  
+    <br /> {getMonth(changeWeek)}  
     <br></br><br></br>
     {daysOfWeek.map((day, index) => (
     <div  className="blue" key={index}  >
