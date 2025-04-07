@@ -15,7 +15,7 @@ const WorkHoursTracker = () => {
   const [jobsArray,setJobsArray] = useState(initJobs);
  
   const [workHours, setWorkHours] = useState(
-    daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false }))
+    daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: false }))
   );
  
 
@@ -26,6 +26,12 @@ const WorkHoursTracker = () => {
 
     type ==="isChecked" ? updatedWorkHours[index]["isChecked"] === false? updatedWorkHours[index]["end"] = "7:00 AM":updatedWorkHours[index]["end"]="3:00 PM":console.log("not suposed to")
     setWorkHours(updatedWorkHours);
+
+    if (value === "New Item") {
+      setShowInputPopup(true); // Show the pop-up when "New Item" is selected
+    } else {
+      setSelectedOption(value); // Update selected option
+    }
    
 
     console.log(workHours[index].end)
@@ -94,7 +100,33 @@ const WorkHoursTracker = () => {
 
 const [reg,ot] = weekTotal();
 
+  const [options, setOptions] = useState(jobsArray); // Initial options
+  const [selectedOption, setSelectedOption] = useState(""); // State for selected option
+  const [showInputPopup, setShowInputPopup] = useState(false); // State for pop-up visibility
+  const [newOption, setNewOption] = useState(""); // State for new option input
 
+  
+  
+  
+  const handleEnterPress = (event) => {
+    const updatedWorkHours = [...workHours];
+    //updatedWorkHours[index][type] = value;
+  
+    if (event.key === "Enter") {
+      //console.log("Input Value:", inputValue); // Log the input value (optional)
+      if (newOption.trim() && !options.includes(newOption)) {
+        setOptions([...options, newOption]); // Add the new item to the options list
+        //setJobsArray([...jobsArray, newOption]);
+        setJobsArray((prev) => [...prev, newOption]);
+        setSelectedOption(newOption); // Set the new item as the selected option
+      }
+      setNewOption(""); // Clear the input field
+      setShowInputPopup(false); // Hide the input box
+      console.log("jobs",jobsArray,options,newOption)
+ 
+    }
+ 
+  };
 
 
   return (
@@ -165,7 +197,25 @@ const [reg,ot] = weekTotal();
         
       ))}
        <option value="New Item">New Job</option>
-        </select>    
+        </select>   
+
+
+  {/* Pop-up Input */}
+  {showInputPopup && (
+        <div  >
+          <input className="cool-pop-up"
+            type="text"
+            onChange={(e) => setNewOption(e.target.value)}
+            // onSubmit={handleAddOption}
+            placeholder="new job name"
+            onKeyDown={handleEnterPress}
+            autoFocus
+          />
+        </div>
+      )}
+
+
+
        
        <select  className="cool-time-select"// style={{ marginRight: "0px" }} 
         defaultValue={timeOptions['14']}
