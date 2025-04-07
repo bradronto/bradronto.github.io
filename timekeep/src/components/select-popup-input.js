@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./styles/cool.css"
 
-const SelectWithNewItem = ({jobsArray}) => {
+const SelectWithNewItem = ({jobsArray,setJobsArray}) => {
  // const myArray1 = ["Lake Mariner", "Option 2", "Option 3"];
   //const [options, setOptions] = useState(["Option 1", "Option 2", "Option 3"]); // Initial options
   const [options, setOptions] = useState(jobsArray); // Initial options
@@ -21,15 +21,17 @@ const SelectWithNewItem = ({jobsArray}) => {
 
   const handleEnterPress = (event) => {
     if (event.key === "Enter") {
-      setShowInputPopup(false); // Hide the input box
       //console.log("Input Value:", inputValue); // Log the input value (optional)
       if (newOption.trim() && !options.includes(newOption)) {
         setOptions([...options, newOption]); // Add the new item to the options list
-        //setJobsArray(options);
+        //setJobsArray([...jobsArray, newOption]);
+        setJobsArray((prev) => [...prev, newOption]);
         setSelectedOption(newOption); // Set the new item as the selected option
       }
       setNewOption(""); // Clear the input field
-    
+      setShowInputPopup(false); // Hide the input box
+      console.log("jobs",jobsArray,options,newOption)
+ 
     }
  
   };

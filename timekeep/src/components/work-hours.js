@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import "./styles/cool.css"
-import SelectWithNewItem from "./a";
+//import SelectWithNewItem from "./select-popup-input";
 import NumberInBox from "./number-in-box";
 import generateTimeOptions from "./time-select"
 import getMonth from "./date-header";
@@ -11,21 +11,31 @@ const WorkHoursTracker = () => {
   const [changeWeek, setChangeWeek] = useState(1);
   const daysOfWeek = getDatesOfCurrentWeek(changeWeek);
 
-  const [workHours, setWorkHours] = useState(
-    daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner Data", isChecked: index < 5 ?true:false }))
-  );
-
-
+  const initJobs = ["Lake Mariner Data", "Linde Niag Falls","Church"];
+  const [jobsArray,setJobsArray] = useState(initJobs);
  
+  const [workHours, setWorkHours] = useState(
+    daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false }))
+  );
+ 
+
 
   const handleChange = (index, type, value) => {
     const updatedWorkHours = [...workHours];
     updatedWorkHours[index][type] = value;
-   
-    type == "isChecked" ? updatedWorkHours[index]["isChecked"] == false? updatedWorkHours[index]["end"] = updatedWorkHours[index]["start"]:updatedWorkHours[index]["end"]="3:00 PM":console.log("not suposed to")
+
+    type ==="isChecked" ? updatedWorkHours[index]["isChecked"] === false? updatedWorkHours[index]["end"] = "7:00 AM":updatedWorkHours[index]["end"]="3:00 PM":console.log("not suposed to")
     setWorkHours(updatedWorkHours);
-    console.log(workHours[index].isChecked)
+   
+
+    console.log(workHours[index].end)
   };
+
+  const handleWeekChange = (chosenWeek) => {
+    chosenWeek==="last week" ? setChangeWeek(-6): setChangeWeek(1);
+    };
+
+
 
   const calculateTotalHours = (start, end) => {
     const [start12, startPeriod] = start.split(" ");
@@ -43,9 +53,6 @@ const WorkHoursTracker = () => {
   );
 
   const weekTotal = () => {
-    //const all = workHours.reduce((total, day) => total + 
-   // calculateTotalHours(day.start, day.end), 0);
-   //const reg = 31;
    const reg = workHours.slice(0,5).reduce(
     (total, day) => total + (calculateTotalHours(day.start, day.end) <=8 ?calculateTotalHours(day.start, day.end):8),
     0
@@ -71,7 +78,6 @@ const WorkHoursTracker = () => {
 
   const timeOptions = generateTimeOptions();
 
-  const [jobsArray,setJobsArray] = useState(["Lake Mariner Data", "Linde Niag Falls"]);
  
   const textRef = useRef();
   const [rawText, setRawText] = useState("wtf");
@@ -88,18 +94,12 @@ const WorkHoursTracker = () => {
 
 const [reg,ot] = weekTotal();
 
-const handleWeekChange = (chosenWeek) => {
 
-  chosenWeek==="last week" ? setChangeWeek(-6): setChangeWeek(1);
-  
-
-
-};
 
 
   return (
   <div className="input-container" >
-    <h1 style={{  display:"flex", justifyContent:"center", alignItems: "center"}} className="cool-header"> 
+    <span style={{  display:"flex", justifyContent:"center", alignItems: "center", marginBottom:"10px"}} className="cool-header"> 
       
       <select className="cool-header-select"
               onChange={(e) => handleWeekChange(e.target.value)}
@@ -114,9 +114,13 @@ const handleWeekChange = (chosenWeek) => {
         </option>
 
       </select>
+  
+
       
       
-      &nbsp; &nbsp;&nbsp;&nbsp; {totalWeeklyHours.toFixed(1)} hrs</h1>
+      &nbsp; &nbsp;&nbsp;&nbsp; <span style={{ fontSize: "23px;" }}>{totalWeeklyHours.toFixed(1)} hrs</span> 
+      
+      </span>
     
     
     
@@ -128,7 +132,7 @@ const handleWeekChange = (chosenWeek) => {
         gap: "5px", // Adds spacing between the checkbox and the box
       }}>
 
-         <input style={{textAlign: "top"}}
+         <input style={{textAlign: "top"}}    // checkbox
           type="checkbox"
           checked={workHours[index].isChecked}
           onChange={(e) => handleChange(index, "isChecked", !workHours[index].isChecked)}       
@@ -139,10 +143,30 @@ const handleWeekChange = (chosenWeek) => {
             </td>
             <td>   
          <div>
-      {workHours[index].isChecked ? (
+     
+      {workHours[index].isChecked ? (    // show input boxes if box is checked
         <>
+         {/* 
+          <SelectWithNewItem  
+                 onChange={(e) => handleChange(index, "job", e.target.value)}
+ 
+          />   */}
+
           
-          <SelectWithNewItem  jobsArray={jobsArray} />
+
+<select  className="cool-input"// 
+       
+        onChange={(e) => handleChange(index, "job", e.target.value)}
+        >
+         {jobsArray.map((job, indx) => (
+        <option  key={indx} value={job}>
+          {job}
+        </option>
+        
+      ))}
+       <option value="New Item">New Job</option>
+        </select>    
+       
        <select  className="cool-time-select"// style={{ marginRight: "0px" }} 
         defaultValue={timeOptions['14']}
         onChange={(e) => handleChange(index, "start", e.target.value)}
@@ -169,7 +193,7 @@ const handleWeekChange = (chosenWeek) => {
       ) : (
         <>
           
-          <p className="cool-span"></p>
+          <p className="cool-span"> No Hours -  </p> 
         </>
       )}
         </div>     
@@ -178,10 +202,9 @@ const handleWeekChange = (chosenWeek) => {
            {index<5?( // is it a weekday?
             <>
           {
-           calculateTotalHours(workHours[index].start, workHours[index].end)==false?(8).toFixed(1):
            calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)
-           
-           }  <br /> 
+            } 
+             <br /> 
             {
            // calculateTotalHours(workHours[index].start, workHours[index].end)>8?
            // (calculateTotalHours(workHours[index].start, workHours[index].end) - 8).toFixed(1):
@@ -189,7 +212,7 @@ const handleWeekChange = (chosenWeek) => {
             
             } 
             </>
-           ) : (
+           ) : ( //weekends are OT
             <>
             
             {calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)}
@@ -220,7 +243,7 @@ const handleWeekChange = (chosenWeek) => {
     {daysOfWeek.map((day, index) => (
     <div  className="blue" key={index}  >
 
-{workHours[index].isChecked ? (
+{workHours[index].isChecked ? (  // only show checked days
         <>
       <span style={{ marginLeft:"0px"}}>
       {daysOfWeek[index]}
@@ -267,6 +290,8 @@ const handleWeekChange = (chosenWeek) => {
       </div>
   </div>
 );
+
+
 };
 
 
