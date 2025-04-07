@@ -28,9 +28,11 @@ const WorkHoursTracker = () => {
     setWorkHours(updatedWorkHours);
 
     if (value === "New Item") {
-      setShowInputPopup(true); // Show the pop-up when "New Item" is selected
+     // setShowInputPopup(true); // Show the pop-up when "New Item" is selected
+     updatedWorkHours[index]["showNew"] = true;
     } else {
       setSelectedOption(value); // Update selected option
+     //updatedWorkHours[index]["job"] = value;
     }
    
 
@@ -108,18 +110,21 @@ const [reg,ot] = weekTotal();
   
   
   
-  const handleEnterPress = (event) => {
+  const handleEnterPress = (event,index,type) => {
     const updatedWorkHours = [...workHours];
-    //updatedWorkHours[index][type] = value;
+    updatedWorkHours[index][type] = newOption;
   
     if (event.key === "Enter") {
       //console.log("Input Value:", inputValue); // Log the input value (optional)
       if (newOption.trim() && !options.includes(newOption)) {
-        setOptions([...options, newOption]); // Add the new item to the options list
-        //setJobsArray([...jobsArray, newOption]);
-        setJobsArray((prev) => [...prev, newOption]);
-        setSelectedOption(newOption); // Set the new item as the selected option
+       // updatedWorkHours[index][type] = newOption;
+
+       // setOptions([...options, newOption]); // Add the new item to the options list
+        setJobsArray([...jobsArray, newOption]);
+        //setJobsArray((prev) => [...prev, newOption]); // this works too
+       // setSelectedOption(newOption); // Set the new item as the selected option
       }
+      workHours[index].showNew = false;
       setNewOption(""); // Clear the input field
       setShowInputPopup(false); // Hide the input box
       console.log("jobs",jobsArray,options,newOption)
@@ -187,7 +192,7 @@ const [reg,ot] = weekTotal();
           
 
 <select  className="cool-input"// 
-       
+       value={workHours[index].job}
         onChange={(e) => handleChange(index, "job", e.target.value)}
         >
          {jobsArray.map((job, indx) => (
@@ -201,14 +206,14 @@ const [reg,ot] = weekTotal();
 
 
   {/* Pop-up Input */}
-  {showInputPopup && (
+  {workHours[index].showNew == true && (
         <div  >
           <input className="cool-pop-up"
             type="text"
             onChange={(e) => setNewOption(e.target.value)}
             // onSubmit={handleAddOption}
             placeholder="new job name"
-            onKeyDown={handleEnterPress}
+            onKeyDown={(e) => handleEnterPress(e,index,"job")}
             autoFocus
           />
         </div>
