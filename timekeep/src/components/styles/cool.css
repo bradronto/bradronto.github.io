@@ -21,7 +21,7 @@
   .cool-header {
     height: 40px;
     margin-left: 16px;
-    background-color: rgb(255, 250, 186);
+    background-color: rgb(209, 202, 111);
     width: 94%;
     padding: 0px;
     border: 2px solid #487dd8;
@@ -33,7 +33,7 @@
   .cool-header-select {
     height: 40px;
     margin-left: 0px;
-    background-color: rgb(255, 250, 186);
+    background-color: rgb(209, 202, 111);
     width: 60%;
     padding: 0px;
     border: none;
@@ -48,6 +48,7 @@
   /* Input Field */
 
   .cool-pop-up {
+    margin-bottom: 3px;
     height: 28px;
     color: black;
     width: 96%;

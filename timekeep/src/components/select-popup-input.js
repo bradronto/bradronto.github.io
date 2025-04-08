@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import "./styles/cool.css"
 
 const SelectWithNewItem = ({jobsArray,setJobsArray}) => {
- // const myArray1 = ["Lake Mariner", "Option 2", "Option 3"];
-  //const [options, setOptions] = useState(["Option 1", "Option 2", "Option 3"]); // Initial options
   const [options, setOptions] = useState(jobsArray); // Initial options
   const [selectedOption, setSelectedOption] = useState(""); // State for selected option
   const [showInputPopup, setShowInputPopup] = useState(false); // State for pop-up visibility
   const [newOption, setNewOption] = useState(""); // State for new option input
- // const [showInput, setShowInput] = useState(false);
-
+ 
   const handleSelectChange = (event) => {
     const value = event.target.value;
     if (value === "New Item") {
@@ -31,10 +28,8 @@ const SelectWithNewItem = ({jobsArray,setJobsArray}) => {
       setNewOption(""); // Clear the input field
       setShowInputPopup(false); // Hide the input box
       console.log("jobs",jobsArray,options,newOption)
- 
-    }
- 
-  };
+     } 
+   };
 
   const handleAddOption = () => {
     if (newOption.trim() && !options.includes(newOption)) {
@@ -70,22 +65,8 @@ const SelectWithNewItem = ({jobsArray,setJobsArray}) => {
           />
         </div>
       )}
-
-     
     </div>
   );
 };
 
 export default SelectWithNewItem;
-
-
-/*
-
-          <button onClick={handleAddOption}>Add</button>
-          <button onClick={() => setShowInputPopup(false)}>Cancel</button>
-
- <div style={{ marginTop: "20px" }}>
-        <p>{selectedOption || "None selected"}</p>
-      </div>
-
-*/

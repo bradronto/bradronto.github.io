@@ -93,26 +93,23 @@ const WorkHoursTracker = () => {
 
 const [reg,ot] = weekTotal();
 
-  const [options, setOptions] = useState(jobNames); // Initial options
+ 
   const [selectedOption, setSelectedOption] = useState(""); // State for selected option
-  //const [showInputPopup, setShowInputPopup] = useState(false); // State for pop-up visibility
   const [newOption, setNewOption] = useState(""); // State for new option input
-
-  
-  
-  
+ 
   const handleEnterPress = (event,index,type) => 
     {
     const updatedWorkHours = [...workHours];
     updatedWorkHours[index][type] = newOption;
   
     if (event.key === "Enter") {
-      if (newOption.trim() && !options.includes(newOption)) {
+      if (newOption.trim() && !jobNames.includes(newOption)) {
         setJobNames([...jobNames, newOption]);
        }
+       
       workHours[index].showNew = false;
       setNewOption(""); // Clear the input field
-      console.log("jobs",jobNames,options,newOption)
+      console.log(event,index,type)
      }
  
   };
@@ -171,12 +168,14 @@ const [reg,ot] = weekTotal();
          {/* Pop-up Input */}
   {workHours[index].showNew == true && (
         <div  >
-          <input className="cool-pop-up"
+          <input className="cool-pop-up" 
             type="text"
             onChange={(e) => setNewOption(e.target.value)}
             // onSubmit={handleAddOption}
             placeholder="new job name"
-            onKeyDown={(e) => handleEnterPress(e,index,"job")}
+            //onKeyDown={(e) => handleEnterPress(e,index,"job")}
+            //onBlur={handleChange(index,"showNew",false)}
+            onKeyUp={(e) => handleEnterPress(e,index,"job")}
             autoFocus
           />
         </div>
