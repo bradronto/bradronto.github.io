@@ -9,9 +9,9 @@ import getDatesOfCurrentWeek from "./current-week";
 const WorkHoursTracker = () => {
 
   const [changeWeek, setChangeWeek] = useState(1);
-  const daysOfWeek = getDatesOfCurrentWeek(changeWeek);
+  const daysOfWeek = getDatesOfCurrentWeek(changeWeek);  //chgwk is 1 for this week and -6 for last
   const initJobs = ["Lake Mariner Data", "Linde Niag Falls"];
-  const [jobsArray,setJobsArray] = useState(initJobs);
+  const [jobNames,setJobNames] = useState(initJobs);
   const [workHours, setWorkHours] = useState(
     daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: false }))
   );
@@ -25,17 +25,14 @@ const WorkHoursTracker = () => {
     setWorkHours(updatedWorkHours);
 
     if (value === "New Item") {
-     // setShowInputPopup(true); // Show the pop-up when "New Item" is selected
-     updatedWorkHours[index]["showNew"] = true;
+      updatedWorkHours[index]["showNew"] = true;
     } else {
       setSelectedOption(value); // Update selected option
-     //updatedWorkHours[index]["job"] = value;
-    }
-   
-
+     }
     console.log(workHours[index].end)
   };
 
+  
   const handleWeekChange = (chosenWeek) => 
     {
     chosenWeek==="last week" ? setChangeWeek(-6): setChangeWeek(1);
@@ -61,17 +58,17 @@ const WorkHoursTracker = () => {
 
   const weekTotal = () => 
   {
-   const reg = workHours.slice(0,5).reduce(
+   const reg = workHours.slice(0,5).reduce(  // regular hours
     (total, day) => total + (calculateTotalHours(day.start, day.end) <=8 ?calculateTotalHours(day.start, day.end):8),
     0
    );
 
-   const rot = workHours.slice(0,5).reduce(
+   const rot = workHours.slice(0,5).reduce(  // weekday OT hours
     (total, day) => total + (calculateTotalHours(day.start, day.end)>8?calculateTotalHours(day.start, day.end)-8:0),
     0
    );
   
-   const wot = workHours.slice(5).reduce(
+   const wot = workHours.slice(5).reduce(  // weekend OT hours
     (total, day) => total + (calculateTotalHours(day.start, day.end)),
     0
    );
@@ -96,7 +93,7 @@ const WorkHoursTracker = () => {
 
 const [reg,ot] = weekTotal();
 
-  const [options, setOptions] = useState(jobsArray); // Initial options
+  const [options, setOptions] = useState(jobNames); // Initial options
   const [selectedOption, setSelectedOption] = useState(""); // State for selected option
   //const [showInputPopup, setShowInputPopup] = useState(false); // State for pop-up visibility
   const [newOption, setNewOption] = useState(""); // State for new option input
@@ -111,11 +108,11 @@ const [reg,ot] = weekTotal();
   
     if (event.key === "Enter") {
       if (newOption.trim() && !options.includes(newOption)) {
-        setJobsArray([...jobsArray, newOption]);
+        setJobNames([...jobNames, newOption]);
        }
       workHours[index].showNew = false;
       setNewOption(""); // Clear the input field
-      console.log("jobs",jobsArray,options,newOption)
+      console.log("jobs",jobNames,options,newOption)
      }
  
   };
@@ -165,17 +162,13 @@ const [reg,ot] = weekTotal();
        value={workHours[index].job}
         onChange={(e) => handleChange(index, "job", e.target.value)}
         >
-         {jobsArray.map((job, indx) => (
+         {jobNames.map((job, indx) => (
         <option  key={indx} value={job}>
           {job}
-        </option>
-        
-      ))}
+        </option>))}
        <option value="New Item">New Job</option>
-        </select>   
-
-
-  {/* Pop-up Input */}
+        </select> 
+         {/* Pop-up Input */}
   {workHours[index].showNew == true && (
         <div  >
           <input className="cool-pop-up"
@@ -188,10 +181,6 @@ const [reg,ot] = weekTotal();
           />
         </div>
       )}
-
-
-
-       
        <select  className="cool-time-select"// style={{ marginRight: "0px" }} 
         defaultValue={timeOptions['14']}
         onChange={(e) => handleChange(index, "start", e.target.value)}
@@ -213,18 +202,17 @@ const [reg,ot] = weekTotal();
         </option>
       ))}
         </select> 
-        
-        </>
+         </>
       ) : (
         <>
-          
-          <p className="cool-span"> No Hours -  </p> 
+          <p className="cool-span"> No Hours   </p> 
         </>
       )}
         </div>     
           </td> <td style={{marginBottom: "0px", alignContent:"baselines"}}>
           <span style={{  marginBottom: "0px", alignContent:"baselines" }}>
-           {index<5?( // is it a weekday?
+           {    //index<5?( // is it a weekday?
+            workHours[index].isChecked?(
             <>
           {
            calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)
@@ -238,12 +226,12 @@ const [reg,ot] = weekTotal();
             } 
             </>
            ) : ( //weekends are OT
-            <>
-            
-            {calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)}
-            
-            
-            </>)}
+            <> 
+           {
+           //calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)
+            } 
+
+             </>)}
            </span>
            </td></tr></tbody></table>
        ))}
@@ -265,21 +253,22 @@ const [reg,ot] = weekTotal();
 {workHours[index].isChecked ? (  // only show checked days
         <>
       <span style={{ marginLeft:"0px"}}>
-      {daysOfWeek[index]}
+      {daysOfWeek[index] }
       </span>
       <br />      
-         {workHours[index].job} <br></br>
-          <span  className="indent">
-           {workHours[index].start}-{workHours[index].end} <br></br>
+      &nbsp; {workHours[index].job} <br></br>
+         <span  className="indent">
+      &nbsp;     {workHours[index].start}-{workHours[index].end} <br></br>
 
-           {index<5?(
+      &nbsp;     {index<5?(
             <>
 
             {calculateTotalHours(workHours[index].start, workHours[index].end)>8?8:calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} Hrs
-          &nbsp; &nbsp; {calculateTotalHours(workHours[index].start, workHours[index].end)>8?calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)-8:0} O.T.
+            &nbsp; &nbsp; {calculateTotalHours(workHours[index].start, workHours[index].end)>8?calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)-8:0} O.T.
        
           </>
            ) : (
+            
             <>
             0.0 Hrs  &nbsp; &nbsp;{calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} O.T.
             
@@ -294,9 +283,12 @@ const [reg,ot] = weekTotal();
         <br />
         </>
           
-        ) : (
+        ) : (  // no work days
           <>
-          
+           {daysOfWeek[index] }
+           <br />
+           &nbsp; &nbsp;No Hours
+           <br /><br />
           </>
         )}
 
