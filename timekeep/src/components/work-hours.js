@@ -10,17 +10,14 @@ const WorkHoursTracker = () => {
 
   const [changeWeek, setChangeWeek] = useState(1);
   const daysOfWeek = getDatesOfCurrentWeek(changeWeek);
-
-  const initJobs = ["Lake Mariner Data", "Linde Niag Falls","Church"];
+  const initJobs = ["Lake Mariner Data", "Linde Niag Falls"];
   const [jobsArray,setJobsArray] = useState(initJobs);
- 
   const [workHours, setWorkHours] = useState(
     daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: false }))
   );
  
-
-
-  const handleChange = (index, type, value) => {
+  const handleChange = (index, type, value) => 
+  {
     const updatedWorkHours = [...workHours];
     updatedWorkHours[index][type] = value;
 
@@ -39,13 +36,15 @@ const WorkHoursTracker = () => {
     console.log(workHours[index].end)
   };
 
-  const handleWeekChange = (chosenWeek) => {
+  const handleWeekChange = (chosenWeek) => 
+    {
     chosenWeek==="last week" ? setChangeWeek(-6): setChangeWeek(1);
     };
 
 
 
-  const calculateTotalHours = (start, end) => {
+  const calculateTotalHours = (start, end) => 
+    {
     const [start12, startPeriod] = start.split(" ");
     const[end12,endPeriod] = end.split(" ");
     const [startHour, startMinute] = start12.split(":").map(Number);
@@ -60,33 +59,28 @@ const WorkHoursTracker = () => {
     0
   );
 
-  const weekTotal = () => {
+  const weekTotal = () => 
+  {
    const reg = workHours.slice(0,5).reduce(
     (total, day) => total + (calculateTotalHours(day.start, day.end) <=8 ?calculateTotalHours(day.start, day.end):8),
     0
-  );
+   );
 
-  const rot = workHours.slice(0,5).reduce(
+   const rot = workHours.slice(0,5).reduce(
     (total, day) => total + (calculateTotalHours(day.start, day.end)>8?calculateTotalHours(day.start, day.end)-8:0),
     0
-  );
+   );
   
-  const wot = workHours.slice(5).reduce(
+   const wot = workHours.slice(5).reduce(
     (total, day) => total + (calculateTotalHours(day.start, day.end)),
     0
-  );
+   );
      
   const ot=rot+wot;
-  
-  
   return[reg,ot]
-
-
   }
 
   const timeOptions = generateTimeOptions();
-
- 
   const textRef = useRef();
   const [rawText, setRawText] = useState("wtf");
   
@@ -104,32 +98,25 @@ const [reg,ot] = weekTotal();
 
   const [options, setOptions] = useState(jobsArray); // Initial options
   const [selectedOption, setSelectedOption] = useState(""); // State for selected option
-  const [showInputPopup, setShowInputPopup] = useState(false); // State for pop-up visibility
+  //const [showInputPopup, setShowInputPopup] = useState(false); // State for pop-up visibility
   const [newOption, setNewOption] = useState(""); // State for new option input
 
   
   
   
-  const handleEnterPress = (event,index,type) => {
+  const handleEnterPress = (event,index,type) => 
+    {
     const updatedWorkHours = [...workHours];
     updatedWorkHours[index][type] = newOption;
   
     if (event.key === "Enter") {
-      //console.log("Input Value:", inputValue); // Log the input value (optional)
       if (newOption.trim() && !options.includes(newOption)) {
-       // updatedWorkHours[index][type] = newOption;
-
-       // setOptions([...options, newOption]); // Add the new item to the options list
         setJobsArray([...jobsArray, newOption]);
-        //setJobsArray((prev) => [...prev, newOption]); // this works too
-       // setSelectedOption(newOption); // Set the new item as the selected option
-      }
+       }
       workHours[index].showNew = false;
       setNewOption(""); // Clear the input field
-      setShowInputPopup(false); // Hide the input box
       console.log("jobs",jobsArray,options,newOption)
- 
-    }
+     }
  
   };
 
@@ -140,57 +127,40 @@ const [reg,ot] = weekTotal();
       
       <select className="cool-header-select"
               onChange={(e) => handleWeekChange(e.target.value)}
- 
       >
         <option value="this week">
         {getMonth(1)} 
-
         </option>
         <option value="last week">
-          {getMonth(-6)}
+        {getMonth(-6)}
         </option>
-
       </select>
-  
 
-      
-      
-      &nbsp; &nbsp;&nbsp;&nbsp; <span style={{ fontSize: "23px;" }}>{totalWeeklyHours.toFixed(1)} hrs</span> 
-      
-      </span>
+       &nbsp; &nbsp;&nbsp;&nbsp; <span style={{ fontSize: "23px" }}>{totalWeeklyHours.toFixed(1)} hrs</span> 
+   </span>
     
     
     
      {daysOfWeek.map((day, index) => (
-       <table key={index} style={{ marginLeft: "10px" }}>
-         <tr><td style={{
+       <table key={index} style={{marginLeft:"10px"}}>
+        <tbody>
+        <tr>
+        <td style={{
         display: "flex", // Enables Flexbox
         alignItems: "flex-start", // Aligns items to the top
         gap: "5px", // Adds spacing between the checkbox and the box
       }}>
-
-         <input style={{textAlign: "top"}}    // checkbox
+        <input style={{textAlign: "top"}}    // checkbox
           type="checkbox"
           checked={workHours[index].isChecked}
           onChange={(e) => handleChange(index, "isChecked", !workHours[index].isChecked)}       
         />
          <NumberInBox day={day} color="grey" />
-             <br></br>
-          
-            </td>
+             <br></br></td>
             <td>   
          <div>
-     
-      {workHours[index].isChecked ? (    // show input boxes if box is checked
+          {workHours[index].isChecked ? (    // show input boxes if box is checked
         <>
-         {/* 
-          <SelectWithNewItem  
-                 onChange={(e) => handleChange(index, "job", e.target.value)}
- 
-          />   */}
-
-          
-
 <select  className="cool-input"// 
        value={workHours[index].job}
         onChange={(e) => handleChange(index, "job", e.target.value)}
@@ -274,14 +244,8 @@ const [reg,ot] = weekTotal();
             
             
             </>)}
-
-
-
-
-          </span>
-            
-            </td></tr> 
-          </table>
+           </span>
+           </td></tr></tbody></table>
        ))}
      
    
