@@ -15,10 +15,16 @@
     background-color: white;
   }
 
+  .hours-display{
+
+    width: 50px;
+  }
+
   .cool-span {
     width: 100%;
   }
   .cool-header {
+    color: black;
     height: 40px;
     margin-left: 16px;
     background-color: rgb(209, 202, 111);

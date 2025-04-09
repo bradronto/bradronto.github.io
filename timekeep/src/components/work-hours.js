@@ -105,8 +105,21 @@ const [reg,ot] = weekTotal();
      else if (newOption.trim() && !jobNames.includes(newOption)) {
         updatedWorkHours[index][type] = newOption;
         setJobNames([...jobNames, newOption]);
-        setWorkHours(updatedWorkHours)
-        setIsFirstRun(false)
+        setWorkHours(updatedWorkHours);
+        if(isFirstRun ){
+          setIsFirstRun(false);
+          setWorkHours((prevWorkHours) =>
+            prevWorkHours.map((workHour) => ({
+              ...workHour, // Spread the existing properties
+              job: newOption // Update the job property
+            }))
+          );
+          
+        
+        
+        
+        }
+    
 
         console.log(updatedWorkHours[index])
         }
@@ -163,6 +176,7 @@ const [reg,ot] = weekTotal();
           className="cool-input"// 
           value={workHours[index].job}
           onChange={(e) => handleChange(index, "job", e.target.value)}
+          onClick={(e) => handleChange(index, "job", e.target.value)}
         >
          {jobNames.map((job, indx) => (
         <option  key={indx} value={job}>
