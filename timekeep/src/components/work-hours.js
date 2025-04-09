@@ -5,12 +5,14 @@ import NumberInBox from "./number-in-box";
 import generateTimeOptions from "./time-select"
 import getMonth from "./date-header";
 import getDatesOfCurrentWeek from "./current-week";
+import calculateTotalHours from "./total-hours"
 
 const WorkHoursTracker = () => {
-
+  const [isFirstRun, setIsFirstRun] = useState(true);
+ 
   const [changeWeek, setChangeWeek] = useState(1);
   const daysOfWeek = getDatesOfCurrentWeek(changeWeek);  //chgwk is 1 for this week and -6 for last
-  const initJobs = ["Lake Mariner Data", "Linde Niag Falls"];
+  const initJobs = [];
   const [jobNames,setJobNames] = useState(initJobs);
   const [workHours, setWorkHours] = useState(
     daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: false }))
@@ -19,7 +21,7 @@ const WorkHoursTracker = () => {
   const handleChange = (index, type, value) => 
   {
     const updatedWorkHours = [...workHours];
-    const storedJob = updatedWorkHours[index].job
+    const storedJob = updatedWorkHours[index].job // save jobname in the input popup
     updatedWorkHours[index][type] = value;
 
     type ==="isChecked" ? updatedWorkHours[index]["isChecked"] === false? updatedWorkHours[index]["end"] = "7:00 AM":updatedWorkHours[index]["end"]="3:00 PM":console.log("not suposed to")
@@ -42,18 +44,6 @@ const WorkHoursTracker = () => {
     chosenWeek==="last week" ? setChangeWeek(-6): setChangeWeek(1);
     };
 
-
-
-  const calculateTotalHours = (start, end) => 
-    {
-    const [start12, startPeriod] = start.split(" ");
-    const[end12,endPeriod] = end.split(" ");
-    const [startHour, startMinute] = start12.split(":").map(Number);
-    const start24 = startPeriod === "AM" ? startHour : (startHour>11?startHour:startHour + 12) ;
-    const [endHour, endMinute] = end12.split(":").map(Number);
-    const end24 = endPeriod === "AM"?endHour:(endHour>11?endHour:endHour+12);
-    return (end24 + endMinute / 60) - (start24 + startMinute / 60);
-  };
 
   const totalWeeklyHours = workHours.reduce(
     (total, day) => total + calculateTotalHours(day.start, day.end),
@@ -108,23 +98,18 @@ const [reg,ot] = weekTotal();
     if (event.key === "Enter") {
       if(newOption===""){
         updatedWorkHours[index][type] = storedJob;
-
         updatedWorkHours[index].showNew = false;
         setWorkHours(updatedWorkHours)
- 
-        //setNewOption(""); // Clear the input field
-        console.log("nailed it",newOption, storedJob)
+        console.log(event.key,newOption, storedJob)
           }
      else if (newOption.trim() && !jobNames.includes(newOption)) {
-       
         updatedWorkHours[index][type] = newOption;
-
         setJobNames([...jobNames, newOption]);
         setWorkHours(updatedWorkHours)
+        setIsFirstRun(false)
+
         console.log(updatedWorkHours[index])
         }
-       
-       
       workHours[index].showNew = false;
       setNewOption(""); // Clear the input field
       console.log(event.key,index,type,newOption.trim())
@@ -136,9 +121,9 @@ const [reg,ot] = weekTotal();
   return (
   <div className="input-container" >
     <span style={{  display:"flex", justifyContent:"center", alignItems: "center", marginBottom:"10px"}} className="cool-header"> 
-      
-      <select className="cool-header-select"
-              onChange={(e) => handleWeekChange(e.target.value)}
+       <select 
+       className="cool-header-select"
+       onChange={(e) => handleWeekChange(e.target.value)}
       >
         <option value="this week">
         {getMonth(1)} 
@@ -148,8 +133,9 @@ const [reg,ot] = weekTotal();
         </option>
       </select>
 
-       &nbsp; &nbsp;&nbsp;&nbsp; <span style={{ fontSize: "23px" }}>{totalWeeklyHours.toFixed(1)} hrs</span> 
-   </span>
+       &nbsp; &nbsp;&nbsp;&nbsp; 
+       <span style={{ fontSize: "23px" }}>{totalWeeklyHours.toFixed(1)} hrs</span> 
+      </span>
     
     
     
@@ -171,31 +157,32 @@ const [reg,ot] = weekTotal();
              <br></br></td>
             <td>   
          <div>
-          {workHours[index].isChecked ? (    // show input boxes if box is checked
+          {workHours[index].isChecked ? (    // show day's form if box is checked
         <>
-<select  className="cool-input"// 
-       value={workHours[index].job}
-        onChange={(e) => handleChange(index, "job", e.target.value)}
+        <select  
+          className="cool-input"// 
+          value={workHours[index].job}
+          onChange={(e) => handleChange(index, "job", e.target.value)}
         >
          {jobNames.map((job, indx) => (
         <option  key={indx} value={job}>
           {job}
         </option>))}
+{isFirstRun?(
+        <option value="New Item" >
+          Enter a new jobname
+        </option>
+       ):(console.log(""))}
        <option value="New Item">New Job</option>
         </select> 
          {/* Pop-up Input */}
   {workHours[index].showNew === true && (
-        <div  >
+        <div>
           <input className="cool-pop-up" 
             type="text"
             onChange={(e) => setNewOption(e.target.value)}
-            //onBlur={(e) => setNewOption(e.target.value)}
-            // onSubmit={handleAddOption}
             placeholder="new job name"
-            //onKeyDown={(e) => handleEnterPress(e,index,"job")}
-            //onBlur={handleChange(index,"showNew",false)}
-            //onKeyUp={(e) => handleEnterPress(e,index,"job")}
-            onKeyUp={(e) => handleEnterPress(e,index,"job")}
+           onKeyUp={(e) => handleEnterPress(e,index,"job")}
             autoFocus
           />
         </div>
@@ -237,12 +224,7 @@ const [reg,ot] = weekTotal();
            calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)
             } 
              <br /> 
-            {
-           // calculateTotalHours(workHours[index].start, workHours[index].end)>8?
-           // (calculateTotalHours(workHours[index].start, workHours[index].end) - 8).toFixed(1):
-           // (0).toFixed(1)
-            
-            } 
+           
             </>
            ) : ( //weekends are OT
             <> 
