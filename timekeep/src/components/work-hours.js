@@ -19,6 +19,7 @@ const WorkHoursTracker = () => {
   const handleChange = (index, type, value) => 
   {
     const updatedWorkHours = [...workHours];
+    const storedJob = updatedWorkHours[index].job
     updatedWorkHours[index][type] = value;
 
     type ==="isChecked" ? updatedWorkHours[index]["isChecked"] === false? updatedWorkHours[index]["end"] = "7:00 AM":updatedWorkHours[index]["end"]="3:00 PM":console.log("not suposed to")
@@ -26,8 +27,11 @@ const WorkHoursTracker = () => {
 
     if (value === "New Item") {
       updatedWorkHours[index]["showNew"] = true;
+      updatedWorkHours[index]["job"] = storedJob;
+
+      setWorkHours(updatedWorkHours)
     } else {
-      setSelectedOption(value); // Update selected option
+      //setSelectedOption(value); // Update selected option
      }
     console.log(workHours[index].end)
   };
@@ -94,22 +98,36 @@ const WorkHoursTracker = () => {
 const [reg,ot] = weekTotal();
 
  
-  const [selectedOption, setSelectedOption] = useState(""); // State for selected option
+  //const [selectedOption, setSelectedOption] = useState(""); // State for selected option
   const [newOption, setNewOption] = useState(""); // State for new option input
  
   const handleEnterPress = (event,index,type) => 
     {
     const updatedWorkHours = [...workHours];
-    updatedWorkHours[index][type] = newOption;
-  
+    const storedJob = workHours[index].job;
     if (event.key === "Enter") {
-      if (newOption.trim() && !jobNames.includes(newOption)) {
+      if(newOption===""){
+        updatedWorkHours[index][type] = storedJob;
+
+        updatedWorkHours[index].showNew = false;
+        setWorkHours(updatedWorkHours)
+ 
+        //setNewOption(""); // Clear the input field
+        console.log("nailed it",newOption, storedJob)
+          }
+     else if (newOption.trim() && !jobNames.includes(newOption)) {
+       
+        updatedWorkHours[index][type] = newOption;
+
         setJobNames([...jobNames, newOption]);
-       }
+        setWorkHours(updatedWorkHours)
+        console.log(updatedWorkHours[index])
+        }
+       
        
       workHours[index].showNew = false;
       setNewOption(""); // Clear the input field
-      console.log(event,index,type)
+      console.log(event.key,index,type,newOption.trim())
      }
  
   };
@@ -166,15 +184,17 @@ const [reg,ot] = weekTotal();
        <option value="New Item">New Job</option>
         </select> 
          {/* Pop-up Input */}
-  {workHours[index].showNew == true && (
+  {workHours[index].showNew === true && (
         <div  >
           <input className="cool-pop-up" 
             type="text"
             onChange={(e) => setNewOption(e.target.value)}
+            //onBlur={(e) => setNewOption(e.target.value)}
             // onSubmit={handleAddOption}
             placeholder="new job name"
             //onKeyDown={(e) => handleEnterPress(e,index,"job")}
             //onBlur={handleChange(index,"showNew",false)}
+            //onKeyUp={(e) => handleEnterPress(e,index,"job")}
             onKeyUp={(e) => handleEnterPress(e,index,"job")}
             autoFocus
           />
