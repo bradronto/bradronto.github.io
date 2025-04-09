@@ -6,6 +6,8 @@ import generateTimeOptions from "./time-select"
 import getMonth from "./date-header";
 import getDatesOfCurrentWeek from "./current-week";
 import calculateTotalHours from "./total-hours"
+import weekTotal from "./week-total";
+
 
 const WorkHoursTracker = () => {
   const [isFirstRun, setIsFirstRun] = useState(true);
@@ -27,14 +29,23 @@ const WorkHoursTracker = () => {
     type ==="isChecked" ? updatedWorkHours[index]["isChecked"] === false? updatedWorkHours[index]["end"] = "7:00 AM":updatedWorkHours[index]["end"]="3:00 PM":console.log("not suposed to")
     setWorkHours(updatedWorkHours);
 
+    if(type==="job"){
     if (value === "New Item") {
       updatedWorkHours[index]["showNew"] = true;
       updatedWorkHours[index]["job"] = storedJob;
 
       setWorkHours(updatedWorkHours)
-    } else {
-      //setSelectedOption(value); // Update selected option
-     }
+    } else if(true){
+     
+      
+    setJobNames((prevOptions) => {
+      const selected = prevOptions.find((option) => option === value);
+      const remainingOptions = prevOptions.filter((option) => option !== value);
+      return [selected, ...remainingOptions];
+    });
+  }
+  
+  }
     console.log(workHours[index].end)
   };
 
@@ -50,26 +61,7 @@ const WorkHoursTracker = () => {
     0
   );
 
-  const weekTotal = () => 
-  {
-   const reg = workHours.slice(0,5).reduce(  // regular hours
-    (total, day) => total + (calculateTotalHours(day.start, day.end) <=8 ?calculateTotalHours(day.start, day.end):8),
-    0
-   );
-
-   const rot = workHours.slice(0,5).reduce(  // weekday OT hours
-    (total, day) => total + (calculateTotalHours(day.start, day.end)>8?calculateTotalHours(day.start, day.end)-8:0),
-    0
-   );
   
-   const wot = workHours.slice(5).reduce(  // weekend OT hours
-    (total, day) => total + (calculateTotalHours(day.start, day.end)),
-    0
-   );
-     
-  const ot=rot+wot;
-  return[reg,ot]
-  }
 
   const timeOptions = generateTimeOptions();
   const textRef = useRef();
@@ -85,10 +77,7 @@ const WorkHoursTracker = () => {
    setRawText(convertedText);
   }
 
-const [reg,ot] = weekTotal();
-
- 
-  //const [selectedOption, setSelectedOption] = useState(""); // State for selected option
+const [reg,ot] = weekTotal(workHours);
   const [newOption, setNewOption] = useState(""); // State for new option input
  
   const handleEnterPress = (event,index,type) => 
@@ -114,10 +103,6 @@ const [reg,ot] = weekTotal();
               job: newOption // Update the job property
             }))
           );
-          
-        
-        
-        
         }
     
 
