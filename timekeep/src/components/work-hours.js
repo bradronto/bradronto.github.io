@@ -274,8 +274,8 @@ const [reg,ot] = weekTotal();
       <span style={{ marginLeft:"0px"}}>
       {daysOfWeek[index] }
       </span>
-      <br />      
-      &nbsp; {workHours[index].job} <br></br>
+           
+      &nbsp; - {workHours[index].job} <br></br>
          <span  className="indent">
       &nbsp;     {workHours[index].start}-{workHours[index].end} <br></br>
 
