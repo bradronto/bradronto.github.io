@@ -22,25 +22,59 @@ const WorkHoursTracker = () => {
  
   const handleChange = (index, type, value) => 
   {
+
     const updatedWorkHours = [...workHours];
     const storedJob = updatedWorkHours[index].job // save jobname in the input popup
     updatedWorkHours[index][type] = value;
 
-    type ==="isChecked" ? updatedWorkHours[index]["isChecked"] === false? updatedWorkHours[index]["end"] = "7:00 AM":updatedWorkHours[index]["end"]="3:00 PM":console.log("not suposed to")
+
+    const newJob = () => {
+
+     // updatedWorkHours[index]["showNew"] = !updatedWorkHours[index]["showNew"] ; //toggle new job input
+      updatedWorkHours[index]["job"] = storedJob;
+
+      {/*  add job to job names */}
+      if (newOption.trim() && !jobNames.includes(newOption)) {
+        updatedWorkHours[index][type] = newOption; //add job
+        setJobNames([...jobNames, newOption]);
+        setWorkHours(updatedWorkHours);
+
+        if(isFirstRun ){
+          console.log("first run");
+          setIsFirstRun(false);
+          setWorkHours((prevWorkHours) =>
+            prevWorkHours.map((workHour) => ({
+              ...workHour, // Spread the existing properties
+              job: newOption // Update the job property
+            }))
+          );
+        }
+        setNewOption(""); // Clear the input field
+      console.log(true);
+       
+      }
+     console.log("job value=", newOption);
+
+    }
+
+
+    type ==="isChecked" ? updatedWorkHours[index]["isChecked"] === false? updatedWorkHours[index]["end"] = "7:00 AM":updatedWorkHours[index]["end"]="3:00 PM":console.log("it's checked")
     setWorkHours(updatedWorkHours);
 
     if(type==="job"){
     if (value === "New Item") {
-      updatedWorkHours[index]["showNew"] = !updatedWorkHours[index]["showNew"] ;
-      updatedWorkHours[index]["job"] = storedJob;
+      updatedWorkHours[index]["showNew"] = !updatedWorkHours[index]["showNew"] ; //toggle new job input
 
-      setWorkHours(updatedWorkHours);
-      if(updatedWorkHours[index].showNew === false)inputRef.current.focus();
-    
-    } else if(true){
+      newJob();
      
-      
-    setJobNames((prevOptions) => {   //reorder new job to top of list
+    } 
+    else if(true){
+      console.log("select existing job");
+      updatedWorkHours[index]["job"] = value;
+      setWorkHours(updatedWorkHours);
+      console.log("job value=",value);
+ 
+      setJobNames((prevOptions) => {   //reorder new job to top of list
       const selected = prevOptions.find((option) => option === value);
       const remainingOptions = prevOptions.filter((option) => option !== value);
       return [selected, ...remainingOptions];
@@ -48,7 +82,7 @@ const WorkHoursTracker = () => {
   }
   
   }
-    console.log(workHours[index].end)
+    console.log(workHours[index].job)
   };
 
   
@@ -82,6 +116,8 @@ const WorkHoursTracker = () => {
   const [reg,ot] = weekTotal(workHours);
   const [newOption, setNewOption] = useState(""); // State for new option input
  
+  
+  
   const handleKeyPress = (event,index,type) => 
     {
     const updatedWorkHours = [...workHours];
@@ -97,6 +133,7 @@ const WorkHoursTracker = () => {
         updatedWorkHours[index][type] = newOption;
         setJobNames([...jobNames, newOption]);
         setWorkHours(updatedWorkHours);
+       
         if(isFirstRun ){
           setIsFirstRun(false);
           setWorkHours((prevWorkHours) =>
@@ -194,7 +231,7 @@ const WorkHoursTracker = () => {
             onKeyUp={(e) => handleKeyPress(e,index,"job")}
             //onClick={(e) => handleChange(index,"job","New Item")}
             //onClick={handleClick}
-            onBlur={(e) => handleKeyPress(e,index,"job")}
+            onBlur={(e) => handleChange(index,"job","New Item")}
             autoFocus
           />
         </div>
@@ -262,22 +299,16 @@ const WorkHoursTracker = () => {
     <br></br><br></br>
     {daysOfWeek.map((day, index) => (
     <div  className="blue" key={index}  >
+      {workHours[index].isChecked ? (// only show hours for checked days
+   <><span style={{ marginLeft:"0px"}}>{daysOfWeek[index]}</span>
+      <br />&nbsp;&nbsp;{workHours[index].job} <br></br>{/*   job name    */}
+         <span  className="indent">&nbsp;&nbsp;{workHours[index].start}-{workHours[index].end} <br></br>
 
-{workHours[index].isChecked ? (  // only show hours for checked days
-        <>
-      <span style={{ marginLeft:"0px"}}>
-      {daysOfWeek[index] }
-      </span>
-           
-      <br />&nbsp;&nbsp;{workHours[index].job} <br></br>     {/*   job name    */}
-         <span  className="indent">
-         &nbsp;&nbsp;{workHours[index].start}-{workHours[index].end} <br></br>
-
-      &nbsp;&nbsp;{index<5?(
+         &nbsp;&nbsp;{index<5?(
             <>
 
             {calculateTotalHours(workHours[index].start, workHours[index].end)>8?8:calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} Hrs
-            &nbsp; &nbsp; {calculateTotalHours(workHours[index].start, workHours[index].end)>8?calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)-8:0} O.T.
+            &nbsp;&nbsp;{calculateTotalHours(workHours[index].start, workHours[index].end)>8?calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)-8:0} O.T.
        
           </>
            ) : (
