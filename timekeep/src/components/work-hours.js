@@ -31,14 +31,14 @@ const WorkHoursTracker = () => {
 
     if(type==="job"){
     if (value === "New Item") {
-      updatedWorkHours[index]["showNew"] = true;
+      updatedWorkHours[index]["showNew"] = !updatedWorkHours[index]["showNew"] ;
       updatedWorkHours[index]["job"] = storedJob;
 
-      setWorkHours(updatedWorkHours)
+      setWorkHours(updatedWorkHours);
     } else if(true){
      
       
-    setJobNames((prevOptions) => {
+    setJobNames((prevOptions) => {   //reorder new job to top of list
       const selected = prevOptions.find((option) => option === value);
       const remainingOptions = prevOptions.filter((option) => option !== value);
       return [selected, ...remainingOptions];
@@ -77,7 +77,7 @@ const WorkHoursTracker = () => {
    setRawText(convertedText);
   }
 
-const [reg,ot] = weekTotal(workHours);
+  const [reg,ot] = weekTotal(workHours);
   const [newOption, setNewOption] = useState(""); // State for new option input
  
   const handleEnterPress = (event,index,type) => 
@@ -157,6 +157,8 @@ const [reg,ot] = weekTotal(workHours);
          <div>
           {workHours[index].isChecked ? (    // show day's form if box is checked
         <>
+
+         {/*  select job    */}
         <select  
           className="cool-input"// 
           value={workHours[index].job}
@@ -169,19 +171,21 @@ const [reg,ot] = weekTotal(workHours);
         </option>))}
 {isFirstRun?(
         <option value="New Item" >
-          Enter a new jobname
+          Enter a jobname
         </option>
        ):(console.log(""))}
        <option value="New Item">New Job</option>
         </select> 
+
          {/* Pop-up Input */}
   {workHours[index].showNew === true && (
         <div>
-          <input className="cool-pop-up" 
+          <input className="cool-input" 
             type="text"
             onChange={(e) => setNewOption(e.target.value)}
             placeholder="new job name"
-           onKeyUp={(e) => handleEnterPress(e,index,"job")}
+            onKeyUp={(e) => handleEnterPress(e,index,"job")}
+            onClick={(e) => handleChange(index,"job","New Item")}
             autoFocus
           />
         </div>
@@ -238,29 +242,29 @@ const [reg,ot] = weekTotal(workHours);
      
    
    
-   
+   {/*  plain txt for sms output   */}
      <br />
       <a  style={{  display:"flex", justifyContent:"center", alignItems: "center"}} onClick={setraw}    href={`sms:?&body=${encodeURIComponent(rawText)}`}>
           share timecard via text message
         </a>
-     <div  className="blue" ref={textRef} >
+     <div  className="blue" ref={textRef} >  
         
-    <br /> {getMonth(changeWeek)}  
+    <br /> {getMonth(changeWeek)}      {/*  date range header     */}
     <br></br><br></br>
     {daysOfWeek.map((day, index) => (
     <div  className="blue" key={index}  >
 
-{workHours[index].isChecked ? (  // only show checked days
+{workHours[index].isChecked ? (  // only show hours for checked days
         <>
       <span style={{ marginLeft:"0px"}}>
       {daysOfWeek[index] }
       </span>
            
-      &nbsp; - {workHours[index].job} <br></br>
+      <br />&nbsp;&nbsp;{workHours[index].job} <br></br>     {/*   job name    */}
          <span  className="indent">
-      &nbsp;     {workHours[index].start}-{workHours[index].end} <br></br>
+         &nbsp;&nbsp;{workHours[index].start}-{workHours[index].end} <br></br>
 
-      &nbsp;     {index<5?(
+      &nbsp;&nbsp;{index<5?(
             <>
 
             {calculateTotalHours(workHours[index].start, workHours[index].end)>8?8:calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} Hrs
@@ -297,7 +301,7 @@ const [reg,ot] = weekTotal(workHours);
            
            <span>{reg} hrs   &nbsp;{ot} OT</span>
 
-           <br /><br /><br /><br /><br /><br /><br /><br /><br />
+           <br />
       </div>
   </div>
 );

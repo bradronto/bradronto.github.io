@@ -25,19 +25,19 @@
   }
   .cool-header {
     color: black;
-    height: 40px;
+    height: 35px;
     margin-left: 16px;
     background-color: rgb(209, 202, 111);
     width: 94%;
     padding: 0px;
-    border: 2px solid #487dd8;
+    border: 2px solid #0b0b0b;
     border-radius: 8px;
     font-size: 23px;
     outline: none;
     transition: border-color 0.3s ease, box-shadow 3.0s ease;
   }
   .cool-header-select {
-    height: 40px;
+    height: 35px;
     margin-left: 0px;
     background-color: rgb(209, 202, 111);
     width: 60%;
