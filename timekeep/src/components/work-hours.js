@@ -35,6 +35,8 @@ const WorkHoursTracker = () => {
       updatedWorkHours[index]["job"] = storedJob;
 
       setWorkHours(updatedWorkHours);
+      if(updatedWorkHours[index].showNew === false)inputRef.current.focus();
+    
     } else if(true){
      
       
@@ -80,7 +82,7 @@ const WorkHoursTracker = () => {
   const [reg,ot] = weekTotal(workHours);
   const [newOption, setNewOption] = useState(""); // State for new option input
  
-  const handleEnterPress = (event,index,type) => 
+  const handleKeyPress = (event,index,type) => 
     {
     const updatedWorkHours = [...workHours];
     const storedJob = workHours[index].job;
@@ -115,6 +117,10 @@ const WorkHoursTracker = () => {
  
   };
 
+  const inputRef = useRef(null);
+  const handleClick = () => {
+    inputRef.current.focus(); // Focus the input, triggering the keyboard
+  };
 
   return (
   <div className="input-container" >
@@ -178,14 +184,17 @@ const WorkHoursTracker = () => {
         </select> 
 
          {/* Pop-up Input */}
+
   {workHours[index].showNew === true && (
         <div>
-          <input className="cool-input" 
+          <input className="cool-input" ref={inputRef}
             type="text"
             onChange={(e) => setNewOption(e.target.value)}
             placeholder="new job name"
-            onKeyUp={(e) => handleEnterPress(e,index,"job")}
-            onClick={(e) => handleChange(index,"job","New Item")}
+            onKeyUp={(e) => handleKeyPress(e,index,"job")}
+            //onClick={(e) => handleChange(index,"job","New Item")}
+            //onClick={handleClick}
+            onBlur={(e) => handleKeyPress(e,index,"job")}
             autoFocus
           />
         </div>
