@@ -74,6 +74,7 @@ const WorkHoursTracker = () => {
       if (newOption.trim() && !jobNames.includes(newOption)) {
         updatedWorkHours[index][type] = newOption; //add job
         setJobNames([...jobNames, newOption]);
+        updatedWorkHours[index].showNew = false;
         setWorkHours(updatedWorkHours);
 
         if(isFirstRun ){
