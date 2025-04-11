@@ -7,7 +7,7 @@ import getMonth from "./date-header";
 import getDatesOfCurrentWeek from "./current-week";
 import calculateTotalHours from "./total-hours"
 import weekTotal from "./week-total";
-import SaveLocal from "./save-local";
+//import SaveLocal from "./save-local";
 
 
 const WorkHoursTracker = () => {
@@ -117,12 +117,14 @@ const WorkHoursTracker = () => {
       updatedWorkHours[index]["job"] = value;
       setWorkHours(updatedWorkHours);
       console.log("job value=",value);
- 
+      /*
       setJobNames((prevOptions) => {   //reorder new job to top of list
       const selected = prevOptions.find((option) => option === value);
       const remainingOptions = prevOptions.filter((option) => option !== value);
       return [selected, ...remainingOptions];
+      
     });
+    */
   }
   
   }
@@ -250,17 +252,13 @@ const WorkHoursTracker = () => {
           className="cool-input"// 
           value={workHours[index].job}
           onChange={(e) => handleChange(index, "job", e.target.value)}
-          //onClick={(e) => handleChange(index, "job", e.target.value)}
+          onClick={(e) => jobNames.length === 0?handleChange(index, "job", e.target.value):console.log("jik")}
         >
          {jobNames.map((job, indx) => (
         <option  key={indx} value={job}>
           {job}
         </option>))}
-{isFirstRun?(
-        <option value="New Item" >
-          Enter a jobname
-        </option>
-       ):(console.log(""))}
+
        <option value="New Item">New Job</option>
         </select> 
 
@@ -272,7 +270,7 @@ const WorkHoursTracker = () => {
             type="text"
             onChange={(e) => setNewOption(e.target.value)}
             placeholder="new job name"
-            //onKeyUp={(e) => handleKeyPress(e,index,"job")}
+            onKeyUp={(e) => handleKeyPress(e,index,"job")}
             //onClick={(e) => handleChange(index,"job","New Item")}
             //onClick={handleClick}
             onBlur={(e) => handleChange(index,"job","Add Job")}
@@ -330,7 +328,19 @@ const WorkHoursTracker = () => {
            </td></tr></tbody></table>
        ))}
      
-   
+   <button onClick={()=>setJobNames([])}>
+    clear jobs
+   </button>
+   <button onClick={()=>{
+setWorkHours(
+  daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: false }))
+  
+)
+
+   }}>
+
+    reset times huh
+   </button>
    
    {/*  plain txt for sms output   */}
      <br />
@@ -340,7 +350,9 @@ const WorkHoursTracker = () => {
      <div  className="blue" ref={textRef} >  
         
     <br /> {getMonth(changeWeek)}      {/*  date range header     */}
-    <br></br><br></br>
+    <br></br>
+    <span>{reg} Hrs   &nbsp;{ot} OT</span>
+    <br></br><br />
     {daysOfWeek.map((day, index) => (
     <div  className="blue" key={index}  >
       {workHours[index].isChecked ? (// only show hours for checked days
@@ -383,7 +395,7 @@ const WorkHoursTracker = () => {
         </div>
      ))}
            
-           <span>{reg} hrs   &nbsp;{ot} OT</span>
+        
 
            <br />
       </div>
