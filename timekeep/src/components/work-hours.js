@@ -107,7 +107,7 @@ const WorkHoursTracker = () => {
        
       } else if (value === "Add Job") {
         //updatedWorkHours[index]["showNew"] = !updatedWorkHours[index]["showNew"] ; //toggle new job input
-        updatedWorkHours[index].showNew = false;
+        //updatedWorkHours[index].showNew = false;
         newJob();
        
       } 
@@ -256,7 +256,7 @@ const WorkHoursTracker = () => {
           className="cool-input"// 
           value={workHours[index].job}
           onChange={(e) => handleChange(index, "job", e.target.value)}
-          onClick={(e) => jobNames.length === 0?handleChange(index, "job", e.target.value):console.log("jik")}
+          //onClick={(e) => jobNames.length === 0?handleChange(index, "job", e.target.value):console.log("jik")}
         >
          {jobNames.map((job, indx) => (
         <option  key={indx} value={job}>
