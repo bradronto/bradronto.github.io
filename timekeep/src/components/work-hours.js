@@ -101,7 +101,7 @@ const WorkHoursTracker = () => {
     if(type==="job"){
       if (value === "New Item") {
         //updatedWorkHours[index]["showNew"] = !updatedWorkHours[index]["showNew"] ; //toggle new job input
-        updatedWorkHours[index].showNew = true;
+        updatedWorkHours[index].showNew = !updatedWorkHours[index].showNew;
        // newJob();
        
       } else if (value === "Add Job") {
@@ -112,7 +112,7 @@ const WorkHoursTracker = () => {
       } 
     else if(true){
       console.log("select existing job");
-      updatedWorkHours[index].showNew = false;
+      //updatedWorkHours[index].showNew = false;
      
       updatedWorkHours[index]["job"] = value;
       setWorkHours(updatedWorkHours);
@@ -264,7 +264,7 @@ const WorkHoursTracker = () => {
 
          {/* Pop-up Input */}
 
-  {workHours[index].showNew === true && (
+  {workHours[index].showNew === true ? (
         <div>
           <input className="cool-input" ref={inputRef}
             type="text"
@@ -278,7 +278,7 @@ const WorkHoursTracker = () => {
             autoFocus
           />
         </div>
-      )}
+      ):(console.log("shownew = false"))}
        <select  className="cool-time-select"// style={{ marginRight: "0px" }} 
         defaultValue={workHours[index].start}
         onChange={(e) => handleChange(index, "start", e.target.value)}
