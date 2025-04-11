@@ -198,7 +198,7 @@ const WorkHoursTracker = () => {
 
   return (
   <div className="input-container" >
-    <span style={{  display:"flex", justifyContent:"center", alignItems: "center", marginBottom:"10px"}} className="cool-header"> 
+    <span style={{  display:"flex", justifyContent:"center", alignItems: "center", marginBottom:"10px"}} className="cool-header" onClick={console.log("hi")}> 
        <select 
        className="cool-header-select"
        onChange={(e) => handleWeekChange(e.target.value)}
@@ -249,7 +249,7 @@ const WorkHoursTracker = () => {
         <option  key={indx} value={job}>
           {job}
         </option>))}
-{!jobNames?(
+{isFirstRun?(
         <option value="New Item" >
           Enter a jobname
         </option>
