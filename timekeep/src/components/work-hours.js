@@ -273,7 +273,7 @@ const WorkHoursTracker = () => {
         <div>
           <input className="cool-input" ref={inputRef}
             type="text"
-            onChange={(e) => setNewOption(e.target.value)}
+            //onChange={(e) => setNewOption(e.target.value)}
             placeholder="new job name"
             //onKeyDown={(e)=>e.key==="Enter"?handleChange(index,"job","Add Job"):console.log(e.key) }
             //onKeyUp={(e) => handleKeyPress(e,index,"job")}
