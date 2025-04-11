@@ -279,7 +279,12 @@ const WorkHoursTracker = () => {
             //onKeyUp={(e) => handleKeyPress(e,index,"job")}
             //onClick={(e) => handleChange(index,"job","New Item")}
             //onClick={handleClick}
-            onBlur={(e) => handleChange(index,"job","Add Job")}
+            onBlur={(e) => {
+              setNewOption(e.target.value);
+              handleChange(index,"job","Add Job");
+
+
+            }}
             autoFocus
           />
         </div>
