@@ -243,7 +243,7 @@ const WorkHoursTracker = () => {
           className="cool-input"// 
           value={workHours[index].job}
           onChange={(e) => handleChange(index, "job", e.target.value)}
-          onClick={(e) => handleChange(index, "job", e.target.value)}
+          //onClick={(e) => handleChange(index, "job", e.target.value)}
         >
          {jobNames.map((job, indx) => (
         <option  key={indx} value={job}>
