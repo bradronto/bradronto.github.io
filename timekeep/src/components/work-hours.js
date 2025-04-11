@@ -270,7 +270,8 @@ const WorkHoursTracker = () => {
             type="text"
             onChange={(e) => setNewOption(e.target.value)}
             placeholder="new job name"
-            onKeyUp={(e) => handleKeyPress(e,index,"job")}
+            onKeyDown={(e)=>e.key==="Enter"?handleChange(index,"job","Add Job"):console.log(e.key) }
+            //onKeyUp={(e) => handleKeyPress(e,index,"job")}
             //onClick={(e) => handleChange(index,"job","New Item")}
             //onClick={handleClick}
             onBlur={(e) => handleChange(index,"job","Add Job")}
