@@ -99,14 +99,21 @@ const WorkHoursTracker = () => {
     setWorkHours(updatedWorkHours);
 
     if(type==="job"){
-    if (value === "New Item") {
-      updatedWorkHours[index]["showNew"] = !updatedWorkHours[index]["showNew"] ; //toggle new job input
-
-      newJob();
-     
-    } 
+      if (value === "New Item") {
+        //updatedWorkHours[index]["showNew"] = !updatedWorkHours[index]["showNew"] ; //toggle new job input
+        updatedWorkHours[index].showNew = true;
+       // newJob();
+       
+      } else if (value === "Add Job") {
+        //updatedWorkHours[index]["showNew"] = !updatedWorkHours[index]["showNew"] ; //toggle new job input
+        updatedWorkHours[index].showNew = false;
+        newJob();
+       
+      } 
     else if(true){
       console.log("select existing job");
+      updatedWorkHours[index].showNew = false;
+     
       updatedWorkHours[index]["job"] = value;
       setWorkHours(updatedWorkHours);
       console.log("job value=",value);
@@ -268,7 +275,7 @@ const WorkHoursTracker = () => {
             //onKeyUp={(e) => handleKeyPress(e,index,"job")}
             //onClick={(e) => handleChange(index,"job","New Item")}
             //onClick={handleClick}
-            onBlur={(e) => handleChange(index,"job","New Item")}
+            onBlur={(e) => handleChange(index,"job","Add Job")}
             autoFocus
           />
         </div>
