@@ -100,8 +100,8 @@ const WorkHoursTracker = () => {
 
     if(type==="job"){
       if (value === "New Item") {
-        //updatedWorkHours[index]["showNew"] = !updatedWorkHours[index]["showNew"] ; //toggle new job input
-        updatedWorkHours[index]["showNew"] = true;
+        updatedWorkHours[index]["showNew"] = !updatedWorkHours[index]["showNew"] ; //toggle new job input
+        //updatedWorkHours[index]["showNew"] = true;
         setWorkHours(updatedWorkHours);
        // newJob();
        
