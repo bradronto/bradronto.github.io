@@ -117,20 +117,17 @@ setWorkHours(updatedWorkHours);
        
       }
     }
+
+
+
     if(type==="job"){
       if (value === "New Item") {
-       // updatedWorkHours[index]["showNew"] = !updatedWorkHours[index]["showNew"] ; //toggle new job input
-        updatedWorkHours[index]["showNew"] = true;
-       // setWorkHours(updatedWorkHours);
-       // newJob();
-       
-      } else if (value === "Add Job") {
-        //updatedWorkHours[index]["showNew"] = !updatedWorkHours[index]["showNew"] ; //toggle new job input
-        //updatedWorkHours[index].showNew = false;
-        newJob();
-       
+       updatedWorkHours[index]["showNew"] = true;
+      }
+      else if (value === "Add Job") {
+        newJob(); 
       } 
-    else if(true){
+      else if(true){
       console.log("select existing job");
       //updatedWorkHours[index].showNew = false;
      
@@ -144,10 +141,8 @@ setWorkHours(updatedWorkHours);
       return [selected, ...remainingOptions];
       
     });
-    
-  }
-  
-  } 
+    }
+   } 
 
   console.log(workHours[index].job);
   setWorkHours(updatedWorkHours);
@@ -183,54 +178,12 @@ setWorkHours(updatedWorkHours);
   const [newOption, setNewOption] = useState(""); // State for new option input
  
   
-  
-  const handleKeyPress = (event,index,type) => 
-    {
-    const updatedWorkHours = [...workHours];
-    const storedJob = workHours[index].job;
-    if (event.key === "Enter") {
-      if(newOption===""){
-        updatedWorkHours[index][type] = storedJob;
-        updatedWorkHours[index].showNew = false;
-        setWorkHours(updatedWorkHours)
-        console.log(event.key,newOption, storedJob)
-          }
-     else if (newOption.trim() && !jobNames.includes(newOption)) {
-        updatedWorkHours[index][type] = newOption;
-        setJobNames([...jobNames, newOption]);
-        setWorkHours(updatedWorkHours);
-       
-        if(isFirstRun ){
-          setIsFirstRun(false);
-          setWorkHours((prevWorkHours) =>
-            prevWorkHours.map((workHour) => ({
-              ...workHour, // Spread the existing properties
-              job: newOption // Update the job property
-            }))
-          );
-        }
-    
-
-        console.log(updatedWorkHours[index])
-        }
-      workHours[index].showNew = false;
-      setNewOption(""); // Clear the input field
-      console.log(event.key,index,type,newOption.trim())
-     }
- 
-  };
 
   const inputRef = useRef(null);
-  const handleClick = () => {
-    inputRef.current.focus(); // Focus the input, triggering the keyboard
-  };
 
   const openJobBox = (targetIndex) => {
-   // setTimeout(() => inputRef.current.focus(), 100);
-
     const updatedDaysOfWeek = workHours.map((item, index) =>
-      index === targetIndex ? { ...item, showNew: true } : item
-    );
+    index === targetIndex ? { ...item, showNew: true } : item );
     setWorkHours(updatedDaysOfWeek);
     console.log("open job box")
   };
@@ -288,22 +241,7 @@ setWorkHours(updatedWorkHours);
           {workHours[index].isChecked ? (    // show day's form if box is checked
         <>
 
-         {/*  select job    */}
-        <select  
-          className="cool-input"// 
-          value={workHours[index].job}
-          onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
-
-          onChange={(e) => handleJobChange(index, "job", e.target.value)}
-          
-        >
-         {jobNames.map((job, indx) => (
-        <option  key={indx} value={job}>
-          {job}
-        </option>))}
-
-       <option value="New Item">New fucking Job</option>
-        </select> 
+ 
 
  {/*------------- Pop-up Input ----------------------*/}
 
@@ -336,7 +274,27 @@ setWorkHours(updatedWorkHours);
             autoFocus
           />
         </div>
-      ):(console.log("pop-up closed"))}
+      ):(
+        
+               // {/*  select job    */}
+                <select  
+                className="cool-input"// 
+                value={workHours[index].job}
+                onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
+                onChange={(e) => handleJobChange(index, "job", e.target.value)}
+              >
+               {jobNames.map((job, indx) => (
+              <option  key={indx} value={job}>
+                {job}
+              </option>))}
+              <option value="New Item">New fucking Job</option>
+              </select> 
+        
+        
+        //</div>console.log("pop-up closed");
+        )}
+
+
        <select  className="cool-time-select"// style={{ marginRight: "0px" }} 
         defaultValue={workHours[index].start}
         onChange={(e) => handleChange(index, "start", e.target.value)}
