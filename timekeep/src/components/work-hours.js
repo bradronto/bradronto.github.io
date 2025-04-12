@@ -59,6 +59,7 @@ const WorkHoursTracker = () => {
  
   const handleChange = (index, type, value) => 
   {
+    setTimeout(() => inputRef.current.focus(), 100);
 
     const updatedWorkHours = [...workHours];
     //updatedWorkHours[index][type] = value;
@@ -290,11 +291,8 @@ const WorkHoursTracker = () => {
           className="cool-input"// 
           value={workHours[index].job}
           onChange={(e) => handleChange(index, "job", e.target.value)}
-          //onClick={(e) => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
-          onClick={()=>{
-            setWorkHours(
-              daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: index < 1 ?true:false }))
-              )}}
+          onClick={(e) => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
+          
         >
          {jobNames.map((job, indx) => (
         <option  key={indx} value={job}>
