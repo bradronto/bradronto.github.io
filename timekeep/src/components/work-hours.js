@@ -53,34 +53,53 @@ const WorkHoursTracker = () => {
 
 
 );
-
-
-
- 
-  const handleChange = (index, type, value) => 
+const handleChange = (index, type, value) => 
   {
 
     const updatedWorkHours = [...workHours];
-    //updatedWorkHours[index][type] = value;
+    updatedWorkHours[index][type] = value;
+ 
+    if (    type ==="isChecked"  )
+      {
+      updatedWorkHours[index]["isChecked"] === false? updatedWorkHours[index]["end"] = "7:00 AM":updatedWorkHours[index]["end"]="3:00 PM"
+    }
+setWorkHours(updatedWorkHours);
+ 
+
+
+  }
+
+
+
+  const handleJobChange = (index, type, value) => 
+  {
+
+    const updatedWorkHours = [...workHours];
 
 
     const newJob = () => {
 
       {/*  add job to job names */}
       if(newOption===""){
-        //const storedJob = updatedWorkHours[index].job // save jobname in the input popup
-  
-        //updatedWorkHours[index][type] = storedJob;
         updatedWorkHours[index].showNew = false;
-        //setWorkHours(updatedWorkHours)
         console.log("no option entered")
-          } else if (newOption.trim() && !jobNames.includes(newOption)) {
+          } 
+          
+          else if (newOption.trim() && !jobNames.includes(newOption)) 
+            {
         updatedWorkHours[index][type] = newOption; //add job
         setJobNames([...jobNames, newOption]);
         updatedWorkHours[index].showNew = false;
         //setWorkHours(updatedWorkHours);
 
-   /*     if(isFirstRun ){
+
+        if(jobNames.length===0){
+          console.log("spread the jobs");
+          updatedWorkHours.map((record)=>{record.job = newOption}
+        ) }
+
+        /*
+        if(isFirstRun ){
           console.log("first run");
           setIsFirstRun(false);
           setWorkHours((prevWorkHours) =>
@@ -97,14 +116,7 @@ const WorkHoursTracker = () => {
       console.log("new job added");
        
       }
-    // console.log("newJob", newOption);
-
     }
-
-
-    type ==="isChecked" ? updatedWorkHours[index]["isChecked"] === false? updatedWorkHours[index]["end"] = "7:00 AM":updatedWorkHours[index]["end"]="3:00 PM":console.log("type=",type)
-    //setWorkHours(updatedWorkHours);
-
     if(type==="job"){
       if (value === "New Item") {
        // updatedWorkHours[index]["showNew"] = !updatedWorkHours[index]["showNew"] ; //toggle new job input
@@ -136,19 +148,9 @@ const WorkHoursTracker = () => {
   }
   
   } 
-  else if (    type ==="isChecked"  )
-    {
-      updatedWorkHours[index][type]=value;
-    updatedWorkHours[index]["isChecked"] === false? updatedWorkHours[index]["end"] = "7:00 AM":updatedWorkHours[index]["end"]="3:00 PM"
 
-  }
-  else updatedWorkHours[index][type]=value;
- 
- 
   console.log(workHours[index].job);
-    setWorkHours(updatedWorkHours);
-
-
+  setWorkHours(updatedWorkHours);
   };
 
   
@@ -162,8 +164,6 @@ const WorkHoursTracker = () => {
     (total, day) => total + calculateTotalHours(day.start, day.end),
     0
   );
-
-  
 
   const timeOptions = generateTimeOptions();
   const textRef = useRef();
@@ -226,17 +226,18 @@ const WorkHoursTracker = () => {
   };
 
   const openJobBox = (targetIndex) => {
-    setTimeout(() => inputRef.current.focus(), 100);
+   // setTimeout(() => inputRef.current.focus(), 100);
 
     const updatedDaysOfWeek = workHours.map((item, index) =>
       index === targetIndex ? { ...item, showNew: true } : item
     );
     setWorkHours(updatedDaysOfWeek);
+    console.log("open job box")
   };
 
   return (
   <div className="input-container" >
-    <select onChange={(e)=>handleChange(0,"job",e.target.value)  }>
+    <select onChange={(e)=>handleJobChange(0,"job",e.target.value)  }>
     <option value = "New Item"  >
         Add a Job
         </option>
@@ -291,8 +292,9 @@ const WorkHoursTracker = () => {
         <select  
           className="cool-input"// 
           value={workHours[index].job}
-          onChange={(e) => handleChange(index, "job", e.target.value)}
-          onClick={(e) => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
+          onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
+
+          onChange={(e) => handleJobChange(index, "job", e.target.value)}
           
         >
          {jobNames.map((job, indx) => (
@@ -300,7 +302,7 @@ const WorkHoursTracker = () => {
           {job}
         </option>))}
 
-       <option value="New Item">New Job</option>
+       <option value="New Item">New fucking Job</option>
         </select> 
 
  {/*------------- Pop-up Input ----------------------*/}
@@ -315,7 +317,7 @@ const WorkHoursTracker = () => {
             onKeyDown={(e)=>{
               if(e.key==="Enter"){
               //setNewOption(e.target.value);
-              handleChange(index,"job","Add Job"); }
+              handleJobChange(index,"job","Add Job"); }
 
 
             }   // console.log("key=",e.key," ",newOption)
@@ -323,11 +325,11 @@ const WorkHoursTracker = () => {
                
             }
             //onKeyUp={(e) => handleKeyPress(e,index,"job")}
-            onClick={(e) => handleChange(index,"job","New Item")}
+            onClick={(e) => handleJobChange(index,"job","New Item")}
             //onClick={handleClick}
             onBlur={(e) => {
               //setNewOption(e.target.value);
-              handleChange(index,"job","Add Job");
+              handleJobChange(index,"job","Add Job");
               console.log("onblur");
 
             }}
