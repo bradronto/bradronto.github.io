@@ -1,7 +1,7 @@
 /* Input Container */
 .input-container {
     position: relative;
-    width: 320px;
+    width: 360px;
    /* margin: 10px auto;*/
     background-color: white;
   }
@@ -81,7 +81,7 @@
     border-radius: 8px;
     font-size: 16px;
     outline: none;
-    transition: border-color 0.3s ease, box-shadow 3.0s ease;
+   /* transition: border-color 0.3s ease, box-shadow 3.0s ease;*/
   }
 
   .cool-user-input {

@@ -287,7 +287,7 @@ setWorkHours(updatedWorkHours);
               <option  key={indx} value={job}>
                 {job}
               </option>))}
-              <option value="New Item">New fucking Job</option>
+              <option value="New Item">New Job</option>
               </select> 
         
         
@@ -368,7 +368,7 @@ setWorkHours(
         
     <br /> {getMonth(changeWeek)}      {/*  date range header     */}
     <br></br>
-    <span>{reg} Hrs   &nbsp;{ot} OT</span>
+    <span>{reg} Hours   <br />{ot} OT</span>
     <br></br><br />
     {daysOfWeek.map((day, index) => (
     <div  className="blue" key={index}  >
