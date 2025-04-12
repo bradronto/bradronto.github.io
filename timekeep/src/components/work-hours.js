@@ -143,7 +143,9 @@ const WorkHoursTracker = () => {
 
   }
   else updatedWorkHours[index][type]=value;
-    console.log(workHours[index].job);
+ 
+ 
+  console.log(workHours[index].job);
     setWorkHours(updatedWorkHours);
 
 
@@ -223,8 +225,25 @@ const WorkHoursTracker = () => {
     inputRef.current.focus(); // Focus the input, triggering the keyboard
   };
 
+  const openJobBox = (index) => {
+    const updatedWorkHours = [...workHours];
+    updatedWorkHours[index].showNew = true;
+    setWorkHours(updatedWorkHours);
+   }
+
   return (
   <div className="input-container" >
+    <select onChange={(e)=>handleChange(0,"job",e.target.value)  }>
+    <option value = "New Item"  >
+        Add a Job
+        </option>
+        <option value={"clear-jobs"}>
+        Clear Jobs
+        </option>
+        <option value={"reset-times"}>
+        Reset Times
+        </option>
+          </select>
     <span style={{  display:"flex", justifyContent:"center", alignItems: "center", marginBottom:"10px"}} className="cool-header"> 
        <select 
        className="cool-header-select"
@@ -270,7 +289,7 @@ const WorkHoursTracker = () => {
           className="cool-input"// 
           value={workHours[index].job}
           onChange={(e) => handleChange(index, "job", e.target.value)}
-          onClick={(e) => jobNames.length === 0?handleChange(index, "job", e.target.value):console.log(jobNames.length," jobs exist")}
+          onClick={(e) => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
         >
          {jobNames.map((job, indx) => (
         <option  key={indx} value={job}>
