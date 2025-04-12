@@ -228,7 +228,7 @@ const WorkHoursTracker = () => {
   const openJobBox = (index) => {
     const updatedWorkHours = [...workHours];
     updatedWorkHours[index].showNew = true;
-    setWorkHours(updatedWorkHours);
+   // setWorkHours(updatedWorkHours);
    }
 
   return (
