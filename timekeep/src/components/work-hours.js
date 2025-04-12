@@ -59,7 +59,6 @@ const WorkHoursTracker = () => {
  
   const handleChange = (index, type, value) => 
   {
-    setTimeout(() => inputRef.current.focus(), 100);
 
     const updatedWorkHours = [...workHours];
     //updatedWorkHours[index][type] = value;
@@ -227,6 +226,8 @@ const WorkHoursTracker = () => {
   };
 
   const openJobBox = (targetIndex) => {
+    setTimeout(() => inputRef.current.focus(), 100);
+
     const updatedDaysOfWeek = workHours.map((item, index) =>
       index === targetIndex ? { ...item, showNew: true } : item
     );
@@ -395,7 +396,7 @@ setWorkHours(
 
    }}>
 
-    reset times huh
+   seriously fuck off
    </button>
    
    {/*  plain txt for sms output   */}
