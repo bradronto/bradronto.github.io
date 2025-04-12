@@ -225,11 +225,12 @@ const WorkHoursTracker = () => {
     inputRef.current.focus(); // Focus the input, triggering the keyboard
   };
 
-  const openJobBox = (index) => {
-    const updatedWorkHours = [...workHours];
-    updatedWorkHours[index].showNew = true;
-   // setWorkHours(updatedWorkHours);
-   }
+  const openJobBox = (targetIndex) => {
+    const updatedDaysOfWeek = workHours.map((item, index) =>
+      index === targetIndex ? { ...item, showNew: true } : item
+    );
+    setWorkHours(updatedDaysOfWeek);
+  };
 
   return (
   <div className="input-container" >
@@ -289,7 +290,7 @@ const WorkHoursTracker = () => {
           className="cool-input"// 
           value={workHours[index].job}
           onChange={(e) => handleChange(index, "job", e.target.value)}
-          //onClick={(e) => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
+          onClick={(e) => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
         >
          {jobNames.map((job, indx) => (
         <option  key={indx} value={job}>
