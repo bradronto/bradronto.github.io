@@ -190,7 +190,9 @@ const handleMenu = (value) =>
   return (
     
   <div className="input-container" >
-    <select onChange={(e)=>handleMenu(e.target.value) } className="cool-time-select">
+    <select 
+    style={{margin: "16px"}}
+    onChange={(e)=>handleMenu(e.target.value) } className="cool-time-select">
     <option value = "New Item"  >
         Menu
         </option>
@@ -347,20 +349,12 @@ setWorkHours(
            </td></tr></tbody></table>
        ))}
      
-   <button onClick={()=>setJobNames([])}>
-    clear jobs
-   </button>
-   <button onClick={()=>{
-setWorkHours(
-  daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: index < 1 ?true:false }))  
-)}}>
-  seriously fuck off
-   </button>
-   <br />
+  
+  
    
    {/*  plain txt for sms output   */}
 
-     <br />
+     
       <a  style={{  display:"flex", justifyContent:"center", alignItems: "center"}} onClick={setraw}    href={`sms:?&body=${encodeURIComponent(rawText)}`}>
           share timecard via text message
         </a>
