@@ -194,9 +194,7 @@ const handleMenu = (value) =>
     <option value = "New Item"  >
         Menu
         </option>
-        <option value = "New Item"  >
-        Add a Job
-        </option>
+       
         <option value={"clear jobs"}>
         Clear Jobs
         </option>
@@ -293,7 +291,7 @@ setWorkHours(
               <option  key={indx} value={job}>
                 {job}
               </option>))}
-              <option value="New Item">New Job</option>
+             
               </select> 
               
        )
