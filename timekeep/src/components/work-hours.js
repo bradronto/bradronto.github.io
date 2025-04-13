@@ -204,7 +204,7 @@ const handleMenu = (value) =>
         Reset Hours
         </option>
           </select>
-    <span style={{  display:"flex", justifyContent:"center", alignItems: "center", marginBottom:"10px"}} className="cool-header"> 
+    <span  className="cool-header"> 
        <select 
        className="cool-header-select"
        onChange={(e) => handleWeekChange(e.target.value)}
@@ -228,9 +228,9 @@ const handleMenu = (value) =>
         <tbody>
         <tr>
         <td style={{
-        //display: "flex", // Enables Flexbox
-        //alignItems: "flex-start", // Aligns items to the top
-       // gap: "5px", // Adds spacing between the checkbox and the box
+        display: "flex", // Enables Flexbox
+        alignItems: "flex-start", // Aligns items to the top
+        gap: "5px", // Adds spacing between the checkbox and the box
       }}>
         <input style={{textAlign: "top"}}    // checkbox
           type="checkbox"

@@ -23,7 +23,12 @@
   .cool-span {
     width: 100%;
   }
-  .cool-header {
+
+   .cool-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
     color: black;
     height: 35px;
     margin-left: 16px;
@@ -34,8 +39,8 @@
     border-radius: 8px;
     font-size: 23px;
     outline: none;
-    transition: border-color 0.3s ease, box-shadow 3.0s ease;
-  }
+     }
+ 
   .cool-header-select {
     height: 35px;
     margin-left: 0px;
@@ -47,8 +52,7 @@
    /* border-radius: 8px;*/
     font-size: 23px;
     outline: none;
-    transition: border-color 0.3s ease, box-shadow 3.0s ease;
-  }
+    }
 
 
   /* Input Field */
@@ -63,8 +67,7 @@
     border-radius: 8px;
     font-size: 16px;
     outline: none;
-    transition: border-color 0.3s ease, box-shadow 3.0s ease;
-  }
+   }
   /*.cool-checkbox {
 
     margin-bottom: 0px;
@@ -92,7 +95,6 @@
     border-radius: 8px;
     font-size: 16px;
     outline: none;
-    transition: border-color 0.3s ease, box-shadow 3.0s ease;
   }
 
   .cool-time-select {
@@ -121,8 +123,7 @@
     border-radius: 8px;
     font-size: 16px;
     outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
+   }
   
   /* Input Focus Effect */
   .cool-input:focus {
