@@ -243,7 +243,12 @@ const handleMenu = (value) =>
          <div>
           {workHours[index].isChecked ? (    // show day's form if box is checked
         <>
-
+ <button onClick={()=>{
+setWorkHours(
+  daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: index < 1 ?true:false }))  
+)}}>
+  seriously fuck off
+   </button>
  
 
  {/*------------- Pop-up Input ----------------------*/}
@@ -271,6 +276,8 @@ const handleMenu = (value) =>
       ):(
         
                // {/*  select job    */}
+               
+
                 <select  
                 className="cool-input"// 
                 value={workHours[index].job}
@@ -283,6 +290,7 @@ const handleMenu = (value) =>
               </option>))}
               <option value="New Item">New Job</option>
               </select> 
+              
        )
        }
 
