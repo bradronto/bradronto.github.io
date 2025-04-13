@@ -306,7 +306,7 @@ const handleMenu = (value) =>
                 <select  
                 className="cool-input"// 
                 value={workHours[index].job}
-                //onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
+                onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
                 onChange={(e) => handleJobChange(index, "job", e.target.value)}
               >
                {jobNames.map((job, indx) => (
