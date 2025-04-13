@@ -355,7 +355,7 @@ setWorkHours(
           share timecard via text message
         </a>
           <div  className="blue" ref={textRef} >         
-           
+        {plainText(workHours,changeWeek)}        
          </div>
 
   </div>
