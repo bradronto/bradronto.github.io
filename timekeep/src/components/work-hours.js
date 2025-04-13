@@ -228,7 +228,7 @@ const handleMenu = (value) =>
         <tbody>
         <tr>
         <td style={{
-        display: "flex", // Enables Flexbox
+        //display: "flex", // Enables Flexbox
         //alignItems: "flex-start", // Aligns items to the top
        // gap: "5px", // Adds spacing between the checkbox and the box
       }}>
