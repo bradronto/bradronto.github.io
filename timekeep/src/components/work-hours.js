@@ -229,8 +229,8 @@ const handleMenu = (value) =>
         <tr>
         <td style={{
         display: "flex", // Enables Flexbox
-        alignItems: "flex-start", // Aligns items to the top
-        gap: "5px", // Adds spacing between the checkbox and the box
+        //alignItems: "flex-start", // Aligns items to the top
+       // gap: "5px", // Adds spacing between the checkbox and the box
       }}>
         <input style={{textAlign: "top"}}    // checkbox
           type="checkbox"
