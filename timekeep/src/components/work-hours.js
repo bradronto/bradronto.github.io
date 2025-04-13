@@ -1,14 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./styles/cool.css"
-//import SelectWithNewItem from "./select-popup-input";
+import "./styles/cool.css";
 import NumberInBox from "./number-in-box";
-import generateTimeOptions from "./time-select"
+import generateTimeOptions from "./time-select";
 import getMonth from "./date-header";
 import getDatesOfCurrentWeek from "./current-week";
-import calculateTotalHours from "./total-hours"
+import calculateTotalHours from "./total-hours";
 import weekTotal from "./week-total";
-//import SaveLocal from "./save-local";
-
+import plainText from "./plain-txt";
 
 const WorkHoursTracker = () => {
 
@@ -62,10 +60,7 @@ const handleMenu = (value) =>
         daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: index < 1 ?true:false }))
         )
     } 
-
-   
-   }
-
+  }
 
   const handleChange = (index, type, value) => 
     {
@@ -347,73 +342,22 @@ const handleMenu = (value) =>
    </button>
    <button onClick={()=>{
 setWorkHours(
-  daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: index < 1 ?true:false }))
-  
-)
-
-   }}>
-
-   seriously fuck off
+  daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: index < 1 ?true:false }))  
+)}}>
+  seriously fuck off
    </button>
+   <br />
    
    {/*  plain txt for sms output   */}
+
      <br />
       <a  style={{  display:"flex", justifyContent:"center", alignItems: "center"}} onClick={setraw}    href={`sms:?&body=${encodeURIComponent(rawText)}`}>
           share timecard via text message
         </a>
-     <div  className="blue" ref={textRef} >  
-        
-    <br /> {getMonth(changeWeek)}      {/*  date range header     */}
-    <br></br>
-    <span>{reg} Hours   <br />{ot} OT</span>
-    <br></br><br />
-    {daysOfWeek.map((day, index) => (
-    <div   key={index}  >
-      {workHours[index].isChecked ? (// only show hours for checked days
-   <><span style={{ marginLeft:"0px"}}>{daysOfWeek[index]}</span>
-      <br />&nbsp;&nbsp;{workHours[index].job} <br></br>{/*   job name    */}
-         <span  className="indent">&nbsp;&nbsp;{workHours[index].start}-{workHours[index].end} <br></br>
-
-         &nbsp;&nbsp;{index<5?(
-            <>
-
-            {calculateTotalHours(workHours[index].start, workHours[index].end)>8?8:calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} Hrs
-            &nbsp;&nbsp;{calculateTotalHours(workHours[index].start, workHours[index].end)>8?calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)-8:0} O.T.
-       
-          </>
-           ) : (
-            
-            <>
-            0.0 Hrs  &nbsp; &nbsp;{calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} O.T.
-            
-            
-            </>)}
-       
-       
-       
-        </span>
-      
-        <br />
-        <br />
-        </>
-          
-        ) : (  // no work days
-          <>
-           {daysOfWeek[index] }
-           <br />
-           &nbsp; &nbsp;No Hours
-           <br /><br />
-          </>
-        )}
-
-        </div>
-     ))}
+          <div  className="blue" ref={textRef} >         
            
-        
+         </div>
 
-           <br />
-      </div>
-  
   </div>
 );
 
