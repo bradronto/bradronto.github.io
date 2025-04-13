@@ -299,7 +299,6 @@ const handleMenu = (value) =>
         </select>         
           <select className="cool-time-select" //style={{ marginRight: "0px" }} 
         value={workHours[index].end}
-        //defaultValue={workHours[index].end}
         onChange={(e) => handleChange(index, "end", e.target.value)}
           >  
          {timeOptions.map((time, indx) => (
