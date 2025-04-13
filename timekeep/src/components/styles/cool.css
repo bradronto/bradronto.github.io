@@ -148,8 +148,8 @@
     transform: scaleX(0);
     transition: transform 0.3s ease;
   }
-  
+  /*
   .cool-input:focus + .focus-border {
     transform: scaleX(1);
   }
-  
+  */
