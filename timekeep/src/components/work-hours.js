@@ -251,7 +251,7 @@ const handleMenu = (value) =>
   {workHours[index].showNew === true ? (
         <div>
            {console.log("pop-up open")}
-          <input className="cool-input" ref={inputRef}
+          <input  ref={inputRef}
             type="text"
             onChange={(e) => setNewOption(e.target.value)}
             placeholder="new job name"
