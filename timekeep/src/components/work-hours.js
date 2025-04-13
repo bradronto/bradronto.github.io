@@ -244,9 +244,12 @@ const handleMenu = (value) =>
           {workHours[index].isChecked ? (    // show day's form if box is checked
         <>
  <button onClick={()=>{
+  /*
 setWorkHours(
   daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: index < 1 ?true:false }))  
-)}}>
+)}*/
+  
+}}>
   seriously fuck off
    </button>
  
@@ -265,7 +268,7 @@ setWorkHours(
               handleJobChange(index,"job","Add Job"); }
             }   // console.log("key=",e.key," ",newOption)
            }
-            onClick={(e) => handleJobChange(index,"job","New Item")}
+            //onClick={(e) => handleJobChange(index,"job","New Item")}
             onBlur={(e) => {
               handleJobChange(index,"job","Add Job");
               console.log("onblur");
