@@ -17,10 +17,6 @@ const WorkHoursTracker = () => {
  
   const [changeWeek, setChangeWeek] = useState(1);
   const daysOfWeek = getDatesOfCurrentWeek(changeWeek);  //chgwk is 1 for this week and -6 for last
-  const initJobs = [];
-  
-  //const [jobNames,setJobNames] = useState(initJobs);
-
   const [jobNames,setJobNames] = useState(() => {
     // Load session data if available
     const savedData = localStorage.getItem("jobNames");
@@ -53,22 +49,49 @@ const WorkHoursTracker = () => {
 
 
 );
-const handleChange = (index, type, value) => 
+const handleMenu = (value) => 
   {
-
-    const updatedWorkHours = [...workHours];
-    updatedWorkHours[index][type] = value;
  
-    if (    type ==="isChecked"  )
-      {
-      updatedWorkHours[index]["isChecked"] === false? updatedWorkHours[index]["end"] = "7:00 AM":updatedWorkHours[index]["end"]="3:00 PM"
+   if (    value ==="dont kjhkjh"  )
+    {
+   
+   
+    } else
+
+  if (    value ==="clear jobs"  )
+    {
+   setJobNames([]);
+   
+    } else
+
+  if (    value ==="clear hours"  )
+    {
+      setWorkHours(
+        daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: index < 1 ?true:false }))
+        
+      )
+    } 
+
+   
+   }
+
+
+  const handleChange = (index, type, value) => 
+    {
+  
+      const updatedWorkHours = [...workHours];
+      updatedWorkHours[index][type] = value;
+   
+      if (    type ==="isChecked"  )
+        {
+        updatedWorkHours[index]["isChecked"] === false? updatedWorkHours[index]["end"] = "7:00 AM":updatedWorkHours[index]["end"]="3:00 PM"
+      }
+  setWorkHours(updatedWorkHours);
+   
+  
+  
     }
-setWorkHours(updatedWorkHours);
- 
-
-
-  }
-
+  
 
 
   const handleJobChange = (index, type, value) => 
@@ -190,15 +213,18 @@ setWorkHours(updatedWorkHours);
 
   return (
   <div className="input-container" >
-    <select onChange={(e)=>handleJobChange(0,"job",e.target.value)  }>
+    <select onChange={(e)=>handleMenu(e.target.value) } className="cool-time-select">
     <option value = "New Item"  >
+        Menu
+        </option>
+        <option value = "New Item"  >
         Add a Job
         </option>
-        <option value={"clear-jobs"}>
+        <option value={"clear jobs"}>
         Clear Jobs
         </option>
-        <option value={"reset-times"}>
-        Reset Times
+        <option value={"clear hours"}>
+        Reset Hours
         </option>
           </select>
     <span style={{  display:"flex", justifyContent:"center", alignItems: "center", marginBottom:"10px"}} className="cool-header"> 
@@ -280,7 +306,7 @@ setWorkHours(updatedWorkHours);
                 <select  
                 className="cool-input"// 
                 value={workHours[index].job}
-                onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
+                //onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
                 onChange={(e) => handleJobChange(index, "job", e.target.value)}
               >
                {jobNames.map((job, indx) => (
