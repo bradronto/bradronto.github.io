@@ -29,7 +29,7 @@ const WorkHoursTracker = () => {
       return savedData
         ? JSON.parse(savedData)
         :
-        daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: false }))
+        daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: false, showFix: true }))
     });
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const handleMenu = (value) =>
   if (    value ==="clear hours"  )
     {
       setWorkHours(
-        daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: index < 1 ?true:false }))
+        daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: index < 1 ?true:false, showFix: true }))
         )
     } 
   }
@@ -101,19 +101,6 @@ const handleMenu = (value) =>
           updatedWorkHours.map((record)=>{record.job = newOption}
         ) }
 
-        /*
-        if(isFirstRun ){
-          console.log("first run");
-          setIsFirstRun(false);
-          setWorkHours((prevWorkHours) =>
-            prevWorkHours.map((workHour) => ({
-              ...workHour, // Spread the existing properties
-              job: newOption // Update the job property
-            }))
-          );
-        }
-      */
-
 
       setNewOption(""); // Clear the input field
       console.log("new job added");
@@ -123,7 +110,8 @@ const handleMenu = (value) =>
 
     if(type==="job"){
       if (value === "New Item") {
-       updatedWorkHours[index]["showNew"] = true;
+        setTimeout(() => {updatedWorkHours[index]["showNew"] = true;}, 100);
+       //
        console.log(" job input empty");
  
       }
@@ -243,20 +231,17 @@ const handleMenu = (value) =>
          <div>
           {workHours[index].isChecked ? (    // show day's form if box is checked
         <>
- <select 
 
-onClick={(e) => handleJobChange(index,"job","New Item")}
-  /*
-setWorkHours(
-  daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showNew: index < 1 ?true:false }))  
-)}*/
-  
->
-  New Job
-   </select>
- 
+{workHours[index].showFix === false? (
 
- {/*------------- Pop-up Input ----------------------*/}
+ <button onClick={(e) => handleChange(index,"showFix",false)}
+  className="cool-input"
+  >
+ {workHours[index].job}
+   </button>
+):(
+
+ <>
 
   {workHours[index].showNew === true ? (
         <div>
@@ -300,7 +285,7 @@ setWorkHours(
               
        )
        }
-
+     </> )}
 
        <select  className="cool-time-select"// style={{ marginRight: "0px" }} 
         value={workHours[index].start}
@@ -372,3 +357,18 @@ setWorkHours(
 
 
 export default WorkHoursTracker;
+
+
+
+        /*
+        if(isFirstRun ){
+          console.log("first run");
+          setIsFirstRun(false);
+          setWorkHours((prevWorkHours) =>
+            prevWorkHours.map((workHour) => ({
+              ...workHour, // Spread the existing properties
+              job: newOption // Update the job property
+            }))
+          );
+        }
+      */
