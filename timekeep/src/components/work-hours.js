@@ -243,7 +243,7 @@ const handleMenu = (value) =>
          <div>
           {workHours[index].isChecked ? (    // show day's form if box is checked
         <>
- <button 
+ <select 
 
 onClick={(e) => handleJobChange(index,"job","New Item")}
   /*
@@ -253,14 +253,14 @@ setWorkHours(
   
 >
   New Job
-   </button>
+   </select>
  
 
  {/*------------- Pop-up Input ----------------------*/}
 
   {workHours[index].showNew === true ? (
         <div>
-           {console.log("pop-up open")}
+           {console.log(newOption,workHours[index].showNew)}
           <input className="cool-input" ref={inputRef}
             type="text"
             onChange={(e) => setNewOption(e.target.value)}
@@ -293,6 +293,8 @@ setWorkHours(
               <option  key={indx} value={job}>
                 {job}
               </option>))}
+              <option value={"New Item"}>New Job</option>
+
              
               </select> 
               
