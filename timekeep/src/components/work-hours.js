@@ -123,12 +123,16 @@ const handleMenu = (value) =>
        // setTimeout(() => {updatedWorkHours[index]["showNew"] = true;}, 100);
        updatedWorkHours[index]["showNew"] = true;
       
-       handleKeyboardToggle();
+       //handleKeyboardToggle();
 
 
        setTimeout(() => {
-           if(inputRef.current){inputRef.current.focus()};
-         }, 800)
+        if(inputRef.current){inputRef.current.focus()};
+      }, 700);
+      
+      setTimeout(() => {
+        if(inputRef.current){inputRef.current.focus()};
+      }, 700);
 
      
        console.log(" job input empty");
