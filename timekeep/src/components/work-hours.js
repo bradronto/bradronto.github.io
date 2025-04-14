@@ -188,7 +188,7 @@ const handleMenu = (value) =>
     style={{margin: "16px"}}
     onChange={(e)=>handleMenu(e.target.value) } className="cool-time-select">
     <option value = "New Item"  >
-        Menuu
+        Menu
         </option>
        
         <option value={"clear jobs"}>
@@ -267,7 +267,7 @@ const handleMenu = (value) =>
               handleJobChange(index,"job","Add Job",e);
               console.log("onblur");
             }}
-            autoFocus
+            //autoFocus
           />
         </div>
       ):(
