@@ -10,7 +10,8 @@ import plainText from "./plain-txt";
 
 const WorkHoursTracker = () => {
 
-  
+  const inputRef = useRef(null);
+
   const [isFirstRun, setIsFirstRun] = useState(true);
  
   const [changeWeek, setChangeWeek] = useState(1);
@@ -118,6 +119,7 @@ const handleMenu = (value) =>
       if (value === "New Item") {
        // setTimeout(() => {updatedWorkHours[index]["showNew"] = true;}, 100);
        updatedWorkHours[index]["showNew"] = true;
+       //inputRef.current.focus();
        console.log(" job input empty");
  
       }
@@ -172,8 +174,7 @@ const handleMenu = (value) =>
  
   
 
-  const inputRef = useRef(null);
-
+ 
   const openJobBox = (targetIndex) => {
     const updatedDaysOfWeek = workHours.map((item, index) =>
     index === targetIndex ? { ...item, showNew: true } : item );
@@ -249,7 +250,7 @@ const handleMenu = (value) =>
 
  <>
 
-  {workHours[index].showNew === true ? (
+  {workHours[index].showNew === true? (
         <div>
            {console.log(newOption,workHours[index].showNew)}
           <input className="cool-input" ref={inputRef}
@@ -270,7 +271,11 @@ const handleMenu = (value) =>
             //autoFocus
           />
         </div>
-      ):(
+      )
+      
+      //   }{!workHours[index].showNew === true &&
+        
+       : (
         
                // {/*  select job    */}
                
@@ -294,8 +299,7 @@ const handleMenu = (value) =>
              
               </select> 
               
-       )
-       }
+       ) }
      </> )}
 
        <select  className="cool-time-select"// style={{ marginRight: "0px" }} 
