@@ -128,6 +128,8 @@ const handleMenu = (value) =>
            if(inputRef.current){inputRef.current.focus()};
          }, 800)
 
+         handleKeyboardToggle();
+
        console.log(" job input empty");
  
       }
@@ -192,6 +194,22 @@ const handleMenu = (value) =>
       if(inputRef.current){inputRef.current.focus()};
     }, 800)
   };
+
+
+  const handleKeyboardToggle = () => {
+    const hiddenInput = document.createElement("input");
+    hiddenInput.style.position = "absolute";
+    hiddenInput.style.opacity = 0;
+    document.body.appendChild(hiddenInput);
+    hiddenInput.focus();
+    setTimeout(() => {
+      hiddenInput.blur();
+      document.body.removeChild(hiddenInput);
+    }, 100); // Adjust timing as needed
+  };
+  
+
+
 
   return (
     
