@@ -47,8 +47,9 @@ const WorkHoursTracker = () => {
 
 
 );
-const handleMenu = (value) => 
-  {if (    value ==="dont kjhkjh"  )
+const handleMenu = (value) =>
+  {
+    if (    value ==="dont kjhkjh"  )
     {} else
 
   if (    value ==="clear jobs"  )
@@ -56,9 +57,14 @@ const handleMenu = (value) =>
 
   if (    value ==="clear hours"  )
     {
+
+      setTimeout(() => {
+        
+      
       setWorkHours(
         daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showFix: true, showNew: index < 1 ?true:false }))
-        )
+        )}, 100)
+      
     } 
   }
 
