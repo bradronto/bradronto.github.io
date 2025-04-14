@@ -122,14 +122,15 @@ const handleMenu = (value) =>
       if (value === "New Item") {
        // setTimeout(() => {updatedWorkHours[index]["showNew"] = true;}, 100);
        updatedWorkHours[index]["showNew"] = true;
-       
+      
+       handleKeyboardToggle();
+
 
        setTimeout(() => {
            if(inputRef.current){inputRef.current.focus()};
          }, 800)
 
-         handleKeyboardToggle();
-
+     
        console.log(" job input empty");
  
       }
