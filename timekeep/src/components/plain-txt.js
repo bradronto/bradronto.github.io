@@ -30,9 +30,8 @@ const plainText = (workHours,changeWeek) => {
           {workHours[index].isChecked ? (// only show hours for checked days
         <><span style={{ marginLeft:"0px"}}>{daysOfWeek[index]}</span>
           <br />&nbsp;&nbsp;{workHours[index].job} <br></br>{/*   job name    */}
-             <span  className="indent">&nbsp;&nbsp;{workHours[index].start}-{workHours[index].end} <br></br>
-        
-             &nbsp;&nbsp;{index<5?(
+             <span  className="indent">{workHours[index].start}-{workHours[index].end} <br></br>
+            &nbsp;&nbsp;{index<5?(
                 <>
         
                 {calculateTotalHours(workHours[index].start, workHours[index].end)>8?8:calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} Hrs
