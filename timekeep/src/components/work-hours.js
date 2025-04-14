@@ -43,11 +43,14 @@ const WorkHoursTracker = () => {
     // Save workHours to sessionStorage whenever it changes
     localStorage.setItem("jobNames", JSON.stringify(jobNames));
   }, [jobNames]
-  
- 
-
-
 );
+
+/*
+useEffect(() => {
+  inputRef.current.focus();
+}, [])
+*/
+
 const handleMenu = (value) =>
   {
     if (    value ==="dont kjhkjh"  )
@@ -119,7 +122,14 @@ const handleMenu = (value) =>
       if (value === "New Item") {
        // setTimeout(() => {updatedWorkHours[index]["showNew"] = true;}, 100);
        updatedWorkHours[index]["showNew"] = true;
-       //inputRef.current.focus();
+
+       setTimeout(() => {
+
+        if(inputRef.current){inputRef.current.focus()};
+      
+        
+      }, 100)
+
        console.log(" job input empty");
  
       }
