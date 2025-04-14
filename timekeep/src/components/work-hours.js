@@ -110,8 +110,8 @@ const handleMenu = (value) =>
 
     if(type==="job"){
       if (value === "New Item") {
-        setTimeout(() => {updatedWorkHours[index]["showNew"] = true;}, 100);
-       //
+       // setTimeout(() => {updatedWorkHours[index]["showNew"] = true;}, 100);
+       updatedWorkHours[index]["showNew"] = true;
        console.log(" job input empty");
  
       }
