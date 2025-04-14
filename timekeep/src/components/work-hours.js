@@ -63,7 +63,7 @@ const handleMenu = (value) =>
       
       setWorkHours(
         daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showFix: true, showNew: index < 1 ?true:false }))
-        )}, 200)
+        )}, 300)
       
     } 
   }
@@ -188,7 +188,7 @@ const handleMenu = (value) =>
     style={{margin: "16px"}}
     onChange={(e)=>handleMenu(e.target.value) } className="cool-time-select">
     <option value = "New Item"  >
-        Menu
+        Menuu
         </option>
        
         <option value={"clear jobs"}>
