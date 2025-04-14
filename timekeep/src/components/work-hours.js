@@ -128,7 +128,7 @@ const handleMenu = (value) =>
         if(inputRef.current){inputRef.current.focus()};
       
         
-      }, 900)
+      }, 500)
 
        console.log(" job input empty");
  
