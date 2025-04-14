@@ -82,10 +82,10 @@ const handleMenu = (value) =>
   
 
 
-  const handleJobChange = (index, type, value) => 
+  const handleJobChange = (index, type, value, e) => 
   {
     const updatedWorkHours = [...workHours];
-
+    //e.preventDefault();
     const newJob = () => {
 
       {/*  add job to job names */}
@@ -263,7 +263,8 @@ const handleMenu = (value) =>
            }
             //onClick={(e) => handleJobChange(index,"job","New Item")}
             onBlur={(e) => {
-              handleJobChange(index,"job","Add Job");
+            
+              handleJobChange(index,"job","Add Job",e);
               console.log("onblur");
             }}
             autoFocus
@@ -278,7 +279,11 @@ const handleMenu = (value) =>
                 className="cool-input"// 
                 value={workHours[index].job}
                 onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
-                onChange={(e) => handleJobChange(index, "job", e.target.value)}
+                onChange={(e) => {
+                  handleJobChange(index, "job", e.target.value,e);
+                  
+                
+                }}
               >
                {jobNames.map((job, indx) => (
               <option  key={indx} value={job}>
