@@ -122,13 +122,11 @@ const handleMenu = (value) =>
       if (value === "New Item") {
        // setTimeout(() => {updatedWorkHours[index]["showNew"] = true;}, 100);
        updatedWorkHours[index]["showNew"] = true;
+       
 
        setTimeout(() => {
-
-        if(inputRef.current){inputRef.current.focus()};
-      
-        
-      }, 800)
+           if(inputRef.current){inputRef.current.focus()};
+         }, 800)
 
        console.log(" job input empty");
  
@@ -190,6 +188,9 @@ const handleMenu = (value) =>
     index === targetIndex ? { ...item, showNew: true } : item );
     setWorkHours(updatedDaysOfWeek);
     console.log("open job box")
+    setTimeout(() => {
+      if(inputRef.current){inputRef.current.focus()};
+    }, 800)
   };
 
   return (
