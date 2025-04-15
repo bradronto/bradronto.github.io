@@ -140,18 +140,12 @@ const handleMenu = (value) =>
       if (value === "New Item") {
        // setTimeout(() => {updatedWorkHours[index]["showNew"] = true;}, 100);
        updatedWorkHours[index]["showNew"] = true;
-      
-       //handleKeyboardToggle();
-
 
        setTimeout(() => {
         if(inputRef.current){inputRef.current.focus()};
       }, 700);
       
-      setTimeout(() => {
-        if(inputRef.current){inputRef.current.focus()};
-      }, 700);
-
+     
      
        console.log(" job input empty");
  
@@ -297,6 +291,7 @@ const handleMenu = (value) =>
 ):(
 
  <>
+                  {/*  select job    */}
 
   {workHours[index].showNew === true? (
         <div>
@@ -319,11 +314,7 @@ const handleMenu = (value) =>
             //autoFocus
           />
         </div>
-      )
-      
-      //   }{!workHours[index].showNew === true &&
-        
-       : (
+      )  : (
         
                // {/*  select job    */}
                
