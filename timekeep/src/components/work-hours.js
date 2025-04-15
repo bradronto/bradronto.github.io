@@ -93,12 +93,17 @@ const handleMenu = (e) =>
       if (selectedHref) {
         window.location.href = selectedHref; // Navigate to the selected URL
       }
-    };
+    } else
+
+    if (    e.value ==="new job"  ) {
+    
+    console.log("new job from menu not finished");
+    
 
 
 
   }
-
+  }
   const handleChange = (index, type, value) => 
     {
       const updatedWorkHours = [...workHours];
@@ -113,12 +118,13 @@ const handleMenu = (e) =>
   
 
 
-  const handleJobChange = (index, type, value, e) => 
+  const handleJobChange = (index, value, e) => 
   {
 
     
     const updatedWorkHours = [...workHours];
-    //e.preventDefault();
+    
+   
     const newJob = () => {
 
       {/*  add job to job names */}
@@ -127,20 +133,13 @@ const handleMenu = (e) =>
         console.log("no option entered")
           } 
           
-          else if (newOption.trim() && !jobNames.includes(newOption)) 
+          else if (newOption.trim() && !jobNames.includes(newOption)) // new job name was entered
             {
-        updatedWorkHours[index][type] = newOption; //add job
+        updatedWorkHours[index].job = newOption; //add job
         setJobNames([...jobNames, newOption]);
-
-      //  const [jobOptions, setJobOptions] = useState(() => {jobNames.map((job)=>({value: job, label:job}))})
-
-       // setJobOptions(jobNames.map((job)=>({value: job, label:job})))
         setJobOptions([{value:newOption, label:newOption},...jobOptions]);
-        
         updatedWorkHours[index].showNew = false;
-        //setWorkHours(updatedWorkHours);
-
-
+ 
         if(jobNames.length===0){
           console.log("spread the jobs");
           updatedWorkHours.map((record)=>{record.job = newOption}
@@ -153,7 +152,7 @@ const handleMenu = (e) =>
       }
     }
 
-    if(type==="job"){
+    if(true){
       if (e.value === "New Item") {
        // setTimeout(() => {updatedWorkHours[index]["showNew"] = true;}, 100);
        updatedWorkHours[index]["showNew"] = true;
@@ -175,13 +174,17 @@ const handleMenu = (e) =>
       else {
        updatedWorkHours[index]["job"] = e.value;
        console.log("select existing job");
-       console.log("job value=",value);
+       console.log("job value=",e.value,e.label,e.select);
+
+   /*    
        setJobNames((prevOptions) => {   //reorder new job to top of list
       const selected = prevOptions.find((option) => option === value);
       const remainingOptions = prevOptions.filter((option) => option !== value);
       return [selected, ...remainingOptions];
       
     });
+
+    */
     }
    } 
   console.log(workHours[index].job);
@@ -213,9 +216,11 @@ const handleMenu = (e) =>
     index === targetIndex ? { ...item, showNew: true } : item );
     setWorkHours(updatedDaysOfWeek);
     console.log("open job box")
+    /*
     setTimeout(() => {
       if(inputRef.current){inputRef.current.focus()};
     }, 800)
+    */
   };
 
 
@@ -229,7 +234,7 @@ const handleMenu = (e) =>
   const optionz = [
     { value: "share", label: "Share 🍎" },
     { value: "clear jobs", label: "Clear Jobs 🍌" },
-    { value: "new job", label: "New Job 🥝" },
+    //{ value: "new job", label: "New Job 🥝" },
   ];
 
   const CustomControl = () => null;
@@ -239,48 +244,31 @@ const handleMenu = (e) =>
     
   <div className="input-container" >
 
-
+{/*}
       <button onClick={() => setIsVisible(!isVisible)}>
         Menu
       </button>
-      {isVisible && (
-        <Select
+
+      */}
+<span>
+
+
+{true && (
+        <Select 
+          className="cool-menu"
           options={optionz}
-          placeholder="sup?"
-          defaultMenuIsOpen={true} // Keeps the menu open by default
+          //placeholder="sup?"
+          //defaultMenuIsOpen={true} // Keeps the menu open by default
           //onMenuClose={(e)=> {handleJobChange(0, "job", "New Item",e);}}
-          onChange={(e)=>{handleMenu(e)}}
+          onChange={(e)=>{handleMenu(e);}}
+          isSearchable={false}
+            //openMenuOnFocus={true}
         
         />
       )}
-   
-
-{/*}
-    <select  className="cool-menu" style={{backgroundColor: "blue"}}
-    style={{margin: "16px"}}
-    onChange={(e)=>handleMenu(e.target.value) }
-    onClick={setraw}
-    
-    
-    >
-    <option value = "New Item" style={{backgroundColor: "blue"}} >
-        ...
-        </option>
-       
-        <option value={"clear jobs"}>
-        Clear Jobs
-        </option>
-       
-        <option value={"share"}>
-        Share
-        </option>
-          </select>
-*/}
-
-
-    <span  className="cool-header"> 
-       <select 
-       className="cool-header-select"
+  
+<select 
+       className="cool-date-header"
        onChange={(e) => handleWeekChange(e.target.value)}
       >
         <option value="this week">
@@ -292,8 +280,16 @@ const handleMenu = (e) =>
       
       </select>
 
-       &nbsp; &nbsp;&nbsp;&nbsp; 
-       <span style={{ fontSize: "23px" }}>{totalWeeklyHours.toFixed(1)} hrs</span> 
+</span>
+    
+
+
+
+    <span  className="cool-header"> 
+     
+
+     
+       <span style={{ fontSize: "23px" }}>  {reg} HOURS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {ot} OT  {/*totalWeeklyHours.toFixed(1)*/} </span> 
       </span>
     
     
@@ -332,13 +328,13 @@ const handleMenu = (e) =>
             placeholder="new job name"
             onKeyDown={(e)=>{
               if(e.key==="Enter"){
-              handleJobChange(index,"job","Add Job",e); }
+              handleJobChange(index,"Add Job",e); }
             }   // console.log("key=",e.key," ",newOption)
            }
-            //onClick={(e) => handleJobChange(index,"job","New Item")}
+            //onClick={(e) => handleJobChange(index,"New Item")}
             onBlur={(e) => {
             
-              handleJobChange(index,"job","Add Job",e);
+              handleJobChange(index,"Add Job",e);
               console.log("onblur");
             }}
             autoFocus
@@ -348,15 +344,16 @@ const handleMenu = (e) =>
         
                // {/*  select job    */}
                
-               <Select  
-               //components={{ Control: CustomControl }} // Hide the input field
-   
+               <Select 
+                //aria-haspopup="listbox"
+                isSearchable={false}
+                //select={workHours[index].job}
                 placeholder={workHours[index].job}
                 className="cool-job-input"// 
-                label={workHours[index].job}
-                value={workHours[index].job}
+                //label={workHours[index].job}
+                //value={workHours[index].job}
                 onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
-                onChange={(e) => { handleJobChange(index, "job",e.value,e);  }}
+                onChange={(e) => { handleJobChange(index, "job",e);  }}
               options={jobOptions}
               
               >

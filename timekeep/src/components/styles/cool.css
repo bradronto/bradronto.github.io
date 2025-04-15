@@ -24,7 +24,7 @@
     width: 100%;
   }
 
-   .cool-header {
+  .cool-header {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,7 +39,22 @@
     border-radius: 8px;
     font-size: 23px;
     outline: none;
-     }
+     } 
+     
+     .cool-date-header {
+      
+      margin-bottom: 20px;
+      color: black;
+      height: 35px;
+      margin-left: 30%;
+      background-color:rgb(153, 175, 194);
+      width: 60%;
+      padding: 0px;
+      border: 2px solid #0b0b0b;
+      border-radius: 8px;
+      font-size: 23px;
+      outline: none;
+       }
  
   .cool-header-select {
     color: #000;
@@ -142,9 +157,9 @@
 
     color: black;
     margin-left: 0px;
-    margin-bottom: 7px;
-    width: 10%;
-    padding: auto;
+   /* margin-bottom: 7px;*/
+    width: 30%;
+    padding: 0px;
     border: 2px solid #ccc;
     border-radius: 8px;
     font-size: 16px;
