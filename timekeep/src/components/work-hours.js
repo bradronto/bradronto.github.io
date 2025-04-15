@@ -144,9 +144,7 @@ const handleMenu = (value) =>
        setTimeout(() => {
         if(inputRef.current){inputRef.current.focus()};
       }, 700);
-      
-     
-     
+
        console.log(" job input empty");
  
       }
@@ -154,7 +152,7 @@ const handleMenu = (value) =>
         newJob(); 
         console.log(value);
        } 
-      else if(true){
+      else {
        updatedWorkHours[index]["job"] = value;
        console.log("select existing job");
        console.log("job value=",value);
@@ -188,8 +186,6 @@ const handleMenu = (value) =>
 
   const [reg,ot] = weekTotal(workHours);
   const [newOption, setNewOption] = useState(""); // State for new option input
- 
-  
 
  
   const openJobBox = (targetIndex) => {
@@ -202,22 +198,7 @@ const handleMenu = (value) =>
     }, 800)
   };
 
-
-  const handleKeyboardToggle = () => {
-    const hiddenInput = document.createElement("input");
-    hiddenInput.style.position = "absolute";
-    hiddenInput.style.opacity = 0;
-    document.body.appendChild(hiddenInput);
-    hiddenInput.focus();
-    setTimeout(() => {
-      hiddenInput.blur();
-      document.body.removeChild(hiddenInput);
-    }, 100); // Adjust timing as needed
-  };
   
-
-
-
   return (
     
   <div className="input-container" >
@@ -281,17 +262,9 @@ const handleMenu = (value) =>
           {workHours[index].isChecked ? (    // show day's form if box is checked
         <>
 
-{workHours[index].showFix === false? (
 
- <button onClick={(e) => handleChange(index,"showFix",false)}
-  className="cool-input"
-  >
- {workHours[index].job}
-   </button>
-):(
-
- <>
-                  {/*  select job    */}
+ 
+                  {/*  new job popup   */}
 
   {workHours[index].showNew === true? (
         <div>
@@ -318,8 +291,7 @@ const handleMenu = (value) =>
         
                // {/*  select job    */}
                
-
-                <select  
+               <select  
                 className="cool-input"// 
                 value={workHours[index].job}
                 onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
@@ -335,12 +307,9 @@ const handleMenu = (value) =>
                 {job}
               </option>))}
               <option value={"New Item"}>New Job</option>
-             
-             
-              </select> 
-              
+              </select>  
        ) }
-     </> )}
+    
 
        <select  className="cool-time-select"// style={{ marginRight: "0px" }} 
         value={workHours[index].start}
@@ -352,7 +321,7 @@ const handleMenu = (value) =>
         </option>
       ))}
         </select>         
-          <select className="cool-time-select" //style={{ marginRight: "0px" }} 
+          <select className="cool-time-select" style={{ marginLeft: "2%" }} 
         value={workHours[index].end}
         onChange={(e) => handleChange(index, "end", e.target.value)}
           >  
@@ -372,39 +341,26 @@ const handleMenu = (value) =>
           </td> <td style={{marginBottom: "0px", alignContent:"baselines"}}>
           <span style={{  marginBottom: "0px", alignContent:"baselines" }}>
            {    //index<5?( // is it a weekday?
-            workHours[index].isChecked?(
+            workHours[index].isChecked && (
             <>
-          {
+           {
            calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)
             } 
-             <br /> 
-           
+            <br /> 
             </>
-           ) : ( //weekends are OT
-            <> 
-           {
-           //calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)
-            } 
-
-             </>)}
+           )}
            </span>
            </td></tr></tbody></table>
        ))}
-     
-  
-  
-   
+      
    {/*  plain txt for sms output   */}
 
-     
- 
           <div  className="blue" ref={textRef} >         
         {plainText(workHours,changeWeek)}        
          </div>
 
   </div>
 );
-
 
 };
 
