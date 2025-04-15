@@ -135,7 +135,7 @@ const handleMenu = (e) =>
       //  const [jobOptions, setJobOptions] = useState(() => {jobNames.map((job)=>({value: job, label:job}))})
 
        // setJobOptions(jobNames.map((job)=>({value: job, label:job})))
-        setJobOptions([...jobOptions,{value:newOption, label:newOption}]);
+        setJobOptions([{value:newOption, label:newOption},...jobOptions]);
         
         updatedWorkHours[index].showNew = false;
         //setWorkHours(updatedWorkHours);
@@ -147,7 +147,7 @@ const handleMenu = (e) =>
         ) }
 
 
-      setNewOption(""); // Clear the input field
+      setNewOption("nope"); // Clear the input field
       console.log("new job added");
        
       }
@@ -232,7 +232,7 @@ const handleMenu = (e) =>
     { value: "new job", label: "New Job 🥝" },
   ];
 
- 
+  const CustomControl = () => null;
 
   
   return (
@@ -349,9 +349,12 @@ const handleMenu = (e) =>
                // {/*  select job    */}
                
                <Select  
-                className="cool-input"// 
+               //components={{ Control: CustomControl }} // Hide the input field
+   
                 placeholder={workHours[index].job}
-                //value={workHours[index].job}
+                className="cool-job-input"// 
+                label={workHours[index].job}
+                value={workHours[index].job}
                 onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
                 onChange={(e) => { handleJobChange(index, "job",e.value,e);  }}
               options={jobOptions}
