@@ -142,9 +142,12 @@ const handleMenu = (value) =>
        // setTimeout(() => {updatedWorkHours[index]["showNew"] = true;}, 100);
        updatedWorkHours[index]["showNew"] = true;
 
+      {/*
        setTimeout(() => {
         if(inputRef.current){inputRef.current.focus()};
       }, 700);
+
+      */}
 
        console.log(" job input empty");
  
@@ -230,6 +233,7 @@ const handleMenu = (value) =>
           placeholder="sup?"
           defaultMenuIsOpen={true} // Keeps the menu open by default
           onMenuClose={(e)=> {handleJobChange(0, "job", "New Item",e);}
+          
           }
         />
       )}
@@ -321,7 +325,7 @@ const handleMenu = (value) =>
               handleJobChange(index,"job","Add Job",e);
               console.log("onblur");
             }}
-            //autoFocus
+            autoFocus
           />
         </div>
       )  : (
