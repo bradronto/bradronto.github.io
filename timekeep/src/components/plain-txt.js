@@ -23,7 +23,7 @@ const plainText = (workHours,changeWeek) => {
         
         <br /> {getMonth(changeWeek)}      {/*  date range header     */}
         <br></br>
-        <span>{reg} Hours   <br />{ot} OT</span>
+        <span>Hours --- {reg}   <br /> O.T. ------ {ot} </span>
         <br></br><br />
         {daysOfWeek.map((day, index) => (
         <div   key={index}  >

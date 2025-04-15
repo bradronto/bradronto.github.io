@@ -3,7 +3,7 @@
     /*position: relative;*/
     width: 360px;
    /* margin: 10px auto;*/
-    background-color: white;
+    background-color:rgb(153, 175, 194);
   }
   
   .indent{
@@ -32,7 +32,7 @@
     color: black;
     height: 35px;
     margin-left: 16px;
-    background-color: rgb(209, 202, 111);
+    background-color: white;
     width: 94%;
     padding: 0px;
     border: 2px solid #0b0b0b;
@@ -45,7 +45,7 @@
     color: #000;
     height: 35px;
     margin-left: 0px;
-    background-color: rgb(209, 202, 111);
+    background-color: white;
     width: 60%;
     padding: 0px;
     border: none;
@@ -68,6 +68,7 @@
     border-radius: 8px;
     font-size: 16px;
     outline: none;
+    background-color: white;
    }
   /*.cool-checkbox {
 
@@ -85,6 +86,7 @@
     border-radius: 8px;
     font-size: 16px;
     outline: none;
+    background-color: white;
    /* transition: border-color 0.3s ease, box-shadow 3.0s ease;*/
   }
 
@@ -96,6 +98,7 @@
     border-radius: 8px;
     font-size: 16px;
     outline: none;
+    background-color: white;
   }
 
   .cool-time-select {
@@ -111,6 +114,25 @@
     border-radius: 8px;
     font-size: 16px;
     outline: none;
+    background-color: white;
+   
+ 
+  } 
+  
+  .cool-menu {
+    /*width: 300px;        Set the width */
+    height: 30px;       /* Set the height */
+
+    color: black;
+    margin-left: 0px;
+    margin-bottom: 7px;
+    width: 10%;
+    padding: auto;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    background-color: rgb(153, 175, 194);
    
  
   }
@@ -124,6 +146,7 @@
     border-radius: 8px;
     font-size: 16px;
     outline: none;
+    background-color: white;
    }
   
   /* Input Focus Effect */

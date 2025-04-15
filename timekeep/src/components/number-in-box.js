@@ -14,7 +14,7 @@ const NumberInBox = props => {
         height: "45px",
         width: "45px",
         fontSize: "17px",
-        backgroundColor:"rgb(209, 202, 111)" ,
+        backgroundColor:"white" ,
        
         color: "black"
       }}>

@@ -45,11 +45,19 @@ const WorkHoursTracker = () => {
   }, [jobNames]
 );
 
-/*
-useEffect(() => {
-  inputRef.current.focus();
-}, [])
-*/
+
+const [rawText, setRawText] = useState("wtf");
+  
+const setraw = () => {
+ const rawHTML = textRef.current.innerHTML;
+ const convertedText = rawHTML
+ .replace(/<\/?(span|div)[^>]*>/gi, "") // Matches opening or closing <span> and <div> tags
+ .replace(/\.\s*\./g, "") // Remove consecutive dots if any
+ .replace(/<br\s*\/?>/gi, "\n")
+ .replace(/&nbsp;/g, "");
+ setRawText(convertedText);
+}
+
 
 const handleMenu = (value) =>
   {
@@ -69,7 +77,17 @@ const handleMenu = (value) =>
         daysOfWeek.map((item,index) => ({ start: "7:00 AM", end: index<5 ? "3:00 PM":"7:00 AM", job: "Lake Mariner", isChecked: index < 5 ?true:false, showFix: true, showNew: index < 1 ?true:false }))
         )}, 900)
       
-    } 
+    } else
+    if (    value ==="share"  ) {
+    
+      const selectedHref = `sms:?&body=${encodeURIComponent(rawText)}` // Get the URL from the option value
+      if (selectedHref) {
+        window.location.href = selectedHref; // Navigate to the selected URL
+      }
+    };
+
+
+
   }
 
   const handleChange = (index, type, value) => 
@@ -172,17 +190,7 @@ const handleMenu = (value) =>
 
   const timeOptions = generateTimeOptions();
   const textRef = useRef();
-  const [rawText, setRawText] = useState("wtf");
-  
-  const setraw = () => {
-   const rawHTML = textRef.current.innerHTML;
-   const convertedText = rawHTML
-   .replace(/<\/?(span|div)[^>]*>/gi, "") // Matches opening or closing <span> and <div> tags
-   .replace(/\.\s*\./g, "") // Remove consecutive dots if any
-   .replace(/<br\s*\/?>/gi, "\n")
-   .replace(/&nbsp;/g, "");
-   setRawText(convertedText);
-  }
+ 
 
   const [reg,ot] = weekTotal(workHours);
   const [newOption, setNewOption] = useState(""); // State for new option input
@@ -219,18 +227,23 @@ const handleMenu = (value) =>
   return (
     
   <div className="input-container" >
-    <select 
+    <select  className="cool-menu" style={{backgroundColor: "blue"}}
     style={{margin: "16px"}}
-    onChange={(e)=>handleMenu(e.target.value) } className="cool-time-select">
-    <option value = "New Item"  >
-        Menu
+    onChange={(e)=>handleMenu(e.target.value) }
+    onClick={setraw}
+    
+    
+    >
+    <option value = "New Item" style={{backgroundColor: "blue"}} >
+        ...
         </option>
        
         <option value={"clear jobs"}>
         Clear Jobs
         </option>
-        <option value={"clear hours"}>
-        Reset Hours
+       
+        <option value={"share"}>
+        Share
         </option>
           </select>
     <span  className="cool-header"> 
@@ -244,6 +257,7 @@ const handleMenu = (value) =>
         <option value="last week">
         {getMonth(-6)}
         </option>
+      
       </select>
 
        &nbsp; &nbsp;&nbsp;&nbsp; 
@@ -319,6 +333,7 @@ const handleMenu = (value) =>
                 value={workHours[index].job}
                 onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
                 onChange={(e) => {
+                  //return;
                   handleJobChange(index, "job", e.target.value,e);
                   
                 
@@ -329,7 +344,7 @@ const handleMenu = (value) =>
                 {job}
               </option>))}
               <option value={"New Item"}>New Job</option>
-
+             
              
               </select> 
               
@@ -391,9 +406,7 @@ const handleMenu = (value) =>
    {/*  plain txt for sms output   */}
 
      
-      <a  style={{  display:"flex", justifyContent:"center", alignItems: "center"}} onClick={setraw}    href={`sms:?&body=${encodeURIComponent(rawText)}`}>
-          share timecard via text message
-        </a>
+ 
           <div  className="blue" ref={textRef} >         
         {plainText(workHours,changeWeek)}        
          </div>
@@ -420,4 +433,9 @@ export default WorkHoursTracker;
             }))
           );
         }
+
+
+             <a  style={{  display:"flex", justifyContent:"center", alignItems: "center"}} onClick={setraw}    href={`sms:?&body=${encodeURIComponent(rawText)}`}>
+          share timecard via text message
+        </a>
       */
