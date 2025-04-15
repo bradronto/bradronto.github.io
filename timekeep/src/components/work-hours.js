@@ -7,6 +7,7 @@ import getDatesOfCurrentWeek from "./current-week";
 import calculateTotalHours from "./total-hours";
 import weekTotal from "./week-total";
 import plainText from "./plain-txt";
+import Select from "react-select";
 
 const WorkHoursTracker = () => {
 
@@ -198,10 +199,43 @@ const handleMenu = (value) =>
     }, 800)
   };
 
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  const options = [
+    { value: "apple", label: "Apple 🍎" },
+    { value: "banana", label: "Banana 🍌" },
+    { value: "kiwi", label: "Kiwi 🥝" },
+  ];
+  const optionz = [
+    { value: "apple", label: "Share 🍎" },
+    { value: "banana", label: "Clear Jobs 🍌" },
+    { value: "kiwi", label: "New Job 🥝" },
+  ];
+
+ 
+
   
   return (
     
   <div className="input-container" >
+
+
+      <button onClick={() => setIsVisible(!isVisible)}>
+        Menu
+      </button>
+      {isVisible && (
+        <Select
+          options={optionz}
+          placeholder="sup?"
+          defaultMenuIsOpen={true} // Keeps the menu open by default
+          onMenuClose={(e)=> {handleJobChange(0, "job", "New Item",e);}
+          }
+        />
+      )}
+   
+
+{/*}
     <select  className="cool-menu" style={{backgroundColor: "blue"}}
     style={{margin: "16px"}}
     onChange={(e)=>handleMenu(e.target.value) }
@@ -221,6 +255,9 @@ const handleMenu = (value) =>
         Share
         </option>
           </select>
+*/}
+
+
     <span  className="cool-header"> 
        <select 
        className="cool-header-select"
