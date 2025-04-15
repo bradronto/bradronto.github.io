@@ -25,6 +25,11 @@ const WorkHoursTracker = () => {
       :
       []  });
 
+  const [jobOptions, setJobOptions] = useState([
+    { value: "New Item", label: "New Job 🍎" },
+  
+  ]);
+
     const [workHours, setWorkHours] = useState(() => {
       // Load session data if available
       const savedData = localStorage.getItem("workHours");
@@ -60,15 +65,18 @@ const setraw = () => {
 }
 
 
-const handleMenu = (value) =>
+const handleMenu = (e) =>
   {
-    if (    value ==="dont kjhkjh"  )
+    if (    e.value ==="dont kjhkjh"  )
     {} else
 
-  if (    value ==="clear jobs"  )
-    {setJobNames([]); } else
+  if (    e.value ==="clear jobs"  )
+    {setJobNames([]); 
+      setJobOptions(  { value: "New Item", label: "New Job 🍎" });
 
-  if (    value ==="clear hours"  )
+    } else
+
+  if (    e.value ==="clear hours"  )
     {
 
       setTimeout(() => {
@@ -79,7 +87,7 @@ const handleMenu = (value) =>
         )}, 900)
       
     } else
-    if (    value ==="share"  ) {
+    if (    e.value ==="share"  ) {
     
       const selectedHref = `sms:?&body=${encodeURIComponent(rawText)}` // Get the URL from the option value
       if (selectedHref) {
@@ -107,6 +115,8 @@ const handleMenu = (value) =>
 
   const handleJobChange = (index, type, value, e) => 
   {
+
+    
     const updatedWorkHours = [...workHours];
     //e.preventDefault();
     const newJob = () => {
@@ -121,6 +131,12 @@ const handleMenu = (value) =>
             {
         updatedWorkHours[index][type] = newOption; //add job
         setJobNames([...jobNames, newOption]);
+
+      //  const [jobOptions, setJobOptions] = useState(() => {jobNames.map((job)=>({value: job, label:job}))})
+
+       // setJobOptions(jobNames.map((job)=>({value: job, label:job})))
+        setJobOptions([...jobOptions,{value:newOption, label:newOption}]);
+        
         updatedWorkHours[index].showNew = false;
         //setWorkHours(updatedWorkHours);
 
@@ -138,7 +154,7 @@ const handleMenu = (value) =>
     }
 
     if(type==="job"){
-      if (value === "New Item") {
+      if (e.value === "New Item") {
        // setTimeout(() => {updatedWorkHours[index]["showNew"] = true;}, 100);
        updatedWorkHours[index]["showNew"] = true;
 
@@ -154,10 +170,10 @@ const handleMenu = (value) =>
       }
       else if (value === "Add Job") {
         newJob(); 
-        console.log(value);
+        console.log(e.value);
        } 
       else {
-       updatedWorkHours[index]["job"] = value;
+       updatedWorkHours[index]["job"] = e.value;
        console.log("select existing job");
        console.log("job value=",value);
        setJobNames((prevOptions) => {   //reorder new job to top of list
@@ -205,15 +221,15 @@ const handleMenu = (value) =>
 
   const [isVisible, setIsVisible] = useState(false);
 
-  const options = [
-    { value: "apple", label: "Apple 🍎" },
-    { value: "banana", label: "Banana 🍌" },
-    { value: "kiwi", label: "Kiwi 🥝" },
-  ];
+  //const jobOptions = jobNames.map((job)=>({value: "New Item", label: "New Job"}))
+  
+  
+  
+ 
   const optionz = [
-    { value: "apple", label: "Share 🍎" },
-    { value: "banana", label: "Clear Jobs 🍌" },
-    { value: "kiwi", label: "New Job 🥝" },
+    { value: "share", label: "Share 🍎" },
+    { value: "clear jobs", label: "Clear Jobs 🍌" },
+    { value: "new job", label: "New Job 🥝" },
   ];
 
  
@@ -232,9 +248,9 @@ const handleMenu = (value) =>
           options={optionz}
           placeholder="sup?"
           defaultMenuIsOpen={true} // Keeps the menu open by default
-          onMenuClose={(e)=> {handleJobChange(0, "job", "New Item",e);}
-          
-          }
+          //onMenuClose={(e)=> {handleJobChange(0, "job", "New Item",e);}}
+          onChange={(e)=>{handleMenu(e)}}
+        
         />
       )}
    
@@ -316,7 +332,7 @@ const handleMenu = (value) =>
             placeholder="new job name"
             onKeyDown={(e)=>{
               if(e.key==="Enter"){
-              handleJobChange(index,"job","Add Job",); }
+              handleJobChange(index,"job","Add Job",e); }
             }   // console.log("key=",e.key," ",newOption)
            }
             //onClick={(e) => handleJobChange(index,"job","New Item")}
@@ -332,23 +348,25 @@ const handleMenu = (value) =>
         
                // {/*  select job    */}
                
-               <select  
+               <Select  
                 className="cool-input"// 
-                value={workHours[index].job}
+                placeholder={workHours[index].job}
+                //value={workHours[index].job}
                 onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
-                onChange={(e) => {
-                  //return;
-                  handleJobChange(index, "job", e.target.value,e);
-                  
-                
-                }}
+                onChange={(e) => { handleJobChange(index, "job",e.value,e);  }}
+              options={jobOptions}
+              
               >
+
+             {/*}   
                {jobNames.map((job, indx) => (
               <option  key={indx} value={job}>
                 {job}
               </option>))}
               <option value={"New Item"}>New Job</option>
-              </select>  
+
+              */}
+              </Select>  
        ) }
     
 
