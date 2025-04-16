@@ -8,6 +8,7 @@ import calculateTotalHours from "./total-hours";
 import weekTotal from "./week-total";
 import plainText from "./plain-txt";
 import Select from "react-select";
+import ProMenu from "./menu";
 
 const WorkHoursTracker = () => {
 
@@ -244,6 +245,7 @@ const handleMenu = (e) =>
   return (
     
   <div className="input-container" >
+    <ProMenu />
 
 
 
