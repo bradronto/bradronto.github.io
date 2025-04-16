@@ -72,7 +72,7 @@ const handleMenu = (e) =>
 
   if (    e.value ==="clear jobs"  )
     {setJobNames([]); 
-      setJobOptions(  { value: "New Item", label: "New Job 🍎" });
+      setJobOptions(  [{ value: "New Item", label: "New Job 🍎", }]);
 
     } else
 
@@ -348,6 +348,8 @@ const handleMenu = (e) =>
                 //aria-haspopup="listbox"
                 isSearchable={false}
                 //select={workHours[index].job}
+                noOptionsMessage={"no options"}
+                controlShouldRenderValue={true}
                 placeholder={workHours[index].job}
                 className="cool-job-input"// 
                 //label={workHours[index].job}
