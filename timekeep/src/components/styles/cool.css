@@ -32,7 +32,7 @@
     margin-bottom: 20px;
     color: black;
     height: 35px;
-    margin-left: 16px;
+    margin-left: 0px;
     background-color:rgb(153, 175, 194);
     width: 94%;
     padding: 0px;
@@ -47,7 +47,7 @@
       margin-bottom: 20px;
       color: black;
       height: 35px;
-      margin-left: 30%;
+      margin-left: 0%;
       background-color:rgb(153, 175, 194);
       width: 60%;
       padding: 0px;
@@ -59,7 +59,8 @@
  
   .cool-header-select {
     color: #000;
-    height: 35px;
+    height: 30px;
+   
     margin-left: 0px;
     background-color:rgb(153, 175, 194);
     width: 60%;

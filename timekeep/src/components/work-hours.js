@@ -73,6 +73,7 @@ const handleMenu = (e) =>
   if (    e.value ==="clear jobs"  )
     {setJobNames([]); 
       setJobOptions(  [{ value: "New Item", label: "New Job 🍎", }]);
+      openJobBox(0);
 
     } else
 
@@ -237,37 +238,19 @@ const handleMenu = (e) =>
     //{ value: "new job", label: "New Job 🥝" },
   ];
 
-  const CustomControl = () => null;
+  //const CustomControl = () => null;
 
   
   return (
     
   <div className="input-container" >
 
-{/*}
-      <button onClick={() => setIsVisible(!isVisible)}>
-        Menu
-      </button>
-
-      */}
-<span>
 
 
-{true && (
-        <Select 
-          className="cool-menu"
-          options={optionz}
-          //placeholder="sup?"
-          //defaultMenuIsOpen={true} // Keeps the menu open by default
-          //onMenuClose={(e)=> {handleJobChange(0, "job", "New Item",e);}}
-          onChange={(e)=>{handleMenu(e);}}
-          isSearchable={false}
-            //openMenuOnFocus={true}
-        
-        />
-      )}
+
+    
   
-<select 
+      <select 
        className="cool-date-header"
        onChange={(e) => handleWeekChange(e.target.value)}
       >
@@ -277,10 +260,36 @@ const handleMenu = (e) =>
         <option value="last week">
         {getMonth(-6)}
         </option>
-      
       </select>
 
-</span>
+
+      {isVisible?(<Select 
+          className="cool-menu"
+          defaultMenuIsOpen={true}
+          autoFocus={true}
+          onBlur={()=>setIsVisible(false)}
+          options={optionz}
+          onChange={(e)=>{handleMenu(e);
+            setIsVisible(false)
+          }}
+          isSearchable={false}    
+        />):(
+
+
+          <button
+          style={{height:"35px",marginLeft:"80px", width:"35px"}}
+          onClick={()=>setIsVisible(true)}
+          
+          >...</button>
+        )
+      
+      
+      
+      
+      }
+ 
+
+
     
 
 
@@ -351,6 +360,7 @@ const handleMenu = (e) =>
                 noOptionsMessage={"no options"}
                 controlShouldRenderValue={true}
                 placeholder={workHours[index].job}
+                //defaultInputValue={workHours[index].job}
                 className="cool-job-input"// 
                 //label={workHours[index].job}
                 //value={workHours[index].job}
@@ -399,15 +409,19 @@ const handleMenu = (e) =>
         </>
       )}
         </div>     
-          </td> <td style={{marginBottom: "0px", alignContent:"baselines"}}>
+          </td> <td style={{marginBottom: "0px", alignContent:"baselines", verticalAlign:"top"}}>
           <span style={{  marginBottom: "0px", alignContent:"baselines" }}>
            {    //index<5?( // is it a weekday?
             workHours[index].isChecked && (
             <>
-           {
-           calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)
-            } 
+           
+           {calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)>8? 8 : calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)}
+           
+             
             <br /> 
+
+            {calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)>8? calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)-8:0}
+
             </>
            )}
            </span>
