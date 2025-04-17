@@ -7,8 +7,21 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import getMonth from "./date-header";
 //import handleWeekChange
+import plainText from "./plain-txt";
 
-const ProMenu = () => {
+const ProMenu = (props) => {
+
+    const smsText = () => {
+        const rawHTML = plainText(props.workHours,props.changeWeek);
+        const convertedText = rawHTML
+        .replace(/<\/?(span|div)[^>]*>/gi, "") // Matches opening or closing <span> and <div> tags
+        .replace(/\.\s*\./g, "") // Remove consecutive dots if any
+        .replace(/<br\s*\/?>/gi, "\n")
+        .replace(/&nbsp;/g, "");
+       // setRawText(convertedText);
+        return convertedText;
+       }
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -19,11 +32,21 @@ const ProMenu = () => {
     setAnchorEl(null);
   };
 
+
+
+  const share =()=>{
+    const selectedHref = `sms:?&body=${encodeURIComponent(props.smsText)}` // Get the URL from the option value
+    if (selectedHref) {
+      window.location.href = selectedHref; // Navigate to the selected URL
+    }
+
+  }
+
   return (
     <AppBar position="static" style={{ backgroundColor: "#333" }}>
       <Toolbar>
         <Typography variant="h6" style={{ flexGrow: 1 }}>
-          Weekly Time Card
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Weekly Time Card
 
           <br />
 
@@ -56,9 +79,10 @@ const ProMenu = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleClose}>Share</MenuItem>
+          <MenuItem onClick={()=>{handleClose();share(); }}>Share</MenuItem>
           <MenuItem onClick={handleClose}>Reset Week</MenuItem>
           <MenuItem onClick={handleClose}>Clear Jobs</MenuItem>
+         
         </Menu>
       </Toolbar>
      

@@ -14,7 +14,7 @@ const WorkHoursTracker = () => {
 
   const inputRef = useRef(null);
 
-  const [isFirstRun, setIsFirstRun] = useState(true);
+  //const [isFirstRun, setIsFirstRun] = useState(true);
  
   const [changeWeek, setChangeWeek] = useState(1);
   const daysOfWeek = getDatesOfCurrentWeek(changeWeek);  //chgwk is 1 for this week and -6 for last
@@ -31,8 +31,9 @@ const WorkHoursTracker = () => {
 
 
     return jobNames?
-    jobNames.map(
-      (jobname)=> ({value:jobname, label:jobname} ))
+    [...jobNames.map(
+      (jobname)=> ({value:jobname, label:jobname} )),
+      { value: "New Item", label: "New Job 🍎" },]
 
     :
     [{ value: "New Item", label: "New Job 🍎" },]
@@ -72,6 +73,7 @@ const setraw = () => {
  .replace(/<br\s*\/?>/gi, "\n")
  .replace(/&nbsp;/g, "");
  setRawText(convertedText);
+ return rawText;
 }
 
 
@@ -125,6 +127,7 @@ const handleMenu = (e) =>
         updatedWorkHours[index]["isChecked"] === false? updatedWorkHours[index]["end"] = "7:00 AM":updatedWorkHours[index]["end"]="3:00 PM"
       }
   setWorkHours(updatedWorkHours);
+  setraw();
      }
   
 
@@ -199,6 +202,7 @@ const handleMenu = (e) =>
    } 
   console.log(workHours[index].job);
   setWorkHours(updatedWorkHours);
+  setraw();
   };
 
   
@@ -253,7 +257,14 @@ const handleMenu = (e) =>
   return (
     
   <div className="input-container" >
-    <ProMenu />
+    
+    <ProMenu 
+ workHours={workHours}
+ changeWeek={changeWeek}
+ smsText={(rawText)}
+    
+    
+    />
 
 
     <span  className="cool-header"> 
@@ -398,7 +409,7 @@ const handleMenu = (e) =>
       
    {/*  plain txt for sms output   */}
 
-          <div  className="blue" ref={textRef} >         
+          <div className="blue" ref={textRef} >         
         {plainText(workHours,changeWeek)}        
          </div>
 
