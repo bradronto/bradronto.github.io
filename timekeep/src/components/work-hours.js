@@ -57,10 +57,34 @@ const WorkHoursTracker = () => {
   );
 
   useEffect(() => {
-    // Save workHours to sessionStorage whenever it changes
+    // Save jobNames to sessionStorage whenever it changes
     localStorage.setItem("jobNames", JSON.stringify(jobNames));
   }, [jobNames]
 );
+
+useEffect(() => {
+  const handleStorageChange = () => {
+    const updatedArray = localStorage.getItem('myArray');
+    if (updatedArray) {
+      setJobNames(JSON.parse(updatedArray));
+    }
+  };
+
+  // Add event listener
+  window.addEventListener('storage', handleStorageChange);
+
+  // Clean up event listener on unmount
+  return () => {
+    window.removeEventListener('storage', handleStorageChange);
+  };
+}, []);
+
+// Add item to localStorage (for testing)
+const addItem = () => {
+ // const newArray = [...array, `Item ${array.length + 1}`];
+  //localStorage.setItem('myArray', JSON.stringify(newArray));
+ // setArray(newArray); // Optional: Update state immediately
+};
 
 
 const [rawText, setRawText] = useState("wtf");
@@ -205,7 +229,7 @@ const handleMenu = (e) =>
   setraw();
   };
 
-  
+  /*
   const handleWeekChange = (chosenWeek) => 
     {
     chosenWeek==="last week" ? setChangeWeek(-6): setChangeWeek(1);
@@ -217,43 +241,27 @@ const handleMenu = (e) =>
     0
   );
 
+  */
+
   const timeOptions = generateTimeOptions();
   const textRef = useRef();
- 
-
   const [reg,ot] = weekTotal(workHours);
   const [newOption, setNewOption] = useState(""); // State for new option input
 
- 
   const openJobBox = (targetIndex) => {
     const updatedDaysOfWeek = workHours.map((item, index) =>
     index === targetIndex ? { ...item, showNew: true } : item );
     setWorkHours(updatedDaysOfWeek);
     console.log("open job box")
-    /*
-    setTimeout(() => {
-      if(inputRef.current){inputRef.current.focus()};
-    }, 800)
-    */
-  };
+   };
 
 
-  const [isVisible, setIsVisible] = useState(false);
-
-  //const jobOptions = jobNames.map((job)=>({value: "New Item", label: "New Job"}))
-  
-  
-  
- 
   const optionz = [
     { value: "share", label: "Share 🍎" },
     { value: "clear jobs", label: "Clear Jobs 🍌" },
     //{ value: "new job", label: "New Job 🥝" },
   ];
 
-  //const CustomControl = () => null;
-
-  
   return (
     
   <div className="input-container" >
@@ -263,9 +271,7 @@ const handleMenu = (e) =>
  changeWeek={changeWeek}
  smsText={(rawText)}
     
-    
     />
-
 
     <span  className="cool-header"> 
         {reg} HOURS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {ot} OVER TIME  {/*totalWeeklyHours.toFixed(1)*/} 
@@ -292,8 +298,6 @@ const handleMenu = (e) =>
          <div>
           {workHours[index].isChecked ? (    // show day's form if box is checked
         <>
-
-
  
                   {/*  new job popup   */}
 
@@ -309,9 +313,7 @@ const handleMenu = (e) =>
               handleJobChange(index,"Add Job",e); }
             }   // console.log("key=",e.key," ",newOption)
            }
-            //onClick={(e) => handleJobChange(index,"New Item")}
-            onBlur={(e) => {
-            
+             onBlur={(e) => {
               handleJobChange(index,"Add Job",e);
               console.log("onblur");
             }}
@@ -320,7 +322,7 @@ const handleMenu = (e) =>
         </div>
       )  : (
         
-               // {/*  select job    */}
+ // {/*  select job    */}
                
                <Select 
 
@@ -334,30 +336,16 @@ const handleMenu = (e) =>
             
               }}
                
-                //aria-haspopup="listbox"
                 isSearchable={false}
-                //select={workHours[index].job}
                 noOptionsMessage={"no options"}
                 controlShouldRenderValue={true}
                 placeholder={workHours[index].job}
-                //defaultInputValue={workHours[index].job}
-                //className="cool-job-input"// 
-                //label={workHours[index].job}
-                //value={workHours[index].job}
-                onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
+                 onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
                 onChange={(e) => { handleJobChange(index, "job",e);  }}
               options={jobOptions}
               
               >
 
-             {/*}   
-               {jobNames.map((job, indx) => (
-              <option  key={indx} value={job}>
-                {job}
-              </option>))}
-              <option value={"New Item"}>New Job</option>
-
-              */}
               </Select>  
        ) }
     
@@ -396,8 +384,7 @@ const handleMenu = (e) =>
             <>
            
            {calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)>8? 8 : calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)}
-           
-             
+            
             <br /> 
 
             {calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)>8? calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)-8:0}
@@ -408,7 +395,7 @@ const handleMenu = (e) =>
            </td></tr></tbody></table>
        ))}
       
-   {/*  plain txt for sms output   */}
+   {/*  sms output   */}
 
           <div className="blue" ref={textRef} >         
         {plainText(workHours,changeWeek)}        
@@ -421,23 +408,3 @@ const handleMenu = (e) =>
 
 
 export default WorkHoursTracker;
-
-
-
-        /*
-        if(isFirstRun ){
-          console.log("first run");
-          setIsFirstRun(false);
-          setWorkHours((prevWorkHours) =>
-            prevWorkHours.map((workHour) => ({
-              ...workHour, // Spread the existing properties
-              job: newOption // Update the job property
-            }))
-          );
-        }
-
-
-             <a  style={{  display:"flex", justifyContent:"center", alignItems: "center"}} onClick={setraw}    href={`sms:?&body=${encodeURIComponent(rawText)}`}>
-          share timecard via text message
-        </a>
-      */
