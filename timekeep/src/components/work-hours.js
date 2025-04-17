@@ -268,7 +268,7 @@ const handleMenu = (e) =>
 
 
     <span  className="cool-header"> 
-        {reg} HOURS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {ot} OT  {/*totalWeeklyHours.toFixed(1)*/} 
+        {reg} HOURS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {ot} OVER TIME  {/*totalWeeklyHours.toFixed(1)*/} 
       </span>
 
      {daysOfWeek.map((day, index) => (
