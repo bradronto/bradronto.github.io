@@ -156,7 +156,6 @@ const handleMenu = (e) =>
 
     if(true){
       if (e.value === "New Item") {
-       // setTimeout(() => {updatedWorkHours[index]["showNew"] = true;}, 100);
        updatedWorkHours[index]["showNew"] = true;
 
       {/*
@@ -248,63 +247,10 @@ const handleMenu = (e) =>
     <ProMenu />
 
 
-
-
-   {/* 
-  
-      <select 
-       className="cool-date-header"
-       onChange={(e) => handleWeekChange(e.target.value)}
-      >
-        <option value="this week">
-        {getMonth(1)} 
-        </option>
-        <option value="last week">
-        {getMonth(-6)}
-        </option>
-      </select>
-
-
-      {isVisible?(<Select 
-          className="cool-menu"
-          defaultMenuIsOpen={true}
-          autoFocus={true}
-          onBlur={()=>setIsVisible(false)}
-          options={optionz}
-          onChange={(e)=>{handleMenu(e);
-            setIsVisible(false)
-          }}
-          isSearchable={false}    
-        />):(
-
-
-          <button
-          style={{height:"35px",marginLeft:"80px", width:"35px"}}
-          onClick={()=>setIsVisible(true)}
-          
-          >...</button>
-        )
-      
-      
-      
-      
-      }
- 
-*/}
-
-    
-
-
-
     <span  className="cool-header"> 
-     
-
-     
-       <span style={{ fontSize: "23px" }}>  {reg} HOURS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {ot} OT  {/*totalWeeklyHours.toFixed(1)*/} </span> 
+        {reg} HOURS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {ot} OT  {/*totalWeeklyHours.toFixed(1)*/} 
       </span>
-    
-    
-    
+
      {daysOfWeek.map((day, index) => (
        <table key={index} style={{marginLeft:"10px"}}>
         <tbody>
@@ -356,6 +302,15 @@ const handleMenu = (e) =>
                // {/*  select job    */}
                
                <Select 
+
+               styles={{
+
+                border:"4px solid #ccc",
+                borderRadius: "8px",
+                
+             
+            
+              }}
                 //aria-haspopup="listbox"
                 isSearchable={false}
                 //select={workHours[index].job}

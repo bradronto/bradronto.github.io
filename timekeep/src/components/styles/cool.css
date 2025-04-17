@@ -6,6 +6,8 @@
    /* background-color:rgb(153, 175, 194);*/
    background-color: white;
   }
+
+ 
   
   .indent{
     margin-left: 0px;
@@ -31,14 +33,14 @@
     align-items: center;
     margin-bottom: 20px;
     color: black;
-    height: 35px;
+    height: 25px;
     margin-left: 0px;
     background-color:rgb(153, 175, 194);
     width: 100%;
     padding: 0px;
     border: 1px solid #0b0b0b;
     border-radius: 0px;
-    font-size: 23px;
+    font-size: 19px;
     outline: none;
      } 
      

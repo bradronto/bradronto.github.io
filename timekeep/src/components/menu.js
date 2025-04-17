@@ -32,10 +32,10 @@ const ProMenu = () => {
        //onChange={(e) => handleClick(e)}
       >
         <option value="this week">
-        {getMonth(1)} 
+        {getMonth(-6)} 
         </option>
         <option value="last week">
-        {getMonth(-6)}
+        {getMonth(1)}
         </option>
       </select>
       
