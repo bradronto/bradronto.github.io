@@ -9,6 +9,17 @@ import weekTotal from "./week-total";
 import plainText from "./plain-txt";
 import Select from "react-select";
 import ProMenu from "./menu";
+//import CapitalizeWords from "./capitalize"
+//import CapitalizeWords from "./capitalize";
+import _ from "lodash";
+
+const CapitalizeWords = ( text ) => {
+  const capitalizedText = _.startCase(_.toLower(text));
+
+  return capitalizedText;
+};
+
+
 
 const WorkHoursTracker = () => {
 
@@ -173,14 +184,17 @@ const handleMenu = (e) =>
           
           else if (newOption.trim() && !jobNames.includes(newOption)) // new job name was entered
             {
-        updatedWorkHours[index].job = newOption; //add job
-        setJobNames([...jobNames, newOption]);
-        setJobOptions([{value:newOption, label:newOption},...jobOptions]);
+              const newOption1 = CapitalizeWords(newOption);
+        //const newOption1 = newOption.toUpperCase();
+       // setNewOption(newOption.toUpperCase())      
+        updatedWorkHours[index].job = newOption1; //add job
+        setJobNames([...jobNames, newOption1]);
+        setJobOptions([{value:newOption1, label:newOption1},...jobOptions]);
         updatedWorkHours[index].showNew = false;
  
         if(jobNames.length===0){
           console.log("spread the jobs");
-          updatedWorkHours.map((record)=>{record.job = newOption}
+          updatedWorkHours.map((record)=>{record.job = newOption1}
         ) }
 
 
@@ -305,7 +319,7 @@ const handleMenu = (e) =>
            {console.log(newOption,workHours[index].showNew)}
           <input className="cool-input" ref={inputRef}
             type="text"
-            onChange={(e) => setNewOption(e.target.value)}
+            onChange={(e) => setNewOption(e.target.value.toUpperCase())}
             placeholder="new job name"
             onKeyDown={(e)=>{
               if(e.key==="Enter"){
@@ -372,7 +386,7 @@ const handleMenu = (e) =>
          </>
       ) : (
         <>
-          <p className="cool-span"> No Hours   </p> 
+          <p className="cool-span"> NO HOURS   </p> 
         </>
       )}
         </div>     

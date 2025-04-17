@@ -21,21 +21,21 @@ const plainText = (workHours,changeWeek) => {
 
 <div  className="blue"  >  
         
-        <br /> {getMonth(changeWeek)}      {/*  date range header     */}
+        {getMonth(changeWeek)}      {/*  date range header     */}
         <br></br>
-        <span>Hours ---- {reg}   <br /> O.T. ------ {ot} </span>
+        <span>{reg} HOURS  <br />{ot} OVERTIME </span>
         <br></br><br />
         {daysOfWeek.map((day, index) => (
         <div   key={index}  >
           {workHours[index].isChecked ? (// only show hours for checked days
         <><span style={{ marginLeft:"0px"}}>{daysOfWeek[index]}</span>
-          <br />&nbsp;&nbsp;{workHours[index].job} <br></br>{/*   job name    */}
+          <br />{workHours[index].job} <br></br>{/*   job name    */}
              <span  className="indent">{workHours[index].start}-{workHours[index].end} <br></br>
-            &nbsp;&nbsp;{index<5?(
+            {index<5?(
                 <>
         
                 {calculateTotalHours(workHours[index].start, workHours[index].end)>8?8:calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)} Hrs
-                &nbsp;&nbsp;{calculateTotalHours(workHours[index].start, workHours[index].end)>8?calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)-8:0} O.T.
+                &nbsp;&nbsp;{calculateTotalHours(workHours[index].start, workHours[index].end)>8?calculateTotalHours(workHours[index].start, workHours[index].end).toFixed(1)-8:0} OT
            
               </>
                ) : (
@@ -58,7 +58,7 @@ const plainText = (workHours,changeWeek) => {
               <>
                {daysOfWeek[index] }
                <br />
-               &nbsp; &nbsp;No Hours
+              NO HOURS
                <br /><br />
               </>
             )}
