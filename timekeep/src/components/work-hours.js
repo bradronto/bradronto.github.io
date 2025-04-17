@@ -26,22 +26,19 @@ const WorkHoursTracker = () => {
       :
       []  });
 
-      /*
+
   const [jobOptions, setJobOptions] = useState(()=> {
 
-    const savedData = localStorage.getItem("jobNames");
-    return savedData
-      ? JSON.parse(savedData)
-      :
-    
+
+    return jobNames?
+    jobNames.map(
+      (jobname)=> ({value:jobname, label:jobname} ))
+
+    :
     [{ value: "New Item", label: "New Job 🍎" },]
   }
+  
   );
-  */
-
-  const [jobOptions, setJobOptions] = useState(
-    [{ value: "New Item", label: "New Job 🍎" },]
-  )
 
     const [workHours, setWorkHours] = useState(() => {
       // Load session data if available
