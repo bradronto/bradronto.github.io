@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import getMonth from "./date-header";
+//import handleWeekChange
 
 const ProMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -21,9 +23,27 @@ const ProMenu = () => {
     <AppBar position="static" style={{ backgroundColor: "#333" }}>
       <Toolbar>
         <Typography variant="h6" style={{ flexGrow: 1 }}>
-          Weekly Time Card<br />
-            Apr 7 - Apr 13     40 HRS   0.5 OT
+          Weekly Time Card
+
+          <br />
+
+          <select 
+       className="cool-date-header"
+       onChange={(e) => handleClick(e)}
+      >
+        <option value="this week">
+        {getMonth(1)} 
+        </option>
+        <option value="last week">
+        {getMonth(-6)}
+        </option>
+      </select>
+      
+
         </Typography>
+        
+       
+
        
         <Button
           color="inherit"
