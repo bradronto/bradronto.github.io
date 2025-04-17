@@ -29,6 +29,7 @@ const WorkHoursTracker = () => {
  
   const [changeWeek, setChangeWeek] = useState(1);
   const daysOfWeek = getDatesOfCurrentWeek(changeWeek);  //chgwk is 1 for this week and -6 for last
+ 
   const [jobNames,setJobNames] = useState(() => {
     // Load session data if available
     const savedData = localStorage.getItem("jobNames");
@@ -75,7 +76,7 @@ const WorkHoursTracker = () => {
 
 useEffect(() => {
   const handleStorageChange = () => {
-    const updatedArray = localStorage.getItem('myArray');
+    const updatedArray = localStorage.getItem('jobNames');
     if (updatedArray) {
       setJobNames(JSON.parse(updatedArray));
     }
