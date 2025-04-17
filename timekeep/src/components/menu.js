@@ -29,7 +29,7 @@ const ProMenu = () => {
 
           <select 
        className="cool-date-header"
-       onChange={(e) => handleClick(e)}
+       //onChange={(e) => handleClick(e)}
       >
         <option value="this week">
         {getMonth(1)} 

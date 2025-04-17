@@ -34,10 +34,10 @@
     height: 35px;
     margin-left: 0px;
     background-color:rgb(153, 175, 194);
-    width: 94%;
+    width: 100%;
     padding: 0px;
-    border: 2px solid #0b0b0b;
-    border-radius: 8px;
+    border: 1px solid #0b0b0b;
+    border-radius: 0px;
     font-size: 23px;
     outline: none;
      } 
@@ -51,9 +51,9 @@
       background-color:#333;
       width: 60%;
       padding: 0px;
-      border: 2px solid #0b0b0b;
+      border: 2px solid #333;
       border-radius: 8px;
-      font-size: 21px;
+      font-size: 19px;
       outline: none;
        }
  
