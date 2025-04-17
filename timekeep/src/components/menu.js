@@ -46,9 +46,8 @@ const ProMenu = (props) => {
     <AppBar position="static" style={{ backgroundColor: "#333" }}>
       <Toolbar>
         <Typography variant="h6" style={{ flexGrow: 1 }}>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Weekly Time Card
-
-          <br />
+        &nbsp;&nbsp; Weekly Time Card
+        <br />
 
           <select 
        className="cool-date-header"
@@ -69,10 +68,15 @@ const ProMenu = (props) => {
 
        
         <Button
+           //variant="contained"
+           sx={{ 
+             fontSize: '50px',  // or '1.5rem' or 'large'
+            // color: "inherit"
+           }}
           color="inherit"
           onClick={handleClick}
         >
-          Menu
+          ...
         </Button>
         <Menu
           anchorEl={anchorEl}
