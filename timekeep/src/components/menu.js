@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -10,6 +10,22 @@ import getMonth from "./date-header";
 import plainText from "./plain-txt";
 
 const ProMenu = (props) => {
+
+     const [jobNames,setJobNames] = useState(() => {
+        // Load session data if available
+        const savedData = localStorage.getItem("jobNames");
+        return savedData
+          ? JSON.parse(savedData)
+          :
+          []  });
+    
+
+   useEffect(() => {
+      // Save workHours to sessionStorage whenever it changes
+      localStorage.setItem("jobNames", JSON.stringify(jobNames));
+    }, [jobNames]
+  ); 
+
 
     const smsText = () => {
         const rawHTML = plainText(props.workHours,props.changeWeek);
@@ -32,6 +48,11 @@ const ProMenu = (props) => {
     setAnchorEl(null);
   };
 
+  const clearJobs =()=>{
+
+    setJobNames([])
+  }
+const r = ["jik","gut","cax"];
 
 
   const share =()=>{
@@ -85,8 +106,9 @@ const ProMenu = (props) => {
         >
           <MenuItem onClick={()=>{handleClose();share(); }}>Share</MenuItem>
           <MenuItem onClick={handleClose}>Reset Week</MenuItem>
-          <MenuItem onClick={handleClose}>Clear Jobs</MenuItem>
-         
+          <MenuItem onClick={()=>{handleClose();clearJobs();}}>Clear Jobs</MenuItem>
+
+         {jobNames.map((j)=>(<MenuItem>{j}</MenuItem>))}
         </Menu>
       </Toolbar>
      

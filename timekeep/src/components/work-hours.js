@@ -75,7 +75,7 @@ const setraw = () => {
  setRawText(convertedText);
  return rawText;
 }
-
+/*
 
 const handleMenu = (e) =>
   {
@@ -117,21 +117,21 @@ const handleMenu = (e) =>
 
   }
   }
-  const handleChange = (index, type, value) => 
+*/
+
+ const handleChange = (index, type, value) => 
+ {
+  const updatedWorkHours = [...workHours];
+  updatedWorkHours[index][type] = value;
+
+  if (    type ==="isChecked"  )
     {
-      const updatedWorkHours = [...workHours];
-      updatedWorkHours[index][type] = value;
-   
-      if (    type ==="isChecked"  )
-        {
-        updatedWorkHours[index]["isChecked"] === false? updatedWorkHours[index]["end"] = "7:00 AM":updatedWorkHours[index]["end"]="3:00 PM"
-      }
+    updatedWorkHours[index]["isChecked"] === false? updatedWorkHours[index]["end"] = "7:00 AM":updatedWorkHours[index]["end"]="3:00 PM"
+  }
   setWorkHours(updatedWorkHours);
   setraw();
-     }
+ }
   
-
-
   const handleJobChange = (index, value, e) => 
   {
 
