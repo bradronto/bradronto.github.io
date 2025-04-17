@@ -7,6 +7,34 @@
    background-color: white;
   }
 
+  .custom-checkbox {
+    /* Hide default checkbox */
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #4CAF50;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    background-color: white;
+  }
+  
+  .custom-checkbox:checked {
+    background-color: #4CAF50;
+    position: relative;
+  }
+  
+  .custom-checkbox:checked::before {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 16px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
  
   
   .indent{

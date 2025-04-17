@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "./styles/cool.css";
 import NumberInBox from "./number-in-box";
 import generateTimeOptions from "./time-select";
-import getMonth from "./date-header";
+//import getMonth from "./date-header";
 import getDatesOfCurrentWeek from "./current-week";
 import calculateTotalHours from "./total-hours";
 import weekTotal from "./week-total";
@@ -281,6 +281,7 @@ const handleMenu = (e) =>
         gap: "5px", // Adds spacing between the checkbox and the box
       }}>
         <input style={{textAlign: "top"}}    // checkbox
+          className="custom-checkbox"
           type="checkbox"
           checked={workHours[index].isChecked}
           onChange={(e) => handleChange(index, "isChecked", !workHours[index].isChecked)}       
