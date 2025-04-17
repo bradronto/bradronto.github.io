@@ -26,10 +26,22 @@ const WorkHoursTracker = () => {
       :
       []  });
 
-  const [jobOptions, setJobOptions] = useState([
-    { value: "New Item", label: "New Job 🍎" },
-  
-  ]);
+      /*
+  const [jobOptions, setJobOptions] = useState(()=> {
+
+    const savedData = localStorage.getItem("jobNames");
+    return savedData
+      ? JSON.parse(savedData)
+      :
+    
+    [{ value: "New Item", label: "New Job 🍎" },]
+  }
+  );
+  */
+
+  const [jobOptions, setJobOptions] = useState(
+    [{ value: "New Item", label: "New Job 🍎" },]
+  )
 
     const [workHours, setWorkHours] = useState(() => {
       // Load session data if available
@@ -303,14 +315,16 @@ const handleMenu = (e) =>
                
                <Select 
 
-               styles={{
-
-                border:"4px solid #ccc",
+               styles={{control: (base)=>({
+               ...base,
+                border:"2px solid #000",
                 borderRadius: "8px",
-                
-             
+                boxShadow:"none",
+                marginBottom:"5px",
+               })
             
               }}
+               
                 //aria-haspopup="listbox"
                 isSearchable={false}
                 //select={workHours[index].job}
@@ -318,7 +332,7 @@ const handleMenu = (e) =>
                 controlShouldRenderValue={true}
                 placeholder={workHours[index].job}
                 //defaultInputValue={workHours[index].job}
-                className="cool-job-input"// 
+                //className="cool-job-input"// 
                 //label={workHours[index].job}
                 //value={workHours[index].job}
                 onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
