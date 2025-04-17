@@ -21,8 +21,10 @@ const ProMenu = () => {
     <AppBar position="static" style={{ backgroundColor: "#333" }}>
       <Toolbar>
         <Typography variant="h6" style={{ flexGrow: 1 }}>
-          Weekly Time Card
+          Weekly Time Card<br />
+            Apr 7 - Apr 13     40 HRS   0.5 OT
         </Typography>
+       
         <Button
           color="inherit"
           onClick={handleClick}
@@ -39,7 +41,11 @@ const ProMenu = () => {
           <MenuItem onClick={handleClose}>Clear Jobs</MenuItem>
         </Menu>
       </Toolbar>
+     
     </AppBar>
+
+    
+    
   );
 };
 
