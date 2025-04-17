@@ -270,11 +270,10 @@ const handleMenu = (e) =>
  workHours={workHours}
  changeWeek={changeWeek}
  smsText={(rawText)}
-    
-    />
+   />
 
     <span  className="cool-header"> 
-        {reg} HOURS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {ot} OVER TIME  {/*totalWeeklyHours.toFixed(1)*/} 
+        {reg} HOURS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {ot} OVERTIME  {/*totalWeeklyHours.toFixed(1)*/} 
       </span>
 
      {daysOfWeek.map((day, index) => (

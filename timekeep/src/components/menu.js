@@ -66,8 +66,8 @@ const r = ["jik","gut","cax"];
   return (
     <AppBar position="static" style={{ backgroundColor: "#333" }}>
       <Toolbar>
-        <Typography variant="h6" style={{ flexGrow: 1 }}>
-        &nbsp;&nbsp; Weekly Time Card
+        <Typography variant="h5" style={{ flexGrow: 1 }}>
+        &nbsp;Weekly Time Card
         <br />
 
           <select 
