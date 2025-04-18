@@ -347,6 +347,7 @@ const handleMenu = (e) =>
                 borderRadius: "8px",
                 boxShadow:"none",
                 marginBottom:"5px",
+                fontWeight: "bold"
                }),
 
                placeholder: (base) => ({
@@ -355,6 +356,15 @@ const handleMenu = (e) =>
                 fontWeight: "bold", // Make placeholder text bold
                 fontSize: "16px", // Increase font size
               }),
+
+              menu: (base) => ({
+                ...base,
+                color: "#000", // Change placeholder color to black
+                fontWeight: "bold", // Make placeholder text bold
+                fontSize: "16px", // Increase font size
+              }),
+
+              
             
               }}
                
