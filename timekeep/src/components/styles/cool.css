@@ -13,7 +13,7 @@
     -webkit-appearance: none;
     width: 20px;
     height: 20px;
-    border: 2px solid #4CAF50;
+    border: 2px solid #333;
     border-radius: 4px;
     outline: none;
     cursor: pointer;
@@ -21,7 +21,7 @@
   }
   
   .custom-checkbox:checked {
-    background-color: #333;
+    background-color: #99afc2;
     position: relative;
   }
   

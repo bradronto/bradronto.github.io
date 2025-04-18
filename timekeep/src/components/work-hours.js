@@ -15,7 +15,6 @@ import _ from "lodash";
 
 const CapitalizeWords = ( text ) => {
   const capitalizedText = _.startCase(_.toLower(text));
-
   return capitalizedText;
 };
 
@@ -340,13 +339,22 @@ const handleMenu = (e) =>
                
                <Select 
 
-               styles={{control: (base)=>({
+               styles={{
+                
+                control: (base)=>({
                ...base,
                 border:"2px solid #000",
                 borderRadius: "8px",
                 boxShadow:"none",
                 marginBottom:"5px",
-               })
+               }),
+
+               placeholder: (base) => ({
+                ...base,
+                color: "#000", // Change placeholder color to black
+                fontWeight: "bold", // Make placeholder text bold
+                fontSize: "16px", // Increase font size
+              }),
             
               }}
                
@@ -354,7 +362,7 @@ const handleMenu = (e) =>
                 noOptionsMessage={"no options"}
                 controlShouldRenderValue={true}
                 placeholder={workHours[index].job}
-                 onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
+                onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
                 onChange={(e) => { handleJobChange(index, "job",e);  }}
               options={jobOptions}
               
