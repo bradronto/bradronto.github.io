@@ -408,6 +408,7 @@ const handleMenu = (e) =>
                 noOptionsMessage={"no options"}
                 //controlShouldRenderValue={true}
                 placeholder={workHours[index].job}
+                value={workHours[index].job}
                 onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
                 onChange={(e) => { handleJobChange(index, "job",e);  }}
                 options={jobOptions}
