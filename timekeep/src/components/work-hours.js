@@ -58,6 +58,7 @@ const WorkHoursTracker = () => {
     });
 
   useEffect(() => {
+   
       // Save workHours to sessionStorage whenever it changes
       localStorage.setItem("workHours", JSON.stringify(workHours));
     }, [workHours]
@@ -69,6 +70,12 @@ const WorkHoursTracker = () => {
   }, [jobNames]
 );
 
+
+useEffect(() => {
+  if (workHours.length > 0) {
+    updateSmsText();
+  }
+}, [workHours]); // Dependency: Runs only when workHours changes
 
 
 useEffect(() => {
@@ -116,19 +123,19 @@ const [rawText, setRawText] = useState(() => {
   .replace(/\.\s*\./g, "") // Remove consecutive dots if any
   .replace(/<br\s*\/?>/gi, "\n")
   .replace(/&nbsp;/g, "");
-  //setRawText(convertedText);
+  setRawText(convertedText);
   return convertedText;
 }
 
 
 );
- */ 
-
-
-/*
-const [rawText, setRawText] = useState("wtf");
   
-const setraw = () => {
+*/
+
+
+//const [rawText, setRawText] = useState("wtf");
+  
+const updateSmsText = () => {
  const rawHTML = textRef.current.innerHTML;
  const convertedText = rawHTML
  .replace(/<\/?(span|div)[^>]*>/gi, "") // Matches opening or closing <span> and <div> tags
@@ -136,9 +143,9 @@ const setraw = () => {
  .replace(/<br\s*\/?>/gi, "\n")
  .replace(/&nbsp;/g, "");
  setRawText(convertedText);
- return rawText;
+ //return rawText;
 }
-*/
+
 
 /*
 
@@ -195,6 +202,7 @@ const handleMenu = (e) =>
   }
   setWorkHours(updatedWorkHours);
  // setraw();
+ updateSmsText();
  }
   
   const handleJobChange = (index, value, e) => 
@@ -273,6 +281,7 @@ const handleMenu = (e) =>
   console.log(workHours[index].job);
   setWorkHours(updatedWorkHours);
   //setraw();
+  updateSmsText();
   };
 
   /*
