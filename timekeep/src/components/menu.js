@@ -10,7 +10,7 @@ import getMonth from "./date-header";
 import plainText from "./plain-txt";
 
 const ProMenu = (props) => {
-
+/*
      const [jobNames,setJobNames] = useState(() => {
         // Load session data if available
         const savedData = localStorage.getItem("jobNames");
@@ -18,25 +18,34 @@ const ProMenu = (props) => {
           ? JSON.parse(savedData)
           :
           []  });
-    
+ */   
 
+
+          /*
    useEffect(() => {
       // Save workHours to sessionStorage whenever it changes
       localStorage.setItem("jobNames", JSON.stringify(jobNames));
     }, [jobNames]
   ); 
 
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const savedData = localStorage.getItem("jobNames");
+      if (savedData) {
+        setJobNames(JSON.parse(savedData));
+      }
+    };
+  
+    // Add event listener
+    window.addEventListener('storage', handleStorageChange);
+  
+    // Clean up event listener on unmount
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
-    const smsText = () => {
-        const rawHTML = plainText(props.workHours,props.changeWeek);
-        const convertedText = rawHTML
-        .replace(/<\/?(span|div)[^>]*>/gi, "") // Matches opening or closing <span> and <div> tags
-        .replace(/\.\s*\./g, "") // Remove consecutive dots if any
-        .replace(/<br\s*\/?>/gi, "\n")
-        .replace(/&nbsp;/g, "");
-       // setRawText(convertedText);
-        return convertedText;
-       }
+*/
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -50,9 +59,12 @@ const ProMenu = (props) => {
 
   const clearJobs =()=>{
 
-    setJobNames([])
+   props.setJobNames([]);
+   
   }
-const r = ["jik","gut","cax"];
+
+
+  const r = ["jik","gut","cax"];
 
 
   const share =()=>{
@@ -108,7 +120,7 @@ const r = ["jik","gut","cax"];
           <MenuItem onClick={handleClose}>Reset Week</MenuItem>
           <MenuItem onClick={()=>{handleClose();clearJobs();}}>Clear Jobs</MenuItem>
 
-         {jobNames.map((j)=>(<MenuItem>{j}</MenuItem>))}
+        {props.jobNames.map((j)=>(<MenuItem>{j}</MenuItem>))}
         </Menu>
       </Toolbar>
      

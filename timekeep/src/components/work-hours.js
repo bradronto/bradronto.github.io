@@ -39,15 +39,11 @@ const WorkHoursTracker = () => {
 
 
   const [jobOptions, setJobOptions] = useState(()=> {
-
-
-    return jobNames?
-    [...jobNames.map(
+    return jobNames
+    ? [...jobNames.map(
       (jobname)=> ({value:jobname, label:jobname} )),
       { value: "New Item", label: "New Job 🍎" },]
-
-    :
-    [{ value: "New Item", label: "New Job 🍎" },]
+    : [{ value: "New Item", label: "New Job 🍎" },]
   }
   
   );
@@ -73,11 +69,13 @@ const WorkHoursTracker = () => {
   }, [jobNames]
 );
 
+
+
 useEffect(() => {
   const handleStorageChange = () => {
-    const updatedArray = localStorage.getItem('jobNames');
-    if (updatedArray) {
-      setJobNames(JSON.parse(updatedArray));
+    const savedData = localStorage.getItem("jobNames");
+    if (savedData) {
+      setJobNames(JSON.parse(savedData));
     }
   };
 
@@ -90,14 +88,44 @@ useEffect(() => {
   };
 }, []);
 
-// Add item to localStorage (for testing)
-const addItem = () => {
- // const newArray = [...array, `Item ${array.length + 1}`];
-  //localStorage.setItem('myArray', JSON.stringify(newArray));
- // setArray(newArray); // Optional: Update state immediately
-};
 
 
+const textRef = useRef();
+
+const [rawText, setRawText] = useState("wtf");
+
+useEffect(()=>{
+  if(textRef.current){
+    const rawHTML = textRef.current.innerHTML;
+    const convertedText = rawHTML
+    .replace(/<\/?(span|div)[^>]*>/gi, "") // Matches opening or closing <span> and <div> tags
+    .replace(/\.\s*\./g, "") // Remove consecutive dots if any
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/&nbsp;/g, "");
+    setRawText(convertedText);
+  }
+}, []);
+
+
+
+/*
+const [rawText, setRawText] = useState(() => {
+  const rawHTML = textRef.current.innerHTML;
+  const convertedText = rawHTML
+  .replace(/<\/?(span|div)[^>]*>/gi, "") // Matches opening or closing <span> and <div> tags
+  .replace(/\.\s*\./g, "") // Remove consecutive dots if any
+  .replace(/<br\s*\/?>/gi, "\n")
+  .replace(/&nbsp;/g, "");
+  //setRawText(convertedText);
+  return convertedText;
+}
+
+
+);
+ */ 
+
+
+/*
 const [rawText, setRawText] = useState("wtf");
   
 const setraw = () => {
@@ -110,6 +138,8 @@ const setraw = () => {
  setRawText(convertedText);
  return rawText;
 }
+*/
+
 /*
 
 const handleMenu = (e) =>
@@ -164,7 +194,7 @@ const handleMenu = (e) =>
     updatedWorkHours[index]["isChecked"] === false? updatedWorkHours[index]["end"] = "7:00 AM":updatedWorkHours[index]["end"]="3:00 PM"
   }
   setWorkHours(updatedWorkHours);
-  setraw();
+ // setraw();
  }
   
   const handleJobChange = (index, value, e) => 
@@ -240,7 +270,7 @@ const handleMenu = (e) =>
    } 
   console.log(workHours[index].job);
   setWorkHours(updatedWorkHours);
-  setraw();
+  //setraw();
   };
 
   /*
@@ -258,7 +288,6 @@ const handleMenu = (e) =>
   */
 
   const timeOptions = generateTimeOptions();
-  const textRef = useRef();
   const [reg,ot] = weekTotal(workHours);
   const [newOption, setNewOption] = useState(""); // State for new option input
 
@@ -281,8 +310,11 @@ const handleMenu = (e) =>
   <div className="input-container" >
     
     <ProMenu 
- workHours={workHours}
- changeWeek={changeWeek}
+ //workHours={workHours}
+ //setWorkHours={setWorkHours}
+ jobNames={jobNames}
+ setJobNames={setJobNames}
+ //changeWeek={changeWeek}
  smsText={(rawText)}
    />
 
