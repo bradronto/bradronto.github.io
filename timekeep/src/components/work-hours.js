@@ -219,7 +219,7 @@ const handleMenu = (e) =>
        // setNewOption(newOption.toUpperCase())      
         updatedWorkHours[index].job = newOption1; //add job
         setJobNames([...jobNames, newOption1]);
-        jobNames.length===1?
+        jobNames.length>=1?
         setJobOptions([{value:newOption1, label:newOption1},...jobOptions]):
         setJobOptions([{value:newOption1, label:newOption1},...[{ value: "New Item", label: "New Job 🍎" },]])
         updatedWorkHours[index].showNew = false;
