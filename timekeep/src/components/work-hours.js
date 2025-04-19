@@ -219,7 +219,9 @@ const handleMenu = (e) =>
        // setNewOption(newOption.toUpperCase())      
         updatedWorkHours[index].job = newOption1; //add job
         setJobNames([...jobNames, newOption1]);
-        setJobOptions([{value:newOption1, label:newOption1},...jobOptions]);
+        jobNames.length===1?
+        setJobOptions([{value:newOption1, label:newOption1},...jobOptions]):
+        setJobOptions([{value:newOption1, label:newOption1},...[{ value: "New Item", label: "New Job 🍎" },]])
         updatedWorkHours[index].showNew = false;
  
         if(jobNames.length===0){
@@ -228,7 +230,7 @@ const handleMenu = (e) =>
         ) }
 
 
-      setNewOption("nope"); // Clear the input field
+      setNewOption(""); // Clear the input field
       console.log("new job added");
        
       }
@@ -297,13 +299,6 @@ const handleMenu = (e) =>
     setWorkHours(updatedDaysOfWeek);
     console.log("open job box")
    };
-
-
-  const optionz = [
-    { value: "share", label: "Share 🍎" },
-    { value: "clear jobs", label: "Clear Jobs 🍌" },
-    //{ value: "new job", label: "New Job 🥝" },
-  ];
 
   return (
     
@@ -402,11 +397,11 @@ const handleMenu = (e) =>
                
                 isSearchable={false}
                 noOptionsMessage={"no options"}
-                controlShouldRenderValue={true}
+                //controlShouldRenderValue={true}
                 placeholder={workHours[index].job}
                 onFocus={() => jobNames.length === 0?openJobBox(index):console.log(jobNames.length," jobs exist")}
                 onChange={(e) => { handleJobChange(index, "job",e);  }}
-              options={jobOptions}
+                options={jobOptions}
               
               >
 

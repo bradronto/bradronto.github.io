@@ -21,13 +21,13 @@ const ProMenu = (props) => {
  */   
 
 
-          /*
+        
    useEffect(() => {
-      // Save workHours to sessionStorage whenever it changes
-      localStorage.setItem("jobNames", JSON.stringify(jobNames));
-    }, [jobNames]
+      // jobNames to sessionStorage whenever it changes
+      localStorage.setItem("jobNames", JSON.stringify(props.jobNames));
+    }, [props.jobNames]
   ); 
-
+/*
   useEffect(() => {
     const handleStorageChange = () => {
       const savedData = localStorage.getItem("jobNames");
