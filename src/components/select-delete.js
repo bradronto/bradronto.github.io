@@ -1,0 +1,108 @@
+import React, { useState } from "react";
+import Select from "react-select";
+import {components} from "react-select";
+
+const ConfirmationModal = ({ show, onConfirm, onCancel }) => {
+  if (!show) return null;
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        backgroundColor: "white",
+        padding: "20px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+        zIndex: 1000,
+      }}
+    >
+      <p>Are you sure you want to delete this item?</p>
+      <button onClick={onConfirm} style={{ marginRight: "10px" }}>
+        Confirm
+      </button>
+      <button onClick={onCancel}>Cancel</button>
+    </div>
+  );
+};
+
+const Dselect = () => {
+  const [options, setOptions] = useState([
+    { value: "apple", label: "Apple" },
+    { value: "banana", label: "Banana" },
+    { value: "cherry", label: "Cherry" },
+  ]);
+  const [showModal, setShowModal] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
+
+  const handleDelete = (value) => {
+    setItemToDelete(value);
+    setShowModal(true);
+  };
+
+  const confirmDelete = () => {
+    setOptions((prevOptions) =>
+      prevOptions.filter((option) => option.value !== itemToDelete)
+    );
+    setShowModal(false);
+    setItemToDelete(null);
+  };
+
+  const cancelDelete = () => {
+    setShowModal(false);
+    setItemToDelete(null);
+  };
+
+  return (
+    <div>
+      <Select
+        options={options}
+        components={{
+          Option: (props) => (
+            <CustomOption {...props} onDelete={handleDelete} />
+          ),
+        }}
+      />
+      <ConfirmationModal
+        show={showModal}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+      />
+    </div>
+  );
+};
+
+export default Dselect;
+
+
+
+
+const CustomOption = (props) => {
+  const { data, onDelete } = props;
+
+  return (
+    <components.Option {...props}>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <span>{data.label}</span>
+        <button
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent the dropdown from closing
+            onDelete(data.value);
+          }}
+          style={{
+            marginLeft: "10px",
+            backgroundColor: "red",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+        >
+          X
+        </button>
+      </div>
+    </components.Option>
+  );
+};
+
